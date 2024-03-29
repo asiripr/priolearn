@@ -5,8 +5,76 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              top: -screenHeight*0.3,
+              left: screenWidth*0.05,
+              child: Container(
+                width: 250.0,
+                height: 250.0,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF475FE0).withOpacity(0.5),
+                  shape: BoxShape.circle
+                ),
+              )
+            ),
+            Positioned(
+              top: -screenHeight*0.08,
+              left: screenWidth*0.15,
+              child: Container(
+                width: 180.0,
+                height: 180.0,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF5EE689).withOpacity(0.5),
+                  shape: BoxShape.circle
+                ),
+              )
+            ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(screenHeight*0.15),
+                child: Column( 
+                 children: [
+                  Text(
+                    "PrioLearn", style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold , color: Colors.blue[600],)
+                  ),
+                  SizedBox(
+                      height: screenHeight*0.06,
+                  ),
+                  Positioned(
+                    child: Image.asset("assets/image-1.png",
+                    height: 250,
+                    width: 250
+                    ),
+                  ),
+                  SizedBox(
+                      height: screenHeight*0.01,
+                  ),
+                  const Text("Unlock your academic potential and\n embrace balance with PrioLearn.", textAlign: TextAlign.center,)
+                 ],
+                ),),
+            ),
+            Positioned(
+              top: screenHeight*0.55,
+              left: screenWidth*0.75,
+              child: Container(
+                width: 400.0,
+                height: 400.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFF50C0FF).withOpacity(0.5),
+                  shape: BoxShape.circle
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
