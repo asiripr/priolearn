@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
+import 'pages/login.dart';
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
   const Splash({super.key});
 
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+
+ @override
+  void initState() {
+    super.initState();
+    _navigateToHome();
+  }
+  void _navigateToHome() async{
+    await Future.delayed(const Duration(milliseconds: 2500));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Login()));
+  }
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -26,7 +42,7 @@ class Splash extends StatelessWidget {
             ),
             Positioned(
               top: -screenHeight*0.08,
-              left: screenWidth*0.15,
+              left: -screenWidth*0.15,
               child: Container(
                 width: 180.0,
                 height: 180.0,
@@ -67,7 +83,7 @@ class Splash extends StatelessWidget {
                 width: 400.0,
                 height: 400.0,
                 decoration: BoxDecoration(
-                  color: Color(0xFF50C0FF).withOpacity(0.5),
+                  color: const Color(0xFF50C0FF).withOpacity(0.5),
                   shape: BoxShape.circle
                 ),
               ),
@@ -76,5 +92,7 @@ class Splash extends StatelessWidget {
         ),
       ),
     );
+    
   }
 }
+
