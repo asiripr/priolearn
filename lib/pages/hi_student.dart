@@ -36,9 +36,11 @@ class HiStudent extends StatelessWidget {
                     const Text("Hi Student",
                         style: TextStyle(
                           fontSize: 40,
+                          
                           //fontWeight: FontWeight.bold,
                           //color: Colors.blue[600],
-                        )),
+                        ),
+                        textAlign: TextAlign.center),
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
