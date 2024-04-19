@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/pages/bio_subject_select.dart';
 import 'package:group_13_priolearn/pages/hi_student.dart';
+import 'package:group_13_priolearn/pages/login.dart';
 import 'package:group_13_priolearn/splash.dart';
 
 void main() {
@@ -14,8 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false, 
-        //home: ((Splash())));
-        home: HiStudent()
-        );
+        home: ((Splash())));
+
   }
 }
