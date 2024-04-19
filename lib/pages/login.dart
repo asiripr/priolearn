@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Login({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,7 @@ class Login extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue[100],
                     labelText: "Email",
