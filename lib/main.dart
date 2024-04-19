@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/pages/hi_student.dart';
+import 'package:group_13_priolearn/pages/login.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false, 
         //home: ((Splash())));
-        home: HiStudent()
+        home: Login()
         );
   }
 }

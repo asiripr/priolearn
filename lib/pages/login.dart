@@ -23,7 +23,7 @@ class Login extends StatelessWidget {
                 child: TextField(
                   decoration: InputDecoration(
                     fillColor: Colors.blue[100],
-                    hintText: "Email",
+                    labelText: "Email",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: const BorderSide(color: Colors.blue)
@@ -47,7 +47,7 @@ class Login extends StatelessWidget {
                 child: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    hintText: "Password",
+                    labelText: "Password",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: const BorderSide(color: Colors.blue)
