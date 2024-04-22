@@ -17,6 +17,6 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false, 
         // home: ((Splash()))
 
-        home: HiStudent());
+        home: Home());
   }
 }
