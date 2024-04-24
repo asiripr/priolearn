@@ -64,6 +64,7 @@ class _HomeState extends State<Home> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.blue[300],
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
