@@ -63,6 +63,22 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home' 
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book_sharp),
+              label: 'Academic' 
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.self_improvement),
+              label: 'Mindfulness' 
+            ),
+          ]
+          ),
         // Adding 2 images into the screen
         body: Stack(
           children: [
