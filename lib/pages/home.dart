@@ -72,6 +72,8 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+
+        // design the bottom app bar
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.blue[300],
           currentIndex: _selectedItem,
@@ -120,8 +122,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-
-        ),
+      ),
     );
   }
 }
