@@ -8,6 +8,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // declare a variable for bottom app bar selected item
+  int _selectedItem = 0;
+  // declare a function for bottom app bar item selection
+  void _onItemTapped(int index){
+    setState(() {
+      _selectedItem = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -65,6 +74,8 @@ class _HomeState extends State<Home> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.blue[300],
+          currentIndex: _selectedItem,
+          onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
