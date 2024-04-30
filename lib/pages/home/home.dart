@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("PrioLearn", style: TextStyle(color: Colors.blue,),)),
+          title: const Center(child: Text("PrioLearn", style: TextStyle(color: Colors.blue,),)),
           ),
         endDrawer: Drawer(
           child: Padding(
@@ -45,10 +45,6 @@ class _HomeState extends State<Home> {
                   onTap: (){},
                 ),
                 ListTile(
-                  title: const Text("App Settings"),
-                  onTap: (){},
-                ),
-                ListTile(
                   title: const Text("Invite Friends"),
                   onTap: (){},
                 ),
@@ -65,7 +61,7 @@ class _HomeState extends State<Home> {
                   onTap: (){},
                 ),
                 ListTile(
-                  title: const Text("Settings"),
+                  title: const Text("App Settings"),
                   onTap: (){},
                 ),
               ],

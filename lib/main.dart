@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/pages/hi_student.dart';
-import 'package:group_13_priolearn/pages/home.dart';
+import 'package:group_13_priolearn/pages/home/home.dart';
 import 'package:group_13_priolearn/pages/login.dart';
 import 'package:group_13_priolearn/pages/welcome.dart';
 import 'package:group_13_priolearn/splash.dart';
