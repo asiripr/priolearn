@@ -156,14 +156,17 @@ class _HomeState extends State<Home> {
                   // menu icons
                   Row(
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.auto_graph)),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.save_as_outlined)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.auto_graph,size: 100,)),
+                      const Spacer(),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.save_as_outlined, size: 100,)),
                     ],
                   ),
+                  SizedBox( height: 20,),
                   Row(
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.tag_faces_sharp)),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.sports_handball_outlined)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.tag_faces_sharp, size: 100,)),
+                      const Spacer(),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.sports_handball_outlined, size: 100,)),
                     ],
                   ), 
               ],),
