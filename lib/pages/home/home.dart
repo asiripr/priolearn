@@ -89,6 +89,7 @@ class _HomeState extends State<Home> {
             ),
           ]
           ),
+        
         // Adding 2 images into the screen
         body: Stack(
           children: [
@@ -116,8 +117,60 @@ class _HomeState extends State<Home> {
                  )
               )
             ),
+            Positioned(
+              top: screenHeight*0.03,
+              left: 0,
+              right: 0,
+              child: Column(
+                children: [
+                  Text("Great works in last week..."),
+
+                  // greate works list
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text("I attended to the physics lecture"),
+                      tileColor: Colors.blue.shade300,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text("I Completed 30 Chemistry MCQ in 2018 paper."),
+                      tileColor: Colors.green.shade300,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text("I could be able to complete attend a Pure mathematics seminar"),
+                      tileColor: Colors.orange.shade300,
+                    ),
+                  ),
+
+                  // see more button
+                  ElevatedButton(
+                    onPressed: (){}, 
+                    child: const Text("See More")),
+
+                  // menu icons
+                  Row(
+                    children: [
+                      IconButton(onPressed: (){}, icon: Icon(Icons.auto_graph)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.save_as_outlined)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(onPressed: (){}, icon: Icon(Icons.tag_faces_sharp)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.sports_handball_outlined)),
+                    ],
+                  ), 
+              ],),
+            ) 
           ],
         ),
+        
       ),
     );
   }
