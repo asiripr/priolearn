@@ -122,59 +122,47 @@ class _HomeState extends State<Home> {
               top: screenHeight*0.03,
               left: 0,
               right: 0,
-              child: Column(
-                children: [
-                  Text("Great works in last week..."),
-
-                  // greate works list
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text("I attended to the physics lecture"),
-                      tileColor: Colors.blue.shade300,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text("I Completed 30 Chemistry MCQ in 2018 paper."),
-                      tileColor: Colors.green.shade300,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text("I could be able to complete attend a Pure mathematics seminar"),
-                      tileColor: Colors.orange.shade300,
-                    ),
-                  ),
-
-                  // see more button
-                  ElevatedButton(
-                    onPressed: (){}, 
-                    child: const Text("See More")),
-
-                  //menu icons
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.auto_graph,size: 0,)),
-                          //SizedBox(width: screenWidth *0.3,),
-                          IconButton(onPressed: (){}, icon: Icon(Icons.save_as_outlined, size: 0,)),
-                        ],
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Column(
+                  children: [
+                    Text("Great works in last week..."),
+                
+                    // greate works list
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text("I attended to the physics lecture"),
+                        tileColor: Colors.blue.shade300,
                       ),
-                      const SizedBox( height: 20,),
-                      Row(
-                        children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.tag_faces_sharp, size: 80,)),
-                          //SizedBox(width: screenWidth *0.3,),
-                          IconButton(onPressed: (){}, icon: Icon(Icons.sports_handball_outlined, size: 80,)),
-                        ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text("I Completed 30 Chemistry MCQ in 2018 paper."),
+                        tileColor: Colors.green.shade300,
                       ),
-                    ],
-                  ), 
-              ],),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text("I could be able to complete attend a Pure mathematics seminar"),
+                        tileColor: Colors.orange.shade300,
+                      ),
+                    ),
+                
+                    // see more button
+                    ElevatedButton(
+                      onPressed: (){}, 
+                      child: const Text("See More")),
+                
+                    //menu icons
+                    Column(children: [
+                      
+                      
+                    ],) 
+                ],),
+              ),
             ) 
           ],
         ),
