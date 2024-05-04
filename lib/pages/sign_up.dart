@@ -12,16 +12,10 @@ class SignUp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(title: const Text("Sign In"),),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 40,
-            ),
-            const Text(
-              "Sign Up",
-              style: TextStyle(color: Colors.black, fontSize:45 
-              ),
-            ),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
@@ -42,7 +36,7 @@ class SignUp extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             TextField(
               controller: _emailController,
@@ -64,7 +58,7 @@ class SignUp extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             TextField(
               controller: _passwordController,
@@ -86,22 +80,19 @@ class SignUp extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 15,
             ),
-            Padding(
-                padding: const EdgeInsets.all(50.0),
-                child: SizedBox(
-                  width:double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    onPressed: (){},
-                    child: Text("Sign Up",style: TextStyle(fontSize: 30, color: Colors.black),),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                  ),
+            SizedBox(
+              width:double.infinity,
+              height: 55,
+              child: ElevatedButton(
+                onPressed: (){},
+                child: Text("Sign Up",style: TextStyle(fontSize: 30, color: Colors.black),),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
                 ),
-              )
+              ),
+            )
           ],
         ),
       ),
