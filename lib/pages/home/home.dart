@@ -165,13 +165,13 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       const SizedBox( height: 20,),
-                      // Row(
-                      //   children: [
-                      //     IconButton(onPressed: (){}, icon: Icon(Icons.tag_faces_sharp, size: 80,)),
-                      //     //SizedBox(width: screenWidth *0.3,),
-                      //     IconButton(onPressed: (){}, icon: Icon(Icons.sports_handball_outlined, size: 80,)),
-                      //   ],
-                      // ),
+                      Row(
+                        children: [
+                          IconButton(onPressed: (){}, icon: Icon(Icons.tag_faces_sharp, size: 80,)),
+                          //SizedBox(width: screenWidth *0.3,),
+                          IconButton(onPressed: (){}, icon: Icon(Icons.sports_handball_outlined, size: 80,)),
+                        ],
+                      ),
                     ],
                   ), 
               ],),
