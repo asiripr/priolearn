@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/authentication/sign_up.dart';
 import 'package:group_13_priolearn/authentication/welcome.dart';
-import 'authentication/login.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
