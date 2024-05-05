@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/pages/login.dart';
-import 'package:group_13_priolearn/pages/sign_up.dart';
+import 'package:group_13_priolearn/authentication/login.dart';
+import 'package:group_13_priolearn/authentication/sign_up.dart';
 
 class Welcome extends StatelessWidget {
   Welcome({super.key});
