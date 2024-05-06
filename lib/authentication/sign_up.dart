@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:group_13_priolearn/authentication/login.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 
 class SignUp extends StatelessWidget {
@@ -111,6 +112,18 @@ class SignUp extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                SizedBox(height: size.height*0.07,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Already have an account? "),
+                    GestureDetector(onTap: () {
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=>Login()));
+                    },
+                    child: Text("Log In", style: TextStyle(color: Colors.green.shade400),),
+                    )],
                 )
               ],
             ),

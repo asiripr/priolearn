@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:group_13_priolearn/authentication/sign_up.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 
 class Login extends StatelessWidget {
@@ -90,6 +91,18 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                SizedBox(height: size.height*0.07,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Not a member? "),
+                    GestureDetector(onTap: () {
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=>SignUp()));
+                    },
+                    child: Text("Sign Up", style: TextStyle(color: Colors.green.shade400),),
+                    )],
                 )
               ],
             ),

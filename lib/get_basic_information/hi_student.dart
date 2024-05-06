@@ -65,7 +65,7 @@ class HiStudent extends StatelessWidget {
             Positioned(
               bottom: screenHeight * 0.3,
               left: screenWidth * 0.2,
-              child: Image.asset("assets/image2.jpeg", height: 250, width: 250),
+              child: Image.asset("assets/image-2.jpeg", height: 250, width: 250),
             ),
             Positioned(
               bottom: screenHeight * 0.1,
