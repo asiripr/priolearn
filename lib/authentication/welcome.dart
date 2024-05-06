@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/authentication/login.dart';
 import 'package:group_13_priolearn/authentication/sign_up.dart';
+import 'package:group_13_priolearn/utils/colors.dart';
 
 class Welcome extends StatelessWidget {
   Welcome({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -21,35 +23,55 @@ class Welcome extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 250,),
-              SizedBox(
-                width: MediaQuery.of(context).size.width*0.6,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: (){
+              GestureDetector(
+                  onTap: () {
                     Navigator.push(context, 
-                    MaterialPageRoute(builder: (context) => SignUp()));
+                    MaterialPageRoute(builder: (context)=> SignUp()));
                   },
-                  child: Text("Sign Up", style: TextStyle(fontSize: 20, color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                  child: Container(
+                    width: size.width*0.6,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                      color: buttonColor,
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 22
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
               const SizedBox(height: 40,),
-              SizedBox(
-                width: MediaQuery.of(context).size.width*0.6,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: (){
+              GestureDetector(
+                  onTap: () {
                     Navigator.push(context, 
                     MaterialPageRoute(builder: (context)=> Login()));
                   },
-                  child: Text("Log In",style: TextStyle(fontSize: 20, color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                  child: Container(
+                    width: size.width*0.6,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                      color: buttonColor,
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 22
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              )
             ],
           ),
         ),

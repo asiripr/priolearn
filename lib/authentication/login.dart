@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
         ),
           child: Padding(
             padding: const EdgeInsets.all(25.0),
-            child: Column(
+            child: ListView(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: size.height * 0.03),
@@ -67,17 +67,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: size.height * 0.04,),
-                // SizedBox( //
-                //   width:double.infinity,
-                //   height: 55,
-                //   child: ElevatedButton(
-                //     onPressed: (){},
-                //     child: Text("Log In",style: TextStyle(fontSize: 30, color: Colors.black),),
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: Colors.blue,
-                //     ),
-                //   ),
-                // )
+
                 GestureDetector(
                   onTap: () {
                     
