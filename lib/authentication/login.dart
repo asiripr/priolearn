@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 
 class Login extends StatelessWidget {
@@ -9,10 +10,10 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text("Log In"),),
         body: Container(
           decoration: BoxDecoration(
           gradient: LinearGradient(begin: Alignment.topCenter, colors: [Colors.green.shade100,Colors.blue.shade100]), 
@@ -20,23 +21,27 @@ class Login extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(25.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: size.height * 0.03),
+                const Text("Log In", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
+                SizedBox(height: size.height * 0.04),
+                const SizedBox(height: 15,),
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
                     fillColor: Colors.blue[100],
                     labelText: "Email",
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Colors.blue)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Color.fromARGB(255, 0, 140, 255))
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Colors.red)
                     ),
                   ),
@@ -48,28 +53,51 @@ class Login extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: "Password",
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Colors.blue)
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Color.fromARGB(255, 0, 140, 255))
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(15),
                       borderSide: const BorderSide(color: Colors.red)
                     ),
                   ),
                 ),
-                const SizedBox(height: 15,),
-                SizedBox(
-                  width:double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    onPressed: (){},
-                    child: Text("Log In",style: TextStyle(fontSize: 30, color: Colors.black),),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                SizedBox(height: size.height * 0.04,),
+                // SizedBox( //
+                //   width:double.infinity,
+                //   height: 55,
+                //   child: ElevatedButton(
+                //     onPressed: (){},
+                //     child: Text("Log In",style: TextStyle(fontSize: 30, color: Colors.black),),
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.blue,
+                //     ),
+                //   ),
+                // )
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Container(
+                    width: size.width,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                      color: buttonColor,
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 22
+                        ),
+                      ),
                     ),
                   ),
                 )
