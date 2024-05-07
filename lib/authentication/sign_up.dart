@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:group_13_priolearn/authentication/login.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 
@@ -7,6 +8,33 @@ class SignUp extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _signUp(BuildContext context) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      if(userCredential.user!=null){
+        print("you already have a account");        
+      }
+      else{
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context)=> Login())
+        );
+      }
+      // Additional steps after sign up (e.g., user profile setup)
+    } 
+    on FirebaseAuthException catch(e){
+      if (e.code=="auth/email-already-exists") {
+        print('the email you entered is already in use by an existing user');
+      }
+    }
+    catch (e) {
+      // Handle sign up errors
+      print("Failed to sign up: $e");
+    }
+  }
 
   SignUp({super.key});
 
@@ -31,7 +59,6 @@ class SignUp extends StatelessWidget {
                 const SizedBox(height: 15,),
                 TextField(
                   controller: _usernameController,
-                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Username",
                     enabledBorder: OutlineInputBorder(
@@ -92,7 +119,7 @@ class SignUp extends StatelessWidget {
 
                 GestureDetector(
                   onTap: () {
-                    
+                    _signUp(context);
                   },
                   child: Container(
                     width: size.width,

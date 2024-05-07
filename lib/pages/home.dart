@@ -126,8 +126,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Column(
                   children: [
-                    Text("Great works in last week..."),
-                
+                    const Text("Great works in last week..."),
                     // greate works list
                     Padding(
                       padding: const EdgeInsets.all(8.0),
