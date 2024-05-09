@@ -23,8 +23,7 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Please answer the following questions based on your stress levels over the past week:',
+              const Text('Please answer the following questions based on your stress levels over the past week:',
                 style: TextStyle(fontSize: 16.0),
               ),
               SizedBox(height: 16.0),

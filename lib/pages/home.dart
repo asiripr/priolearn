@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/pages/Mood_check.dart';
+import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
