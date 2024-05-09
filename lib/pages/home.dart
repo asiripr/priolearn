@@ -149,16 +149,26 @@ class _HomeState extends State<Home> {
                         tileColor: Colors.orange.shade300,
                       ),
                     ),
-                
                     // see more button
                     ElevatedButton(
                       onPressed: (){}, 
                       child: const Text("See More")),
-                
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(child: Image.asset('assets/image-5.jpg')), 
+                        Expanded(child: Image.asset('assets/image-6.jpg')),
+                        ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(child: Image.asset('assets/image-7.jpg')), 
+                        Expanded(child: Image.asset('assets/image-8.jpg')),
+                        ],
+                    ),
                     //menu icons
-                    Column(children: [
                      
-                    ],) 
                 ],),
               ),
             ) 
