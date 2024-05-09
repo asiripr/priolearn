@@ -5,10 +5,10 @@ import 'package:group_13_priolearn/authentication/welcome.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: const FirebaseOptions(
-    apiKey: 'AIzaSyAwqqPS1Y_eC_WwptyqgKo9DJgJJbaJnr4', 
-    appId: '1:960735729859:android:e9b87b331192199e8a6a76', 
-    messagingSenderId: '960735729859', 
-    projectId: 'priolearn'
+    apiKey: '', 
+    appId: '', 
+    messagingSenderId: '', 
+    projectId: ''
     )
   );
   runApp(const MainApp());
