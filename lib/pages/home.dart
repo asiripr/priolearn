@@ -118,10 +118,7 @@ class _HomeState extends State<Home> {
                  )
               )
             ),
-            Positioned(
-              top: screenHeight*0.03,
-              left: 0,
-              right: 0,
+            SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Column(
