@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/pages/Mood_check.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,6 +17,18 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedItem = index;
     });
+    switch (index) {
+      case 0:
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context)=>Home()));
+        break;
+      case 2:
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context)=>StressQuestionsPage()));
+        break;
+      default:
+       index=0;
+    }
   }
 
   @override
@@ -136,14 +149,14 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         title: Text("I Completed 30 Chemistry MCQ in 2018 paper."),
-                        tileColor: Colors.green.shade300,
+                        tileColor: Colors.blue.shade300,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         title: Text("I could be able to complete attend a Pure mathematics seminar"),
-                        tileColor: Colors.orange.shade300,
+                        tileColor: Colors.blue.shade300,
                       ),
                     ),
                     // see more button
@@ -153,15 +166,15 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(child: Image.asset('assets/image-5.jpg')), 
-                        Expanded(child: Image.asset('assets/image-6.jpg')),
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-5.jpg'))),
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-6.jpg'))), 
                         ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(child: Image.asset('assets/image-7.jpg')), 
-                        Expanded(child: Image.asset('assets/image-8.jpg')),
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-7.jpg'))), 
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-8.jpg'))),
                         ],
                     ),
                     //menu icons

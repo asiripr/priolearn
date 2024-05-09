@@ -44,3 +44,4 @@ app.*.map.json
 
 #remove the google-services.json file
 /android/app/google-services.json
+/lib/main.dart
