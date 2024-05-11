@@ -29,21 +29,72 @@ class Login extends StatelessWidget {
           );
       } else {
         // Handle sign in errors
-        print("User account not found or email/password incorrect.");
+        showDialog(
+          // ignore: use_build_context_synchronously
+          context: context, 
+          builder: (BuildContext context){
+            return const AlertDialog(
+              title: Text("User not found"),
+              content: Text("User account not found or email/password incorrect."),
+            );
+          });
       }
     } on FirebaseAuthException catch (e) {
       // Handle specific sign in errors
       if (e.code == 'user-not-found') {
-        print('No user found with that email.');
+        showDialog(
+          // ignore: use_build_context_synchronously
+          context: context, 
+          builder: (BuildContext context){
+            return const AlertDialog(
+              content: Text("No user found with that email."),
+            );
+          }
+      );
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      } else {
+        showDialog(
+          // ignore: use_build_context_synchronously
+          context: context, 
+          builder: (BuildContext context){
+            return const AlertDialog(
+              content: Text("Wrong password provided for that user."),
+            );
+          }
+      );
+      }else if (e.code == 'invalid-email') {
+        showDialog(
+          // ignore: use_build_context_synchronously
+          context: context, 
+          builder: (BuildContext context){
+            return const AlertDialog(
+              content: Text("Wrong password provided for that user."),
+            );
+          }
+      );
+      } 
+      else {
         // Handle other FirebaseAuthException errors
-        print("Sign in failed: ${e.message}");
+        showDialog(
+          // ignore: use_build_context_synchronously
+          context: context, 
+          builder: (BuildContext context){
+            return AlertDialog(
+              content: Text("Sign in failed: ${e.message}"),
+            );
+          }
+      );
       }
     } catch (e) {
       // Handle generic errors
-      print("Failed to sign in: $e");
+      showDialog(
+          // ignore: use_build_context_synchronously
+          context: context, 
+          builder: (BuildContext context){
+            return AlertDialog(
+              content: Text("Failed to sign in: $e"),
+            );
+          }
+      );
     }
   }
 

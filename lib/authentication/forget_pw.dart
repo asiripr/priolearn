@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/utils/button.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
 
