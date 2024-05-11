@@ -74,7 +74,7 @@ class SignUp extends StatelessWidget {
                     Navigator.push(context, 
                     MaterialPageRoute(builder: (context)=>Login()));
                   },
-                  child: Text("Log In", style: TextStyle(color: Colors.green.shade400),),
+                  child: Text("Log In", style: TextStyle(color: Colors.blue.shade400),),
                   )],
               )
             ],

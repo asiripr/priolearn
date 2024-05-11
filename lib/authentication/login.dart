@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:group_13_priolearn/authentication/foget_pw.dart';
+import 'package:group_13_priolearn/authentication/forget_pw.dart';
 import 'package:group_13_priolearn/authentication/sign_up.dart';
 import 'package:group_13_priolearn/pages/home.dart';
 import 'package:group_13_priolearn/utils/button.dart';
@@ -73,9 +73,9 @@ class Login extends StatelessWidget {
                 children: [
                   GestureDetector(onTap: () {
                     Navigator.push(context, 
-                    MaterialPageRoute(builder: (context)=>FogetPassword()));
+                    MaterialPageRoute(builder: (context)=>const ForgetPassword()));
                   },
-                  child: Text("Fogot Password", style: TextStyle(color: Colors.green.shade400),),
+                  child: Text("Forget Password", style: TextStyle(color: Colors.blue.shade400),),
                   )],
               ),
               const SizedBox(height: 15,),
@@ -89,7 +89,7 @@ class Login extends StatelessWidget {
                     Navigator.push(context, 
                     MaterialPageRoute(builder: (context)=>SignUp()));
                   },
-                  child: Text("Sign Up", style: TextStyle(color: Colors.green.shade400),),
+                  child: Text("Sign Up", style: TextStyle(color: Colors.blue.shade400),),
                   )],
               )
             ],

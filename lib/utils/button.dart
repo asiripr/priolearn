@@ -22,7 +22,7 @@ Container myButton(BuildContext context, String buttonName, Function(BuildContex
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 22
+              fontSize: 20
             ),
           ),
         ),
