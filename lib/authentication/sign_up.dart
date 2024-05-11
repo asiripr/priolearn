@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/authentication/login.dart';
+import 'package:group_13_priolearn/utils/button.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
+import 'package:group_13_priolearn/utils/text_field.dart';
 
 class SignUp extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -16,9 +18,11 @@ class SignUp extends StatelessWidget {
         password: _passwordController.text,
       );
       if(userCredential.user!=null){
+        // ignore: avoid_print
         print("you already have a account");        
       }
       else{
+        // ignore: use_build_context_synchronously
         Navigator.push(context, 
         MaterialPageRoute(builder: (context)=> Login())
         );
@@ -53,89 +57,14 @@ class SignUp extends StatelessWidget {
               const Text("Sign Up", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold,), ),
               SizedBox(height: size.height * 0.04),
               const SizedBox(height: 15,),
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: "Username",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Colors.blue)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 140, 255))
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Colors.red)
-                  ),
-                ),
-              ),
+              myTextField("username", _usernameController, false),
               const SizedBox(height: 15,),
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  fillColor: Colors.blue[100],
-                  labelText: "Email",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Colors.blue)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 140, 255))
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Colors.red)
-                  ),
-                ),
-              ),
+              myTextField("Email", _emailController, false),
               const SizedBox(height: 15,),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Colors.blue)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Color.fromARGB(255, 0, 140, 255))
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(color: Colors.red)
-                  ),
-                ),
-              ),
+              myTextField("Password", _passwordController, true),
               SizedBox(height: size.height * 0.04,),
         
-              GestureDetector(
-                onTap: () {
-                  _signUp(context);
-                },
-                child: Container(
-                  width: size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                    color: buttonColor,
-                    borderRadius: BorderRadius.circular(15)
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 22
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              myButton(context, "Sign Up", _signUp),
               SizedBox(height: size.height*0.07,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
