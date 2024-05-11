@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// not finalized
 class Agreement extends StatelessWidget {
   const Agreement({super.key});
 

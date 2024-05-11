@@ -17,84 +17,81 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
       appBar: AppBar(
         title: Text('DAAS-21 Stress Calculator'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('Please answer the following questions based on your stress levels over the past week:',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: 16.0),
-              StressQuestion(
-                question: 'I found it hard to wind down',
-                onChanged: (int value) {
-                  responses.add(value);
-                },
-              ),
-              StressQuestion(
-                question: 'I tended to over-react to situations',
-                onChanged: (int value) {
-                  responses.add(value);
-                },
-              ),
-              StressQuestion(
-                question: 'I felt that I was using a lot of nervous energy',
-                onChanged: (int value) {
-                  responses.add(value);
-                },
-              ),
-              StressQuestion(
-                question: 'I found it difficult to relax',
-                onChanged: (int value) {
-                  responses.add(value);
-                },
-              ),
-              StressQuestion(
-                question:
-                    'I was intolerant of anything that kept me from getting on with what I was doing',
-                onChanged: (int value) {
-                  responses.add(value);
-                },
-              ),
-              StressQuestion(
-                question: 'I felt scared without any good reason',
-                onChanged: (int value) {
-                  responses.add(value);
-                },
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  int stressScore = calculateTotalScore(responses);
-                  String stressSeverity = determineSeverity(stressScore);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Stress Result'),
-                        content: Text(
-                            'Stress Score: $stressScore\nSeverity: $stressSeverity'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                responses = [];
-                              });
-                              Navigator.pop(context);
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: Text('Calculate Stress Score'),
-              ),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text('Please answer the following questions based on your stress levels over the past week:',
+              style: TextStyle(fontSize: 16.0),
+            ),
+            SizedBox(height: 25.0),
+            StressQuestion(
+              question: 'I found it hard to wind down',
+              onChanged: (int value) {
+                responses.add(value);
+              },
+            ),
+            StressQuestion(
+              question: 'I tended to over-react to situations',
+              onChanged: (int value) {
+                responses.add(value);
+              },
+            ),
+            StressQuestion(
+              question: 'I felt that I was using a lot of nervous energy',
+              onChanged: (int value) {
+                responses.add(value);
+              },
+            ),
+            StressQuestion(
+              question: 'I found it difficult to relax',
+              onChanged: (int value) {
+                responses.add(value);
+              },
+            ),
+            StressQuestion(
+              question:
+                  'I was intolerant of anything that kept me from getting on with what I was doing',
+              onChanged: (int value) {
+                responses.add(value);
+              },
+            ),
+            StressQuestion(
+              question: 'I felt scared without any good reason',
+              onChanged: (int value) {
+                responses.add(value);
+              },
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                int stressScore = calculateTotalScore(responses);
+                String stressSeverity = determineSeverity(stressScore);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Stress Result'),
+                      content: Text(
+                          'Stress Score: $stressScore\nSeverity: $stressSeverity'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              responses = [];
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Text('Calculate Stress Score'),
+            ),
+          ],
         ),
       ),
     );

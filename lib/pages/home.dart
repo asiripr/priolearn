@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
+import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -84,26 +85,45 @@ class _HomeState extends State<Home> {
         ),
 
         // design the bottom app bar
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.blue[300],
-          currentIndex: _selectedItem,
-          onTap: _onItemTapped,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+        // bottomNavigationBar: BottomNavigationBar(
+        //   selectedItemColor: Colors.blue[300],
+        //   currentIndex: _selectedItem,
+        //   onTap: _onItemTapped,
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.home),
+        //       label: 'Home' 
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.menu_book_sharp),
+        //       label: 'Academic' 
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.self_improvement),
+        //       label: 'Mindfulness' 
+        //     ),
+        //   ]
+        //   ),
+        bottomNavigationBar: MoltenBottomNavigationBar(
+          
+          selectedIndex: _selectedItem,
+          onTabChange: (clickedIndex) {
+            setState(() {
+              _selectedItem = clickedIndex;
+            });
+          },
+          tabs: [
+            MoltenTab(
               icon: Icon(Icons.home),
-              label: 'Home' 
             ),
-            BottomNavigationBarItem(
+            MoltenTab(
               icon: Icon(Icons.menu_book_sharp),
-              label: 'Academic' 
             ),
-            BottomNavigationBarItem(
+            MoltenTab(
               icon: Icon(Icons.self_improvement),
-              label: 'Mindfulness' 
             ),
-          ]
-          ),
-        
+          ],
+        ),
         // Adding 2 images into the screen
         body: Stack(
           children: [
