@@ -41,3 +41,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#remove the google-services.json file
+/android/app/google-services.json
+/lib/main.dart
+/secret.txt

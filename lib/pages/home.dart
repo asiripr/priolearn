@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,6 +18,18 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedItem = index;
     });
+    switch (index) {
+      case 0:
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context)=>Home()));
+        break;
+      case 2:
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context)=>StressQuestionsPage()));
+        break;
+      default:
+       index=0;
+    }
   }
 
   @override
@@ -71,26 +85,45 @@ class _HomeState extends State<Home> {
         ),
 
         // design the bottom app bar
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.blue[300],
-          currentIndex: _selectedItem,
-          onTap: _onItemTapped,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+        // bottomNavigationBar: BottomNavigationBar(
+        //   selectedItemColor: Colors.blue[300],
+        //   currentIndex: _selectedItem,
+        //   onTap: _onItemTapped,
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.home),
+        //       label: 'Home' 
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.menu_book_sharp),
+        //       label: 'Academic' 
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.self_improvement),
+        //       label: 'Mindfulness' 
+        //     ),
+        //   ]
+        //   ),
+        bottomNavigationBar: MoltenBottomNavigationBar(
+          
+          selectedIndex: _selectedItem,
+          onTabChange: (clickedIndex) {
+            setState(() {
+              _selectedItem = clickedIndex;
+            });
+          },
+          tabs: [
+            MoltenTab(
               icon: Icon(Icons.home),
-              label: 'Home' 
             ),
-            BottomNavigationBarItem(
+            MoltenTab(
               icon: Icon(Icons.menu_book_sharp),
-              label: 'Academic' 
             ),
-            BottomNavigationBarItem(
+            MoltenTab(
               icon: Icon(Icons.self_improvement),
-              label: 'Mindfulness' 
             ),
-          ]
-          ),
-        
+          ],
+        ),
         // Adding 2 images into the screen
         body: Stack(
           children: [
@@ -118,16 +151,12 @@ class _HomeState extends State<Home> {
                  )
               )
             ),
-            Positioned(
-              top: screenHeight*0.03,
-              left: 0,
-              right: 0,
+            SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Column(
                   children: [
-                    Text("Great works in last week..."),
-                
+                    const Text("Great works in last week..."),
                     // greate works list
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -140,26 +169,36 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         title: Text("I Completed 30 Chemistry MCQ in 2018 paper."),
-                        tileColor: Colors.green.shade300,
+                        tileColor: Colors.blue.shade300,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
                         title: Text("I could be able to complete attend a Pure mathematics seminar"),
-                        tileColor: Colors.orange.shade300,
+                        tileColor: Colors.blue.shade300,
                       ),
                     ),
-                
                     // see more button
                     ElevatedButton(
                       onPressed: (){}, 
                       child: const Text("See More")),
-                
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-5.jpg'))),
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-6.jpg'))), 
+                        ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-7.jpg'))), 
+                        Expanded(child: GestureDetector(child: Image.asset('assets/image-8.jpg'))),
+                        ],
+                    ),
                     //menu icons
-                    Column(children: [
                      
-                    ],) 
                 ],),
               ),
             ) 
