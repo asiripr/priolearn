@@ -62,27 +62,6 @@ class _NewHomeState extends State<NewHome> {
             ),
           ),
         ),
-
-        // design the bottom app bar
-        // bottomNavigationBar: BottomNavigationBar(
-        //   selectedItemColor: Colors.blue[300],
-        //   currentIndex: _selectedItem,
-        //   onTap: _onItemTapped,
-        //   items: const <BottomNavigationBarItem>[
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.home),
-        //       label: 'Home' 
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.menu_book_sharp),
-        //       label: 'Academic' 
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.self_improvement),
-        //       label: 'Mindfulness' 
-        //     ),
-        //   ]
-        //   ),
         bottomNavigationBar: MoltenBottomNavigationBar(
           
           selectedIndex: _selectedItem,
@@ -104,49 +83,90 @@ class _NewHomeState extends State<NewHome> {
           ],
         ),
         // Adding 2 images into the screen
-        body: Column(
-          children: [
-            Text("Up to now you have completed ${myProgress * 100}% from your journey.", style: TextStyle(fontSize: 20),),
-            const SizedBox(height: 30,),
-            LinearProgressIndicator(
-              value: myProgress,
-              color: backgroundColor1,
-              backgroundColor: backgroundColor2,
-              minHeight: 10,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text("Up to now you have completed ${myProgress * 100}% from your journey.", style: TextStyle(fontSize: 20),),
+                const SizedBox(height: 30,),
+                LinearProgressIndicator(
+                  value: myProgress,
+                  color: backgroundColor1,
+                  backgroundColor: backgroundColor2,
+                  minHeight: 10,
+                ),
+                              
+                // great works card list
+                SizedBox(height: 30,),
+                Text("My great works",style: TextStyle(fontSize: 20),),
+                Container(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: achievements.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Center(child: Text(achievements[index], style: TextStyle(fontSize: 20),)),
+                          ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 30,),
+                Text("Quick Actions"),
+                Row(
+                  children: [
+                    _quickActionButtonCard("Mindfulness", "assets/image-5.jpg"),
+                    _quickActionButtonCard("Academic", "assets/image-6.jpg"),
+                  ],
+                ),
+                Row(
+                  children: [
+                    _quickActionButtonCard("Activities", "assets/image-7.jpg"),
+                    _quickActionButtonCard("Progress", "assets/image-8.jpg"),
+                  ],
+                )
+              ],
             ),
-                          
-            // great works card list
-            SizedBox(height: 30,),
-            Text("My great works"),
-            Container(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: achievements.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(child: Text(achievements[index])),
-                      ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 30,),
-            Text("Quick Actions"),
-            
-          ],
+          ),
         )
+
+
+        
       ),
     );
   }
 }
 
-// make a common widget for drawyer items
+// create a common widget for drawyer items
 Widget _drawyerItem(String title){
   return ListTile(
     title: Text(title),
     onTap: (){},
+  );
+}
+
+// create a common widget for quick action menu button
+
+Widget _quickActionButtonCard(String menuName, String imagePath){
+  return Card(
+    child: InkWell(
+      onTap: () {
+        
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [ 
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(imagePath, height: 100,),
+          ),
+          Text(menuName)
+        ],
+      ),
+    ),
   );
 }
