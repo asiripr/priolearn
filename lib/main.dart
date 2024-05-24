@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/add_task.dart';
 import 'package:group_13_priolearn/authentication/welcome.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
 
@@ -22,6 +23,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false, 
-        home: ((NewHome())));
+        home: ((Welcome())));
   }
 }
