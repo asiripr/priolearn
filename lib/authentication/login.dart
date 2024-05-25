@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:group_13_priolearn/authentication/forget_pw.dart';
 import 'package:group_13_priolearn/authentication/sign_up.dart';
+import 'package:group_13_priolearn/get_basic_information/save_al_page.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
 import 'package:group_13_priolearn/utils/button.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
@@ -25,7 +26,7 @@ class Login extends StatelessWidget {
         // Navigate to the home screen upon successful sign in
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => NewHome())
+          MaterialPageRoute(builder: (context) => YearSelector())
           );
       } else {
         // Handle sign in errors

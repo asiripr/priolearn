@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/utils/dynamic_button.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
 
 import '../utils/button.dart';
@@ -22,7 +21,7 @@ class _YearSelectorState extends State<YearSelector> {
     return [currentYear.toString(), (currentYear+1).toString(), (currentYear+2).toString()];
   } 
   // create the method for choose a year and save it on the firebase
-  dynamic _saveYearDB() async{
+  void _saveYearDB() async{
     if(_selectedYear!=null){
       _yearController.text=_selectedYear!;
       try{
@@ -82,7 +81,10 @@ class _YearSelectorState extends State<YearSelector> {
                 }
               ),
               SizedBox(height: 15,),
-              myButton(context, "Next", _saveYearDB()),
+              GestureDetector(
+                onTap: (){_saveYearDB();},
+                child: Text("Save"),
+              ),
               SizedBox(height: size.height*0.07,),
   
             ],
