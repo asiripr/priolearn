@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
 
 import '../utils/button.dart';
@@ -20,7 +21,7 @@ class _YearSelectorState extends State<YearSelector> {
     final currentYear = DateTime.now().year;
     return [currentYear.toString(), (currentYear+1).toString(), (currentYear+2).toString()];
   } 
-  // create the method for choose a year and save it on the firebase
+  // create the method for choose a year and save it on the firebase ---------- firebase part---------
   void _saveYearDB() async{
     if(_selectedYear!=null){
       _yearController.text=_selectedYear!;
@@ -44,9 +45,8 @@ class _YearSelectorState extends State<YearSelector> {
         SnackBar(content: Text('Please select a year'))
       );
     }
-    
-
   }
+  // -------------------------------------------------------------------------- firebase part---------
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -60,7 +60,8 @@ class _YearSelectorState extends State<YearSelector> {
               const Text("What is your AL year?", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
               SizedBox(height: size.height * 0.04),
               const SizedBox(height: 15,),
-              // year selection part
+          
+              // year selection part ---------
               
               DropdownButtonFormField(
                 decoration: const InputDecoration(
@@ -80,10 +81,14 @@ class _YearSelectorState extends State<YearSelector> {
                   });
                 }
               ),
+
+              //---------
               SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){_saveYearDB();},
-                child: Text("Save"),
+                child: Container(
+                  decoration:BoxDecoration(color: Colors.blue),
+                  child: Text("Save")),
               ),
               SizedBox(height: size.height*0.07,),
   

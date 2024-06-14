@@ -26,7 +26,7 @@ class Login extends StatelessWidget {
         // Navigate to the home screen upon successful sign in
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => YearSelector())
+          MaterialPageRoute(builder: (context) => NewHome())
           );
       } else {
         // Handle sign in errors

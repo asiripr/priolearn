@@ -11,7 +11,7 @@ class NewHome extends StatefulWidget {
 }
 // create valribles for save up to now days and achievements
 double myProgress = 0.3;
-List<String> achievements = ["I've completed Physics 2013 3rd essay question", "I've completed Physics 2013 3rd essay question", "I've completed Physics 2013 3rd essay question", "I've completed Physics 2013 3rd essay question"]; // in here I've assigned some dummy data
+List<String> achievements = ["I've completed Physics 2013 3rd", "I've completed Physics 2013 3rd essay question", "I've completed Physics 2013 3rd essay question", "I've completed Physics 2013 3rd essay question"]; // in here I've assigned some dummy data
 
 class _NewHomeState extends State<NewHome> {
   // declare a variable for bottom app bar selected item
@@ -37,8 +37,7 @@ class _NewHomeState extends State<NewHome> {
 
   @override
   Widget build(BuildContext context) {
-    // final screenHeight = MediaQuery.of(context).size.height;
-    // final screenWidth = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -63,7 +62,6 @@ class _NewHomeState extends State<NewHome> {
           ),
         ),
         bottomNavigationBar: MoltenBottomNavigationBar(
-          
           selectedIndex: _selectedItem,
           onTabChange: (clickedIndex) {
             setState(() {
@@ -85,20 +83,21 @@ class _NewHomeState extends State<NewHome> {
         // Adding 2 images into the screen
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 Text("Up to now you have completed ${myProgress * 100}% from your journey.", style: TextStyle(fontSize: 20),),
                 const SizedBox(height: 30,),
                 LinearProgressIndicator(
+                  borderRadius: BorderRadius.circular(5),
                   value: myProgress,
                   color: backgroundColor1,
                   backgroundColor: backgroundColor2,
                   minHeight: 10,
                 ),
-                              
+                     
                 // great works card list
-                SizedBox(height: 30,),
+                SizedBox(height: 35,),
                 Text("My great works",style: TextStyle(fontSize: 20),),
                 Container(
                   height: 100,
@@ -106,29 +105,30 @@ class _NewHomeState extends State<NewHome> {
                     scrollDirection: Axis.horizontal,
                     itemCount: achievements.length,
                     itemBuilder: (context, index) {
-                      return Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Center(child: Text(achievements[index], style: TextStyle(fontSize: 20),)),
-                          ),
+                      return Container(
+                        width: size.width*0.5,
+                        height: size.height*0.35,
+                        child: Card(
+                          color: Colors.blue.shade200,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Center(child: Text(achievements[index], style: TextStyle(fontSize: 20),)),
+                            ),
+                        ),
                       );
                     },
                   ),
                 ),
                 SizedBox(height: 30,),
-                Text("Quick Actions"),
-                Row(
+                Text("Quick Actions", style: TextStyle(fontSize: 20),),
+                Wrap(
                   children: [
                     _quickActionButtonCard("Mindfulness", "assets/image-5.jpg"),
                     _quickActionButtonCard("Academic", "assets/image-6.jpg"),
-                  ],
-                ),
-                Row(
-                  children: [
                     _quickActionButtonCard("Activities", "assets/image-7.jpg"),
                     _quickActionButtonCard("Progress", "assets/image-8.jpg"),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -162,7 +162,7 @@ Widget _quickActionButtonCard(String menuName, String imagePath){
         children: [ 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset(imagePath, height: 100,),
+            child: Image.asset(imagePath, height: 120,),
           ),
           Text(menuName)
         ],

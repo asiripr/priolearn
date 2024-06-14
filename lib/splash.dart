@@ -57,7 +57,7 @@ class _SplashState extends State<Splash> {
                   children: [
                     Text("PrioLearn",
                         style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue[600],
                         )),
