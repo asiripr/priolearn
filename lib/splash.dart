@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/login.dart';
+import 'package:group_13_priolearn/authentication/welcome.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
   void _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2500));
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Login()));
+        context, MaterialPageRoute(builder: (context) => Welcome()));
   }
 
   @override
@@ -57,7 +57,7 @@ class _SplashState extends State<Splash> {
                   children: [
                     Text("PrioLearn",
                         style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue[600],
                         )),

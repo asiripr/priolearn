@@ -1,3 +1,3 @@
-# group_13_priolearn
+# PrioLearn 
 
-A new Flutter project.
+Transformative Student Monitoring Platform
