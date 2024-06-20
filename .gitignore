@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/google-services.json
 /lib/main.dart
 /secret.txt
+
+# myopinion
+/other

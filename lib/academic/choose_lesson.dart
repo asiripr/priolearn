@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/utils/button.dart';
+import 'package:group_13_priolearn/academic/content.dart';
+import 'package:group_13_priolearn/academic/learning_outcome.dart';
 
 class ChooseLesson extends StatefulWidget {
   const ChooseLesson({super.key});
@@ -15,14 +17,34 @@ class _ChooseLessonState extends State<ChooseLesson> {
   List<String> lessons = [];
   List<String> competencies = [];
 
-  void _emptyFunction1() {
-    print("Button 1 pressed");
+  void _navigateToContent() {
+    if (selectedLesson!=null && selectedCompetency!=null) {
+      Navigator.push(
+        context, 
+        MaterialPageRoute(builder: (context)=>Content(
+          lessonId:selectedLesson!,
+          competencyIndex: competencies.indexOf(selectedCompetency!)
+        )
+        ));
+    }
   }
 
-  void _emptyFunction2() {
-    print("Button 2 pressed");
+  void _navigateToLOs() {
+    if (selectedLesson!=null && selectedCompetency!=null) {
+      Navigator.push(
+        context, 
+        MaterialPageRoute(builder: (context)=>LOs(
+          lessonId:selectedLesson!,
+          competencyIndex: competencies.indexOf(selectedCompetency!)
+        )
+        ));
+    }
   }
-
+  @override
+  void initState() {
+    super.initState();
+    fetchLessons();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +73,10 @@ class _ChooseLessonState extends State<ChooseLesson> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedLesson = newValue;
+                  competencies = [];
+                  selectedCompetency = null;
                 });
+                fetchCompetencies(selectedLesson!);
               },
             ),
             const SizedBox(height: 30),
@@ -77,12 +102,12 @@ class _ChooseLessonState extends State<ChooseLesson> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: _emptyFunction1,
+              onPressed: _navigateToContent,
               child: const Text("Content"),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: _emptyFunction2,
+              onPressed: _navigateToLOs,
               child: const Text("Learning Outcomes"),
             ),
           ],
@@ -90,4 +115,21 @@ class _ChooseLessonState extends State<ChooseLesson> {
       ),
     );
   }
+  
+  Future<void> fetchLessons() async{
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('physics').get();
+    setState(() {
+      lessons = querySnapshot.docs.map((doc)=>doc.id).toList();
+    });
+  }
+  Future<void> fetchCompetencies(String lessonId) async{
+    final lessonDoc = await FirebaseFirestore.instance.collection('physics').doc(lessonId).get();
+    List competenciesList = lessonDoc['competencies'];
+    setState(() {
+      competencies = List<String>.generate(competenciesList.length,(index){
+        return "Competency - ${index+1}";
+      });
+    });
+  }
+
 }
