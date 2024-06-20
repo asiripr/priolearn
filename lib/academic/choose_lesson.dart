@@ -12,8 +12,8 @@ class _ChooseLessonState extends State<ChooseLesson> {
   String? selectedLesson;
   String? selectedCompetency;
 
-  List<String> lessons = ["Trigonometry", "Metrix", "Geometry", "Algebra"];
-  List<String> competencies = ["Cm-1", "Cm-2", "Cm-3", "Cm-4"];
+  List<String> lessons = [];
+  List<String> competencies = [];
 
   void _emptyFunction1() {
     print("Button 1 pressed");

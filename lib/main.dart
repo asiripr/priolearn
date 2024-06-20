@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/authentication/welcome.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/mindfulness/stress_relief_page.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
 import 'package:group_13_priolearn/splash.dart';
 import 'package:group_13_priolearn/to_do/add_task.dart';
@@ -26,6 +27,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false, 
-        home: ((StressQuestionsPage())));
+        home: ((StressReliefPage())));
   }
 }
