@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 
-class StressQuestionsPage extends StatefulWidget {
-  const StressQuestionsPage({super.key});
+void main() {
+  runApp(MyApp());
+}
 
+class MyApp extends StatelessWidget {
   @override
-  // ignore: library_private_types_in_public_api
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Stress Calculator',
+      theme: ThemeData(
+        primaryColor: Color(0xFF4169E1), // Set primary color to royal blue
+      ),
+      home: StressQuestionsPage(),
+    );
+  }
+}
+
+class StressQuestionsPage extends StatefulWidget {
+  @override
   _StressQuestionsPageState createState() => _StressQuestionsPageState();
 }
 
@@ -15,16 +29,21 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DAAS-21 Stress Calculator'),
+        title: Text(
+          'DAAS-21 Stress Calculator',
+          style: TextStyle(color: Color(0xFF4169E1)), // Set text color to white
+        ),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Please answer the following questions based on your stress levels over the past week:',
+            Text(
+              'Please answer the following questions based on your stress levels over the past week:',
               style: TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 25.0),
+            SizedBox(height: 16.0),
             StressQuestion(
               question: 'I found it hard to wind down',
               onChanged: (int value) {
@@ -89,7 +108,12 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
                   },
                 );
               },
-              child: Text('Calculate Stress Score'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(
+                    0xFF4169E1), // Set button background color to royal blue
+              ),
+              child: Text('Calculate Stress Score',
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -124,9 +148,11 @@ class StressQuestion extends StatefulWidget {
   final String question;
   final ValueChanged<int> onChanged;
 
-  const StressQuestion(
-      {Key? key, required this.question, required this.onChanged})
-      : super(key: key);
+  const StressQuestion({
+    Key? key,
+    required this.question,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   _StressQuestionState createState() => _StressQuestionState();
@@ -152,6 +178,7 @@ class _StressQuestionState extends State<StressQuestion> {
                 min: 0,
                 max: 3,
                 divisions: 3,
+                activeColor: Color(0xFF4169E1),
                 onChanged: (double value) {
                   setState(() {
                     _value = value.toInt();
