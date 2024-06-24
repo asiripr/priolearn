@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
+import 'package:group_13_priolearn/authentication/login.dart';
 import 'package:group_13_priolearn/authentication/welcome.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/mindfulness/stress_relief_page.dart';
@@ -27,6 +28,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false, 
-        home: ((StressReliefPage())));
+        home: ((AddTask())));
   }
 }
