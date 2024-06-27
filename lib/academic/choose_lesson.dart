@@ -76,7 +76,9 @@ class _ChooseLessonState extends State<ChooseLesson> {
                   competencies = [];
                   selectedCompetency = null;
                 });
-                fetchCompetencies(selectedLesson!);
+                if (newValue != null) {
+                  fetchCompetencies(newValue);
+                }
               },
             ),
             const SizedBox(height: 30),
@@ -98,6 +100,9 @@ class _ChooseLessonState extends State<ChooseLesson> {
                 setState(() {
                   selectedCompetency = newValue;
                 });
+                if (newValue != null) {
+                  fetchCompetencies(newValue);
+                }
               },
             ),
             const SizedBox(height: 30),
