@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:group_13_priolearn/to_do/to_do_home.dart';
+import 'package:group_13_priolearn/utils/button_dynamic.dart';
+import 'package:group_13_priolearn/utils/button_void.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
 import 'package:intl/intl.dart';
 
@@ -24,17 +26,20 @@ class _AddTaskState extends State<AddTask> {
   List<String> dropDownValues = ["Academic", "Other"];
   String? dropDownValue = "Academic";
   @override
-  void initState() {
-    super.initState();
-    if (widget.task!=null) {
-      _titleController.text = widget.task!['title'];
-      _dateController.text = DateFormat('yyyy-MM-dd').format((widget.task!['date'] as Timestamp).toDate());
-      _noteController.text = widget.task!['note'];
-      _STimeController.text = widget.task!['STime'];
-      _ETimeController.text = widget.task!['ETime'];
-      final int totalTime = widget.task!['allocatedTime'];
-    }
+  @override
+void initState() {
+  super.initState();
+  if (widget.task != null) {
+    final taskData = widget.task!.data() as Map<String, dynamic>;
+    _titleController.text = taskData['title'] ?? '';
+    _dateController.text = taskData['date'] != null ? DateFormat('yyyy-MM-dd').format((taskData['date'] as Timestamp).toDate()) : '';
+    _noteController.text = taskData['note'] ?? '';
+    _STimeController.text = taskData['STime'] ?? '';
+    _ETimeController.text = taskData['ETime'] ?? '';
+    dropDownValue = taskData['type'] ?? dropDownValues.first;
   }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +66,7 @@ class _AddTaskState extends State<AddTask> {
                   initialDate: DateTime.now(), 
                 );
                 if (pickedDate!=null) {
-                  String formattedDate = DateFormat('yyy-MM-dd').format(pickedDate);
+                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
                   setState(() {
                     _dateController.text = formattedDate;
                   });
@@ -140,7 +145,7 @@ class _AddTaskState extends State<AddTask> {
               }).toList(), 
             ),
             const SizedBox(height: 20),
-            // button
+            myButtonVoid(context, "Save Task", saveTask)
           ],
         ),
       ),
@@ -157,7 +162,7 @@ class _AddTaskState extends State<AddTask> {
     if (title.isNotEmpty && date.isNotEmpty && STime.isNotEmpty) {
       final taskData = {
         'title':title,
-        'date':Timestamp.fromDate(DateFormat('yyy-MM-dd').parse(date)),
+        'date':Timestamp.fromDate(DateFormat('yyyy-MM-dd').parse(date)),
         'note':note,
         'STime':STime,
         'Etime':ETime,

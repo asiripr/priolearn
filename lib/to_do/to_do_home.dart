@@ -75,7 +75,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                                 onPressed: () {
                                   Navigator.push(
                                     context, 
-                                    MaterialPageRoute(builder: (context) => AddTask(),));
+                                    MaterialPageRoute(builder: (context) => AddTask(task: item,),));
                                 }, 
                                 icon: Icon(Icons.edit)
                               ),
@@ -100,11 +100,14 @@ class _ToDoHomeState extends State<ToDoHome> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
         Navigator.push(
           context, 
           MaterialPageRoute(builder: (context) => AddTask(),));
-      },),
+        },
+        child: const Icon(Icons.add)
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

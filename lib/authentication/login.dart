@@ -5,7 +5,7 @@ import 'package:group_13_priolearn/authentication/forget_pw.dart';
 import 'package:group_13_priolearn/authentication/sign_up.dart';
 import 'package:group_13_priolearn/get_basic_information/save_al_page.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
-import 'package:group_13_priolearn/utils/button.dart';
+import 'package:group_13_priolearn/utils/button_dynamic.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 

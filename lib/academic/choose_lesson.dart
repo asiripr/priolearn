@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/content.dart';
 import 'package:group_13_priolearn/academic/learning_outcome.dart';
+import 'package:group_13_priolearn/utils/button_dynamic.dart';
+import 'package:group_13_priolearn/utils/button_void.dart';
 
 class ChooseLesson extends StatefulWidget {
   const ChooseLesson({super.key});
@@ -106,15 +108,9 @@ class _ChooseLessonState extends State<ChooseLesson> {
               },
             ),
             const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: _navigateToContent,
-              child: const Text("Content"),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _navigateToLOs,
-              child: const Text("Learning Outcomes"),
-            ),
+            myButtonVoid(context, "Content", _navigateToContent),
+            const SizedBox(height: 20),
+            myButtonVoid(context, "Learning Outcomes", _navigateToLOs),
           ],
         ),
       ),
