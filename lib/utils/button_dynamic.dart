@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 
-Container myButton(BuildContext context, String buttonName, Function(BuildContext) myFunction){
+Container myButton(BuildContext context, String buttonName, Function(BuildContext context) myFunction){
   Size size = MediaQuery.of(context).size;
   return Container(
     child: GestureDetector(
