@@ -124,10 +124,10 @@ class _NewHomeState extends State<NewHome> {
                 Text("Quick Actions", style: TextStyle(fontSize: 20),),
                 Wrap(
                   children: [
-                    _quickActionButtonCard("Mindfulness", "assets/image-5.jpg"),
-                    _quickActionButtonCard("Academic", "assets/image-6.jpg"),
-                    _quickActionButtonCard("Activities", "assets/image-7.jpg"),
-                    _quickActionButtonCard("Progress", "assets/image-8.jpg"),
+                    _quickActionButtonCard("Mindfulness", "assets/image-5.jpg",(){}),
+                    _quickActionButtonCard("Academic", "assets/image-6.jpg",(){}),
+                    _quickActionButtonCard("Activities", "assets/image-7.jpg",(){}),
+                    _quickActionButtonCard("Progress", "assets/image-8.jpg",(){}),
                   ],
                 ),
               ],
@@ -154,11 +154,11 @@ Widget _drawyerItem(String title, Function myFunction){
 
 // create a common widget for quick action menu button
 
-Widget _quickActionButtonCard(String menuName, String imagePath){
+Widget _quickActionButtonCard(String menuName, String imagePath, Function myFuction){
   return Card(
     child: InkWell(
       onTap: () {
-        
+        myFuction();
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
