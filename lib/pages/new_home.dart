@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/pages/About.dart';
+import 'package:group_13_priolearn/pages/Contact.dart';
 import 'package:group_13_priolearn/to_do/to_do_home.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
@@ -51,12 +53,12 @@ class _NewHomeState extends State<NewHome> {
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: [
-                _drawyerItem("To Do List", (){Navigator.push(context, MaterialPageRoute(builder: (context) => ToDoHome(),));}),
+                _drawyerItem("To Do List", (){Navigator.push(context, MaterialPageRoute(builder: (context) => const ToDoHome(),));}),
                 _drawyerItem("Reduce Stress",(){}),
                 _drawyerItem("Make a Plan",(){}),
                 _drawyerItem("Invite Friends",(){}),
-                _drawyerItem("About App",(){}),
-                _drawyerItem("Contact Us",(){}),
+                _drawyerItem("About App",(){Navigator.push(context, MaterialPageRoute(builder: (context) => const About(),));}),
+                _drawyerItem("Contact Us",(){Navigator.push(context, MaterialPageRoute(builder: (context) => const Contact(),));}),
                 _drawyerItem("Terms and Conditions",(){}),
                 _drawyerItem("App Settings",(){}),
               ],

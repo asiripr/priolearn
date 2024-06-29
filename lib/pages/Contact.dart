@@ -7,14 +7,14 @@ class Contact extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CONTACT US"),
+        title: const Text("Contact Us"),
       ),
-      body: const Center(
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Aligns children to the left
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20), // Add some space at the top if needed
+            SizedBox(height: 20),
             Text(
               "Feel free to reach out to us.",
               style: TextStyle(
@@ -27,9 +27,7 @@ class Contact extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "General Inquiries:", // Corrected typo in "Inquiries"
-              textAlign: TextAlign
-                  .left, // This is actually redundant with the crossAxisAlignment
+              "General Inquiries:",
               style: TextStyle(
                 fontSize: 20,
                 color: Color.fromARGB(255, 2, 1, 16),
@@ -37,48 +35,64 @@ class Contact extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 05,
+              height: 5,
             ),
-            Icon(
-              Icons.mail,
-              color: Colors.black,
+            Row(
+              children: [
+                Icon(
+                  Icons.mail,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 20),
+                Text("Gmail: info@priolearn.com"),
+              ],
             ),
-            Text("Gmail: info@priolearn.com"),
-            Icon(
-              Icons.call,
-              color: Colors.black,
+            Row(
+              children: [
+                Icon(
+                  Icons.call,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 20),
+                Text("Telephone: +94 123 4567"),
+              ],
             ),
-            Text("Telephone: +94 123 4567"),
             SizedBox(
               height: 25,
             ),
             Text(
-              "Technical Support:", // Corrected typo in "Inquiries"
-              textAlign: TextAlign
-                  .left, // This is actually redundant with the crossAxisAlignment
+              "Technical Support:",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 2, 1, 16),
               ),
             ),
-            Icon(
-              Icons.mail,
-              color: Colors.black,
+            Row(
+              children: [
+                Icon(
+                  Icons.mail,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 20),
+                Text("Gmail: info@priolearn.com"),
+              ],
             ),
-            Text("Gmail: info@priolearn.com"),
-            Icon(
-              Icons.call,
-              color: Colors.black,
+            Row(
+              children: [
+                Icon(
+                  Icons.call,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 20),
+                Text("Telephone: +94 123 4567"),
+              ],
             ),
-            Text("Telephone: +94 123 4567"),
             SizedBox(
               height: 25,
             ),
             Text(
-              "Feedbacks and Suggesions:", // Corrected typo in "Inquiries"
-              textAlign: TextAlign
-                  .left, // This is actually redundant with the crossAxisAlignment
+              "Feedback and Suggestions:",
               style: TextStyle(
                 fontSize: 20,
                 color: Color.fromARGB(255, 2, 1, 16),
@@ -86,13 +100,8 @@ class Contact extends StatelessWidget {
               ),
             ),
             Text("Share Your Thoughts with Us..."),
-            Text("feedback@peiolearn.com"),
-            Text("Address: Priolearn Headquatrers"),
-            Icon(
-              Icons.call,
-              color: Colors.black,
-              size: 10,
-            ),
+            Text("feedback@priolearn.com"),
+            Text("Address: Priolearn Headquarters"),
           ],
         ),
       ),
