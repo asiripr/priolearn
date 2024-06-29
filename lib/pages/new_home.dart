@@ -125,7 +125,7 @@ class _NewHomeState extends State<NewHome> {
                 Text("Quick Actions", style: TextStyle(fontSize: 20),),
                 Wrap(
                   children: [
-                    _quickActionButtonCard("Mindfulness", "assets/image-5.jpg",(){}),
+                    _quickActionButtonCard("Mindfulness", "assets/image-5.jpg",(){Navigator.push(context, MaterialPageRoute(builder: (context) => StressQuestionsPage(),));}),
                     _quickActionButtonCard("Academic", "assets/image-6.jpg",(){Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseLesson(),));}),
                     _quickActionButtonCard("Activities", "assets/image-7.jpg",(){}),
                     _quickActionButtonCard("Progress", "assets/image-8.jpg",(){}),
