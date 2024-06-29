@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/utils/button_white.dart';
 
-class MyAcademicsPage extends StatelessWidget {
+class SelectSubject extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,9 +57,10 @@ class MyAcademicsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 40),
-            SubjectButton(subjectName: 'Com Maths'),
-            SubjectButton(subjectName: 'Physics'),
-            SubjectButton(subjectName: 'Chemistry'),
+            subjectButton(context, "Physics", (){}),
+            subjectButton(context, "Chemistry", (){}),
+            subjectButton(context, "Applied", (){}),
+            subjectButton(context, "Pure", (){}),
           ],
         ),
       ),
@@ -82,35 +84,6 @@ class MyAcademicsPage extends StatelessWidget {
         onTap: (int index) {
           // handle navigation logic here
         },
-      ),
-    );
-  }
-}
-
-class SubjectButton extends StatelessWidget {
-  final String subjectName;
-
-  const SubjectButton({required this.subjectName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          side: BorderSide(color: Color.fromARGB(255, 7, 4, 227)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-        ),
-        onPressed: () {
-          // handle button press
-        },
-        child: Text(
-          subjectName,
-          style: TextStyle(color: Color.fromARGB(255, 7, 4, 227)),
-        ),
       ),
     );
   }

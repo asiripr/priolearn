@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
+import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/pages/About.dart';
 import 'package:group_13_priolearn/pages/Contact.dart';
@@ -128,7 +129,7 @@ class _NewHomeState extends State<NewHome> {
                 Wrap(
                   children: [
                     _quickActionButtonCard("Mindfulness", "assets/image-5.jpg",(){Navigator.push(context, MaterialPageRoute(builder: (context) => StressQuestionsPage(),));}),
-                    _quickActionButtonCard("Academic", "assets/image-6.jpg",(){Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseLesson(),));}),
+                    _quickActionButtonCard("Academic", "assets/image-6.jpg",(){Navigator.push(context, MaterialPageRoute(builder: (context) => SelectSubject(),));}),
                     _quickActionButtonCard("Activities", "assets/image-7.jpg",(){}),
                     _quickActionButtonCard("Progress", "assets/image-8.jpg",(){}),
                   ],

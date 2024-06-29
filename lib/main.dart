@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/ComMathsContentPage.dart';
 import 'package:group_13_priolearn/academic/ComMathsPage.dart';
 import 'package:group_13_priolearn/pages/Contact.dart';
-import 'package:group_13_priolearn/academic/MyacademicsPage.dart';
+import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/extra_pages/Streams.dart';
 import 'package:group_13_priolearn/get_secondary_information/Student.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
