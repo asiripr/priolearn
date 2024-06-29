@@ -10,11 +10,15 @@ Container subjectButton(BuildContext context, String buttonName, Function() myFu
         myFunction();
       },
       child: Container(
-        width: size.width,
+        width: size.width*0.8,
         padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15)
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+            color: Colors.blue,
+
+          )
         ),
         child: Center(
           child: Text(
