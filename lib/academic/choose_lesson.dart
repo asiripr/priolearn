@@ -20,33 +20,39 @@ class _ChooseLessonState extends State<ChooseLesson> {
   List<String> competencies = [];
 
   void _navigateToContent() {
-    if (selectedLesson!=null && selectedCompetency!=null) {
+    if (selectedLesson != null && selectedCompetency != null) {
       Navigator.push(
-        context, 
-        MaterialPageRoute(builder: (context)=>Content(
-          lessonId:selectedLesson!,
-          competencyIndex: competencies.indexOf(selectedCompetency!)
-        )
-        ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => Content(
+            lessonId: selectedLesson!,
+            competencyIndex: competencies.indexOf(selectedCompetency!),
+          ),
+        ),
+      );
     }
   }
 
   void _navigateToLOs() {
-    if (selectedLesson!=null && selectedCompetency!=null) {
+    if (selectedLesson != null && selectedCompetency != null) {
       Navigator.push(
-        context, 
-        MaterialPageRoute(builder: (context)=>LOs(
-          lessonId:selectedLesson!,
-          competencyIndex: competencies.indexOf(selectedCompetency!)
-        )
-        ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => LOs(
+            lessonId: selectedLesson!,
+            competencyIndex: competencies.indexOf(selectedCompetency!),
+          ),
+        ),
+      );
     }
   }
+
   @override
   void initState() {
     super.initState();
     fetchLessons();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,28 +90,29 @@ class _ChooseLessonState extends State<ChooseLesson> {
               },
             ),
             const SizedBox(height: 30),
-            DropdownButtonFormField(
-              decoration: const InputDecoration(
-                labelText: "Competencies",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: DropdownButtonFormField(
+                key: ValueKey(selectedCompetency),
+                decoration: const InputDecoration(
+                  labelText: "Competencies",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
                 ),
+                value: selectedCompetency,
+                items: competencies.map((String value) {
+                  return DropdownMenuItem(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedCompetency = newValue;
+                  });
+                },
               ),
-              value: selectedCompetency,
-              items: competencies.map((String value) {
-                return DropdownMenuItem(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedCompetency = newValue;
-                });
-                if (newValue != null) {
-                  fetchCompetencies(newValue);
-                }
-              },
             ),
             const SizedBox(height: 30),
             myButtonVoid(context, "Content", _navigateToContent),
@@ -116,21 +123,21 @@ class _ChooseLessonState extends State<ChooseLesson> {
       ),
     );
   }
-  
-  Future<void> fetchLessons() async{
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('physics').get();
+
+  Future<void> fetchLessons() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('pure_maths').get();
     setState(() {
-      lessons = querySnapshot.docs.map((doc)=>doc.id).toList();
-    });
-  }
-  Future<void> fetchCompetencies(String lessonId) async{
-    final lessonDoc = await FirebaseFirestore.instance.collection('physics').doc(lessonId).get();
-    List competenciesList = lessonDoc['competencies'];
-    setState(() {
-      competencies = List<String>.generate(competenciesList.length,(index){
-        return "Competency - ${index+1}";
-      });
+      lessons = querySnapshot.docs.map((doc) => doc.id).toList();
     });
   }
 
+  Future<void> fetchCompetencies(String lessonId) async {
+    final lessonDoc = await FirebaseFirestore.instance.collection('pure_maths').doc(lessonId).get();
+    List competenciesList = lessonDoc['competencies'];
+    setState(() {
+      competencies = List<String>.generate(competenciesList.length, (index) {
+        return "Competency - ${index + 1}";
+      });
+    });
+  }
 }
