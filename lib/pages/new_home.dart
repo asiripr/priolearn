@@ -150,33 +150,35 @@ class _NewHomeState extends State<NewHome> {
                   SizedBox(
                     height: 35,
                   ),
-                  Text(
-                    "My great works",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Container(
-                    height: 100,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: achievements.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          width: size.width * 0.5,
-                          height: size.height * 0.35,
-                          child: Card(
-                            color: Colors.blue.shade200,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Center(
-                                  child: Text(
-                                achievements[index],
-                                style: TextStyle(fontSize: 20),
-                              )),
-                            ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("My Great Works",
+                              style: TextStyle(fontSize: 20)),
+                          TextButton(
+                            onPressed: () {
+                            },
+                            child: Text("See All"),
                           ),
-                        );
-                      },
-                    ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount:
+                            achievements.length > 3 ? 3 : achievements.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: _greatWorkCard(achievements[index]),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 30,
@@ -248,6 +250,21 @@ Widget _quickActionButtonCard(
           ),
           Text(menuName)
         ],
+      ),
+    ),
+  );
+}
+
+// create a common widget for greate works cards
+
+Widget _greatWorkCard(String text) {
+  return Card(
+    color: Colors.blue.shade200,
+    child: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 16),
       ),
     ),
   );
