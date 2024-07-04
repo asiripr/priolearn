@@ -19,8 +19,9 @@ class SignUp extends StatelessWidget {
         password: _passwordController.text,
       );
       if(userCredential.user!=null){
-        // ignore: avoid_print
-        print("you already have a account");        
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("You already have a account"))
+        );       
       }
       else{
         // ignore: use_build_context_synchronously
@@ -31,13 +32,17 @@ class SignUp extends StatelessWidget {
       // Additional steps after sign up (e.g., user profile setup)
     } 
     on FirebaseAuthException catch(e){
-      if (e.code=="auth/email-already-exists") {
-        print('the email you entered is already in use by an existing user');
+      if (e.code=="email-already-in-use") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("The email you entered is already in use by an existing user"))
+        );  
       }
     }
     catch (e) {
       // Handle sign up errors
-      print("Failed to sign up: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Failed to sign up."))
+        ); 
     }
   }
 
