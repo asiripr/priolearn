@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
   }
 
   void _navigateToHome() async {
-    await Future.delayed(const Duration(milliseconds: 2500));
+    await Future.delayed(const Duration(milliseconds: 30500));
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Welcome()));
   }
@@ -65,14 +65,14 @@ class _SplashState extends State<Splash> {
                       height: screenHeight * 0.06,
                     ),
                     Positioned(
-                      child: Image.asset("assets/image-1.png",
+                      child: Image.asset("assets/image-9.png",
                           height: 250, width: 250),
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
                     const Text(
-                      "Unlock your academic potential and\n embrace balance with PrioLearn.",
+                      "Unlock your academic potential and embrace balance with PrioLearn.",
                       textAlign: TextAlign.center,
                     )
                   ],
