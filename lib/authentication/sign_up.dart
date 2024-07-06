@@ -18,25 +18,28 @@ class SignUp extends StatelessWidget {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      if(userCredential.user!=null){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("You already have a account"))
-        );       
-      }
-      else{
-        // ignore: use_build_context_synchronously
-        Navigator.push(context, 
-        MaterialPageRoute(builder: (context)=> Login())
-        );
-      }
-      // Additional steps after sign up (e.g., user profile setup)
+
+      // successfull sign up, navigate to login page
+      Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => Login(),)
+      );
     } 
     on FirebaseAuthException catch(e){
-      if (e.code=="email-already-in-use") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("The email you entered is already in use by an existing user"))
-        );  
+      String message;
+      if (e.code == 'email-already-in-use') {
+        message = "The email you entered is already in use by an existing user";
+      }else if(e.code == 'invalid-email'){
+        message = "The email address is not valid";
+      }else if(e.code == 'weak-password'){
+        message = "The password is too weak";
+      }else{
+        message = "Failed to sign up. Please try again.";
       }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message))
+      );
     }
     catch (e) {
       // Handle sign up errors

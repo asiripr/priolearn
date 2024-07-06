@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/authentication/welcome.dart';
+import 'package:group_13_priolearn/pages/new_home.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -15,10 +17,21 @@ class _SplashState extends State<Splash> {
     _navigateToHome();
   }
 
-  void _navigateToHome() async {
-    await Future.delayed(const Duration(milliseconds: 30500));
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Welcome()));
+  Future<void> _navigateToHome() async {
+    await Future.delayed(Duration(seconds: 2));
+
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null ) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context)=>Welcome()) 
+      );
+    } else{
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context)=>NewHome()) 
+      );
+    }
   }
 
   @override
