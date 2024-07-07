@@ -11,18 +11,28 @@ class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Account Settings"),),
+      appBar: AppBar(title: const Text("Account Settings"),),
       body: Column(
         children: [
           ListTile(
-            title: Text('Log Out'),
+            title: const Row(
+              children: [
+                Icon(Icons.logout),
+                Text('Log Out'),
+              ],
+            ),
             onTap: () {
               
             },
           ),
           const SizedBox(height: 20,),
           ListTile(
-            title: Text('Delete Account'),
+            title: const Row(
+              children: [
+                Icon(Icons.delete),
+                Text('Delete Account'),
+              ],
+            ),
             onTap: () {
               
             },
