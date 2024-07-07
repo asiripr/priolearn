@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
   }
 
   Future<void> _navigateToHome() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 10));
 
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null ) {
