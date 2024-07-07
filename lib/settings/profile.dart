@@ -3,20 +3,22 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/utils/button_dynamic.dart';
+import 'package:group_13_priolearn/utils/button_void.dart';
 import 'package:group_13_priolearn/utils/text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
 
 
-class Profilee extends StatefulWidget {
-  const Profilee({super.key});
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  State<Profilee> createState() => _ProfileeState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _ProfileeState extends State<Profilee> {
+class _ProfileState extends State<Profile> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -29,59 +31,79 @@ class _ProfileeState extends State<Profilee> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Profile Settings"),),
-      body: Column(
-        children: [
-          myTextField("First Name", _firstNameController, false),
-          myTextField("Last Name", _lastNameController, false),
-          myTextField("Email", _emailController, false),
-          TextField(
-              controller: _ALYearController,
-              decoration: const InputDecoration(
-                labelText: "AL year",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))
-                )
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: _pickImage,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: _image != null ? FileImage(_image!) : null,
+                  child:
+                      _image == null ? Icon(Icons.add_a_photo, size: 50) : null,
+                ),
               ),
-              onTap: () async{
-                DateTime? pickedDate = await showDatePicker(
-                  context: context, 
-                  firstDate: DateTime(2024), 
-                  lastDate:DateTime(2030),
-                  initialDate: DateTime.now(), 
-                );
-                if (pickedDate!=null) {
-                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                  setState(() {
-                    _ALYearController.text = formattedDate;
-                  });
-                }
-              },
-          ),
-        TextField(
-              controller: _ALStartController,
-              decoration: const InputDecoration(
-                labelText: "AL start date",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))
-                )
+              const SizedBox(height: 20,),
+              myTextField("First Name", _firstNameController, false),
+              const SizedBox(height: 20,),
+              myTextField("Last Name", _lastNameController, false),
+              const SizedBox(height: 20,),
+              myTextField("Email", _emailController, false),
+              const SizedBox(height: 20,),
+              TextField(
+                  controller: _ALYearController,
+                  decoration: const InputDecoration(
+                    labelText: "AL year",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))
+                    )
+                  ),
+                  onTap: () async{
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context, 
+                      firstDate: DateTime(2024), 
+                      lastDate:DateTime(2030),
+                      initialDate: DateTime.now(), 
+                    );
+                    if (pickedDate!=null) {
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                      setState(() {
+                        _ALYearController.text = formattedDate;
+                      });
+                    }
+                  },
               ),
-              onTap: () async{
-                DateTime? pickedDate = await showDatePicker(
-                  context: context, 
-                  firstDate: DateTime(2024), 
-                  lastDate:DateTime(2030),
-                  initialDate: DateTime.now(), 
-                );
-                if (pickedDate!=null) {
-                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                  setState(() {
-                    _ALStartController.text = formattedDate;
-                  });
-                }
-              },
+              const SizedBox(height: 20,),
+              TextField(
+                    controller: _ALStartController,
+                    decoration: const InputDecoration(
+                      labelText: "AL start date",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                      )
+                    ),
+                    onTap: () async{
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context, 
+                        firstDate: DateTime(2024), 
+                        lastDate:DateTime(2030),
+                        initialDate: DateTime.now(), 
+                      );
+                      if (pickedDate!=null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                        setState(() {
+                          _ALStartController.text = formattedDate;
+                        });
+                      }
+                    },
+                ),
+                const SizedBox(height: 20,),
+                myButtonVoid(context, "Save", _saveProfile)
+            ],
           ),
-        
-        ],
+        ),
       ),
     );
   }
@@ -100,9 +122,12 @@ class _ProfileeState extends State<Profilee> {
 
       // check if there is an image to upload
       if (_image != null) {
+        FirebaseStorage _storage = FirebaseStorage.instanceFor(
+          bucket: 'gs://priolearn.appspot.com'
+        );
         // Get the file extension
         String extension = path.extension(_image!.path);
-        final storageRef = FirebaseStorage.instance.ref().child('profile_pictures/${DateTime.now().millisecondsSinceEpoch}$extension');
+        final storageRef = _storage.ref().child('profile_pictures/${DateTime.now().millisecondsSinceEpoch}$extension');
         final uploadTask = storageRef.putFile(_image!);
         final snapshot = await uploadTask;
         imageUrl = await snapshot.ref.getDownloadURL();
@@ -118,7 +143,7 @@ class _ProfileeState extends State<Profilee> {
         'profilePicture':imageUrl
       });
     } catch (e) {
-      print('error...');
+      print('error...$e');
     }
     
   }
