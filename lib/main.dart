@@ -13,6 +13,7 @@ import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/mindfulness/stress_relief_page.dart';
 import 'package:group_13_priolearn/pages/About.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
+import 'package:group_13_priolearn/settings/profile.dart';
 import 'package:group_13_priolearn/splash.dart';
 import 'package:group_13_priolearn/to_do/add_task.dart';
 
@@ -35,6 +36,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false, 
-        home: ((Splash())));
+        home: ((Profile())));
   }
 }
