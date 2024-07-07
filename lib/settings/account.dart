@@ -18,6 +18,7 @@ class _AccountState extends State<Account> {
             title: const Row(
               children: [
                 Icon(Icons.logout),
+                SizedBox(width: 15,),
                 Text('Log Out'),
               ],
             ),
@@ -30,7 +31,8 @@ class _AccountState extends State<Account> {
             title: const Row(
               children: [
                 Icon(Icons.delete),
-                Text('Delete Account'),
+                SizedBox(width: 15,),
+                Text('Delete Account', style: TextStyle(color: Colors.red),),
               ],
             ),
             onTap: () {
