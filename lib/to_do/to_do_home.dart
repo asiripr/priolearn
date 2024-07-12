@@ -24,11 +24,11 @@ class _ToDoHomeState extends State<ToDoHome> {
       body: Column(
         children: [
           TableCalendar(
-            focusedDay: _selectedDate, 
-            firstDay: DateTime.utc(2024,01,01), 
-            lastDay: DateTime.utc(2034,01,01),
+            focusedDay: _selectedDate,
+            firstDay: DateTime.utc(2024, 01, 01),
+            lastDay: DateTime.utc(2034, 01, 01),
             calendarFormat: _calendarFormat,
-            onFormatChanged: (format){
+            onFormatChanged: (format) {
               setState(() {
                 _calendarFormat = format;
               });
@@ -43,71 +43,78 @@ class _ToDoHomeState extends State<ToDoHome> {
             },
           ),
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }else{
-                  var items = snapshot.data!.docs;
-                  return ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = items[index];
-                      dynamic dateData = item['date'];
-                      DateTime date = DateTime.now();
-                      
-                      if (dateData is Timestamp) {
-                        date = dateData.toDate();
-                      }else if(dateData is String){
-                        date = DateTime.parse(dateData);
-                      }
+              child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              } else {
+                var items = snapshot.data!.docs;
+                return ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = items[index];
+                    dynamic dateData = item['date'];
+                    DateTime date = DateTime.now();
 
-                      return Card(
-                        margin: EdgeInsets.all(10),
-                        child: ListTile(
-                          title: Text(item['title']),
-                          subtitle: Text('${DateFormat('yyyy-MM-dd').format(date)}\n${item['note']}'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
+                    if (dateData is Timestamp) {
+                      date = dateData.toDate();
+                    } else if (dateData is String) {
+                      date = DateTime.parse(dateData);
+                    }
+
+                    return Card(
+                      margin: EdgeInsets.all(10),
+                      child: ListTile(
+                        title: Text(item['title']),
+                        subtitle: Text(
+                            '${DateFormat('yyyy-MM-dd').format(date)}\n${item['note']}'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
                                 onPressed: () {
                                   Navigator.push(
-                                    context, 
-                                    MaterialPageRoute(builder: (context) => AddTask(task: item,),));
-                                }, 
-                                icon: Icon(Icons.edit)
-                              ),
-                              IconButton(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddTask(
+                                          task: item,
+                                        ),
+                                      ));
+                                },
+                                icon: Icon(Icons.edit)),
+                            IconButton(
                                 onPressed: () async {
-                                  await FirebaseFirestore.instance.collection('tasks').doc(item.id).delete();
+                                  await FirebaseFirestore.instance
+                                      .collection('tasks')
+                                      .doc(item.id)
+                                      .delete();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("Task deleted successfully."))
-                                  );
-                                }, 
-                                icon: Icon(Icons.delete)
-                              )
-                            ],
-                          ),
+                                      SnackBar(
+                                          content: Text(
+                                              "Task deleted successfully.")));
+                                },
+                                icon: Icon(Icons.delete))
+                          ],
                         ),
-                      );
-                    },
-                  );
-                }
-              },
-            )
-          ),
+                      ),
+                    );
+                  },
+                );
+              }
+            },
+          )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => AddTask(),));
-        },
-        child: const Icon(Icons.add)
-      ),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddTask(),
+                ));
+          },
+          child: const Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
