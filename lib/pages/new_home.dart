@@ -202,7 +202,7 @@ class _NewHomeState extends State<NewHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ChooseLesson(),
+                              builder: (context) => SelectSubject(),
                             ));
                       }),
                       _quickActionButtonCard(

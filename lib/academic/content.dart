@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Content extends StatefulWidget {
+  final String subjectName;
   final String lessonId;
   final int competencyIndex;
-  const Content({super.key, required this.lessonId, required this.competencyIndex});
+  const Content({super.key, required this.lessonId, required this.competencyIndex, required this.subjectName});
 
   @override
   State<Content> createState() => _ContentState();
@@ -23,7 +24,7 @@ class _ContentState extends State<Content> {
   Future<void> fetchContent() async {
     try {
       final lessonDoc = await FirebaseFirestore.instance
-          .collection('pure_maths')
+          .collection(widget.subjectName)
           .doc(widget.lessonId)
           .get();
       List competenciesList = lessonDoc['competencies'];

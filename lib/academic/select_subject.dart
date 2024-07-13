@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/utils/button_white.dart';
 
 class SelectSubject extends StatelessWidget {
@@ -12,8 +13,8 @@ class SelectSubject extends StatelessWidget {
         title: const Text(
           'My Academics',
           style: TextStyle(
-              color: Color.fromARGB(255, 7, 4, 227),
-              fontSize: 32,
+            color: Color.fromARGB(255, 7, 4, 227),
+            fontSize: 32,
           ),
         ),
       ),
@@ -32,14 +33,15 @@ class SelectSubject extends StatelessWidget {
                       Text(
                         'You have completed 38% from whole journey...',
                         style: TextStyle(
-                            color: Color.fromARGB(255, 7, 4, 227),
-                            fontSize: 20,
+                          color: Color.fromARGB(255, 7, 4, 227),
+                          fontSize: 20,
                         ),
                       ),
                       SizedBox(height: 20),
                       LinearProgressIndicator(
                         value: 0.38,
-                        backgroundColor: const Color.fromARGB(255, 238, 238, 238),
+                        backgroundColor:
+                            const Color.fromARGB(255, 238, 238, 238),
                         valueColor: AlwaysStoppedAnimation<Color>(
                             Color.fromARGB(255, 7, 4, 227)),
                       ),
@@ -56,13 +58,13 @@ class SelectSubject extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 40),
-              subjectButton(context, "Physics", (){}),
+              subjectButton(context, "Physics",() => _navigateToChooseLesson(context, 'physics')),
               const SizedBox(height: 30),
-              subjectButton(context, "Chemistry", (){}),
+              subjectButton(context, "Chemistry",() => _navigateToChooseLesson(context, 'chemistry')),
               const SizedBox(height: 30),
-              subjectButton(context, "Applied", (){}),
+              subjectButton(context, "Applied",() => _navigateToChooseLesson(context, 'applied')),
               const SizedBox(height: 30),
-              subjectButton(context, "Pure", (){}),
+              subjectButton(context, "Pure",() => _navigateToChooseLesson(context, 'pure_maths')),
             ],
           ),
         ),
@@ -87,6 +89,17 @@ class SelectSubject extends StatelessWidget {
         onTap: (int index) {
           // handle navigation logic here
         },
+      ),
+    );
+  }
+
+  _navigateToChooseLesson(BuildContext context, String subjectName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChooseLesson(
+          subjectName: subjectName,
+        ),
       ),
     );
   }
