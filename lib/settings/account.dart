@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/authentication/welcome.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -8,6 +10,16 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void _logout() async{
+    await _auth.signOut();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => Welcome(),
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +48,7 @@ class _AccountState extends State<Account> {
               ],
             ),
             onTap: () {
-              
+              _logout();
             },
           ),
         ],
