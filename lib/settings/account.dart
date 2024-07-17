@@ -35,7 +35,7 @@ class _AccountState extends State<Account> {
               ],
             ),
             onTap: () {
-              
+              _logout();
             },
           ),
           const SizedBox(height: 20,),
@@ -48,7 +48,7 @@ class _AccountState extends State<Account> {
               ],
             ),
             onTap: () {
-              _logout();
+              
             },
           ),
         ],
