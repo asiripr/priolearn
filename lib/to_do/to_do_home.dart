@@ -15,6 +15,8 @@ class _ToDoHomeState extends State<ToDoHome> {
   DateTime _selectedDate = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.week;
 
+  int _totalMinutes = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +44,48 @@ class _ToDoHomeState extends State<ToDoHome> {
               });
             },
           ),
+          // ------ display total learning time -------
+          StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('tasks').where('type', isEqualTo: 'Academic').snapshots(), 
+            builder: (context, snapshot){
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              }
+              else{
+                var items = snapshot.data!.docs;
+                _totalMinutes = 0;
+                for(var item in items){
+                  dynamic dateData = item['date'];
+                  DateTime date = DateTime.now();
+
+                  if (dateData is Timestamp) {
+                    date = dateData.toDate();
+                  }else if(dateData is String){
+                    date = DateTime.parse(dateData);
+                  }
+
+                  if (isSameDay(date, _selectedDate)) {
+                    _totalMinutes += item['duration'] as int;
+                  }
+                }
+
+                int hours = _totalMinutes~/60;
+                int minutes = _totalMinutes%60;
+
+                return Text(
+                  "Today you have \n${hours} hrs and ${minutes} mins \nto learn",
+                  style: const TextStyle(
+                    fontSize: 25,
+                    color: Colors.blue,
+                  ),
+                  textAlign: TextAlign.center,
+                );
+              }
+            }
+          ),
+
+
+          // ------------------------------------------
           Expanded(
               child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
