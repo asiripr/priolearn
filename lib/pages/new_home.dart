@@ -4,6 +4,7 @@ import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/settings/about.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
+import 'package:group_13_priolearn/settings/account.dart';
 import 'package:group_13_priolearn/to_do/to_do_home.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
@@ -91,7 +92,9 @@ class _NewHomeState extends State<NewHome> {
                         ));
                   }),
                   _drawyerItem("Terms and Conditions", () {}),
-                  _drawyerItem("App Settings", () {}),
+                  _drawyerItem("App Settings", () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Account(),));
+                  }),
                 ],
               ),
             ),
