@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
@@ -8,6 +9,7 @@ import 'package:group_13_priolearn/settings/account.dart';
 import 'package:group_13_priolearn/to_do/to_do_home.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class NewHome extends StatefulWidget {
   const NewHome({super.key});
@@ -49,6 +51,7 @@ class _NewHomeState extends State<NewHome> {
 
   @override
   Widget build(BuildContext context) {
+    int _totalMinutes;
     Size size = MediaQuery.of(context).size;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -93,7 +96,11 @@ class _NewHomeState extends State<NewHome> {
                   }),
                   _drawyerItem("Terms and Conditions", () {}),
                   _drawyerItem("App Settings", () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Account(),));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Account(),
+                        ));
                   }),
                 ],
               ),
@@ -124,29 +131,59 @@ class _NewHomeState extends State<NewHome> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            "In past 7 days, you have spent",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "8256 minutes",
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "on your academics",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // ------ display total learning time -------
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('tasks')
+                          .where('type', isEqualTo: 'Academic')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        } else {
+                          var items = snapshot.data!.docs;
+                          _totalMinutes = 0;
+                          for (var item in items) {
+                            dynamic dateData = item['date'];
+                            DateTime date = DateTime.now();
+
+                            if (dateData is Timestamp) {
+                              date = dateData.toDate();
+                            } else if (dateData is String) {
+                              date = DateTime.parse(dateData);
+                            }
+
+                            if (isSameDay(date, DateTime.now())) {
+                              _totalMinutes += item['duration'] as int;
+                            }
+                          }
+
+                          int hours = _totalMinutes ~/ 60;
+                          int minutes = _totalMinutes % 60;
+
+                          return Container(
+                            width: size.width,
+                            child: Card(
+                              margin: EdgeInsets.all(10),
+                              color: Colors.blue.shade100,
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "You have\n${hours} hrs and ${minutes} mins\nto learn",
+                                      style: TextStyle(fontSize: 20),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      }),
+
+                  // ------------------------------------------,
                   SizedBox(height: 20),
 
                   // great works card list
@@ -162,8 +199,7 @@ class _NewHomeState extends State<NewHome> {
                           Text("My Great Works",
                               style: TextStyle(fontSize: 20)),
                           TextButton(
-                            onPressed: () {
-                            },
+                            onPressed: () {},
                             child: Text("See All"),
                           ),
                         ],
