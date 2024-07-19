@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
+import 'package:group_13_priolearn/activities/activities.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/progress/progress_home.dart';
 import 'package:group_13_priolearn/settings/about.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
 import 'package:group_13_priolearn/settings/account.dart';
@@ -28,6 +30,7 @@ List<String> achievements = [
 ]; // in here I've assigned some dummy data
 
 class _NewHomeState extends State<NewHome> {
+
   // declare a variable for bottom app bar selected item
   int _selectedItem = 0;
   // declare a function for bottom app bar item selection
@@ -47,6 +50,18 @@ class _NewHomeState extends State<NewHome> {
       default:
         index = 0;
     }
+  }
+
+  // get the start of the week
+  DateTime get _startOfWeek{
+    final DateTime now = DateTime.now();
+    return now.subtract(Duration(days: now.weekday - 1));
+  }
+
+  //get the end of the week
+  DateTime get _endOfWeek{
+    final DateTime now = DateTime.now();
+    return now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
   }
 
   @override
@@ -153,14 +168,10 @@ class _NewHomeState extends State<NewHome> {
                               date = DateTime.parse(dateData);
                             }
 
-                            if (isSameDay(date, DateTime.now())) {
+                            if (date.isAfter(_startOfWeek) && date.isBefore(_endOfWeek)) {
                               _totalMinutes += item['duration'] as int;
                             }
                           }
-
-                          int hours = _totalMinutes ~/ 60;
-                          int minutes = _totalMinutes % 60;
-
                           return Container(
                             width: size.width,
                             child: Card(
@@ -171,8 +182,8 @@ class _NewHomeState extends State<NewHome> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "You have\n${hours} hrs and ${minutes} mins\nto learn",
-                                      style: TextStyle(fontSize: 20),
+                                      "In past 7 days, you have spent\n${_totalMinutes} mins\non your academics",
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -245,9 +256,19 @@ class _NewHomeState extends State<NewHome> {
                             ));
                       }),
                       _quickActionButtonCard(
-                          "Activities", "assets/image-7.jpg", () {}),
+                          "Activities", "assets/image-7.jpg", () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Activities(),
+                            ));
+                          }),
                       _quickActionButtonCard(
-                          "Progress", "assets/image-8.jpg", () {}),
+                          "Progress", "assets/image-8.jpg", () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(builder: (context)=>ProgressHome()));
+                          }),
                     ],
                   ),
                 ],
