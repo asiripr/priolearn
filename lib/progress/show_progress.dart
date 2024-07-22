@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/progress/main_bar_graph.dart';
 
 class ShowProgress extends StatefulWidget {
   const ShowProgress({super.key});
@@ -21,7 +22,7 @@ class _ShowProgressState extends State<ShowProgress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Progress"),),
-      body: Column(), // replace by my bar graph
+      body: MainBarGraph(weeklySummary: weeklySummary), // replace by my bar graph
     );
   }
 }

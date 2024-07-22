@@ -4,7 +4,9 @@ import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/activities/activities.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/progress/main_bar_graph.dart';
 import 'package:group_13_priolearn/progress/progress_home.dart';
+import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/about.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
 import 'package:group_13_priolearn/settings/account.dart';
@@ -267,7 +269,7 @@ class _NewHomeState extends State<NewHome> {
                           "Progress", "assets/image-8.jpg", () {
                             Navigator.push(
                               context, 
-                              MaterialPageRoute(builder: (context)=>ProgressHome()));
+                              MaterialPageRoute(builder: (context)=>ShowProgress()));
                           }),
                     ],
                   ),
