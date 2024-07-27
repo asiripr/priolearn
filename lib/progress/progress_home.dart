@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -16,13 +15,14 @@ class ProgressHome extends StatefulWidget {
 
 class ProgressHomeState extends State<ProgressHome> {
   Map<String, int> _weeklyData = {
+    'Sunday': 0,
     'Monday': 0,
     'Tuesday': 0,
     'Wednesday': 0,
     'Thursday': 0,
     'Friday': 0,
     'Saturday': 0,
-    'Sunday': 0,
+    
   };
   @override
   void initState() {
@@ -44,15 +44,15 @@ class ProgressHomeState extends State<ProgressHome> {
         .get();
 
     final List<QueryDocumentSnapshot> documents = snapshot.docs;
-
+    print("**************************Fetched ${documents.length} documents");
     Map<String, int> tempWeeklyData = {
-      'Monday': 0,
-      'Tuesday': 0,
-      'Wednesday': 0,
-      'Thursday': 0,
-      'Friday': 0,
-      'Saturday': 0,
       'Sunday': 0,
+      'Monday': 1,
+      'Tuesday': 2,
+      'Wednesday': 3,
+      'Thursday': 4,
+      'Friday': 5,
+      'Saturday': 6,
     };
 
     for (var doc in documents) {
@@ -71,7 +71,7 @@ class ProgressHomeState extends State<ProgressHome> {
       int duration = (doc['duration'] as num).toInt();
       tempWeeklyData[dayOfWeek] = (tempWeeklyData[dayOfWeek] ?? 0) + duration;
     }
-
+  print("*******************************Processed weekly data: $tempWeeklyData");
     setState(() {
       _weeklyData = tempWeeklyData;
     });
@@ -80,13 +80,14 @@ class ProgressHomeState extends State<ProgressHome> {
   //---------------------------------------------
   Widget build(BuildContext context) {
     final Map<String, int> _dayToIndex = {
-      'Monday': 0,
-      'Tuesday': 1,
-      'Wednesday': 2,
-      'Thursday': 3,
-      'Friday': 4,
-      'Saturday': 5,
-      'Sunday': 6,
+      'Sunday': 0,
+      'Monday': 1,
+      'Tuesday': 2,
+      'Wednesday': 3,
+      'Thursday': 4,
+      'Friday': 5,
+      'Saturday': 6,
+      
     };
     return Scaffold(
       appBar: AppBar(
@@ -101,7 +102,7 @@ class ProgressHomeState extends State<ProgressHome> {
                 return BarChartGroupData(x: _dayToIndex[entry.key]!, barRods: [
                   BarChartRodData(
                       toY: value.isFinite ? value : 0.0,
-                      color: Color.fromARGB(0, 0, 0, 255))
+                      color: Color.fromARGB(0, 76, 76, 216))
                 ]);
               }).toList(),
               titlesData: FlTitlesData(
@@ -116,22 +117,22 @@ class ProgressHomeState extends State<ProgressHome> {
                             Widget text = Text('');
                             switch (value.toInt()) {
                               case 0:
-                                text = const Text('M', style: style);
+                                text = const Text('S', style: style);
                                 break;
                               case 1:
-                                text = const Text('T', style: style);
+                                text = const Text('M', style: style);
                                 break;
                               case 2:
-                                text = const Text('W', style: style);
-                                break;
-                              case 3:
                                 text = const Text('T', style: style);
                                 break;
+                              case 3:
+                                text = const Text('W', style: style);
+                                break;
                               case 4:
-                                text = const Text('F', style: style);
+                                text = const Text('T', style: style);
                                 break;
                               case 5:
-                                text = const Text('S', style: style);
+                                text = const Text('F', style: style);
                                 break;
                               case 6:
                                 text = const Text('S', style: style);

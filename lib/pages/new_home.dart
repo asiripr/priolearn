@@ -5,7 +5,6 @@ import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/activities/activities.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/progress/main_bar_graph.dart';
-import 'package:group_13_priolearn/progress/progress_home.dart';
 import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/about.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
@@ -32,7 +31,6 @@ List<String> achievements = [
 ]; // in here I've assigned some dummy data
 
 class _NewHomeState extends State<NewHome> {
-
   // declare a variable for bottom app bar selected item
   int _selectedItem = 0;
   // declare a function for bottom app bar item selection
@@ -55,13 +53,13 @@ class _NewHomeState extends State<NewHome> {
   }
 
   // get the start of the week
-  DateTime get _startOfWeek{
+  DateTime get _startOfWeek {
     final DateTime now = DateTime.now();
     return now.subtract(Duration(days: now.weekday - 1));
   }
 
   //get the end of the week
-  DateTime get _endOfWeek{
+  DateTime get _endOfWeek {
     final DateTime now = DateTime.now();
     return now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
   }
@@ -170,7 +168,8 @@ class _NewHomeState extends State<NewHome> {
                               date = DateTime.parse(dateData);
                             }
 
-                            if (date.isAfter(_startOfWeek) && date.isBefore(_endOfWeek)) {
+                            if (date.isAfter(_startOfWeek) &&
+                                date.isBefore(_endOfWeek)) {
                               _totalMinutes += item['duration'] as int;
                             }
                           }
@@ -185,7 +184,9 @@ class _NewHomeState extends State<NewHome> {
                                   children: [
                                     Text(
                                       "In past 7 days, you have spent\n${_totalMinutes} mins\non your academics",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -241,12 +242,12 @@ class _NewHomeState extends State<NewHome> {
                   ),
                   Wrap(
                     children: [
-                      _quickActionButtonCard(
-                          "Mindfulness", "assets/image-5.jpg", () {
+                      _quickActionButtonCard("To-Do", "assets/image-11.jpeg",
+                          () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StressQuestionsPage(),
+                              builder: (context) => ToDoHome(),
                             ));
                       }),
                       _quickActionButtonCard("Academic", "assets/image-6.jpg",
@@ -258,19 +259,20 @@ class _NewHomeState extends State<NewHome> {
                             ));
                       }),
                       _quickActionButtonCard(
-                          "Activities", "assets/image-7.jpg", () {
-                            Navigator.push(
+                          "Mindfulness", "assets/image-5.jpg", () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Activities(),
+                              builder: (context) => StressQuestionsPage(),
                             ));
-                          }),
-                      _quickActionButtonCard(
-                          "Progress", "assets/image-8.jpg", () {
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(builder: (context)=>ShowProgress()));
-                          }),
+                      }),
+                      _quickActionButtonCard("Progress", "assets/image-8.jpg",
+                          () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShowProgress()));
+                      }),
                     ],
                   ),
                 ],
