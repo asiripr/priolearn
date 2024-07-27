@@ -12,6 +12,7 @@ import 'package:group_13_priolearn/authentication/welcome.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/mindfulness/stress_relief_page.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
+import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/account.dart';
 import 'package:group_13_priolearn/settings/help.dart';
 import 'package:group_13_priolearn/settings/profile.dart';
