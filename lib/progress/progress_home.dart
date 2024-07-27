@@ -35,46 +35,54 @@ class ProgressHomeState extends State<ProgressHome> {
     final DateTime now = DateTime.now(); // end date of the week
     final DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1)); // start date of the week
 
-    // get the relevant dataset
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('tasks')
-        .where('type', isEqualTo: 'Academic')
-        .where('date', isGreaterThanOrEqualTo: startOfWeek)
-        .where('date', isLessThanOrEqualTo: now)
-        .get();
+    try {
+      // get the relevant dataset
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('tasks')
+          .where('type', isEqualTo: 'Academic')
+          .where('date', isGreaterThanOrEqualTo: startOfWeek)
+          .where('date', isLessThanOrEqualTo: now)
+          .get();
 
-    final List<QueryDocumentSnapshot> documents = snapshot.docs;
-    print("**************************Fetched ${documents.length} documents");
-    Map<String, int> tempWeeklyData = {
-      'Sunday': 0,
-      'Monday': 1,
-      'Tuesday': 2,
-      'Wednesday': 3,
-      'Thursday': 4,
-      'Friday': 5,
-      'Saturday': 6,
-    };
+      final List<QueryDocumentSnapshot> documents = snapshot.docs;
 
-    for (var doc in documents) {
-      dynamic dateData = doc['date'];
-      DateTime date;
+      print("999999999999999999999999999999Fetched ${documents.length} documents"); // Debug statement
 
-      if (dateData is Timestamp) {
-        date = dateData.toDate();
-      } else if (dateData is String) {
-        date = DateTime.parse(dateData);
-      } else {
-        continue;
+      Map<String, int> tempWeeklyData = {
+        'Sunday': 0,
+        'Monday': 0,
+        'Tuesday': 0,
+        'Wednesday': 0,
+        'Thursday': 0,
+        'Friday': 0,
+        'Saturday': 0,
+      };
+
+      for (var doc in documents) {
+        dynamic dateData = doc['date'];
+        DateTime date;
+
+        if (dateData is Timestamp) {
+          date = dateData.toDate();
+        } else if (dateData is String) {
+          date = DateTime.parse(dateData);
+        } else {
+          continue;
+        }
+
+        String dayOfWeek = DateFormat('EEEE').format(date);
+        int duration = (doc['duration'] as num).toInt();
+        tempWeeklyData[dayOfWeek] = (tempWeeklyData[dayOfWeek] ?? 0) + duration;
       }
 
-      String dayOfWeek = DateFormat('EEEE').format(date);
-      int duration = (doc['duration'] as num).toInt();
-      tempWeeklyData[dayOfWeek] = (tempWeeklyData[dayOfWeek] ?? 0) + duration;
+      print("999999999999999999999999999999Processed weekly data: $tempWeeklyData"); // Debug statement
+
+      setState(() {
+        _weeklyData = tempWeeklyData;
+      });
+    } catch (e) {
+      print("9999999999999999999999999Error fetching weekly data: $e"); // Error handling
     }
-  print("*******************************Processed weekly data: $tempWeeklyData");
-    setState(() {
-      _weeklyData = tempWeeklyData;
-    });
   }
 
   //---------------------------------------------

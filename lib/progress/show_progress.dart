@@ -90,14 +90,9 @@ class _ShowProgressState extends State<ShowProgress> {
       appBar: AppBar(
         title: Text("Progress"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Center(
-            child: SizedBox(
-                height: 300,
-                child: MainBarGraph(
-                    weeklySummary: weeklySummary))),
-      ), // replace by my bar graph
-    );
+      body:MainBarGraph(
+                weeklySummary: weeklySummary),);
+       // replace by my bar graph
+    
   }
 }
