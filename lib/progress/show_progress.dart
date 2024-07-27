@@ -97,7 +97,17 @@ class _ShowProgressState extends State<ShowProgress> {
       appBar: AppBar(
         title: Text("Progress"),
       ),
-      body: MainBarGraph(weeklySummary: weeklySummary),
+      body: Column(
+        children: [
+          SizedBox(height: 40,),
+          SizedBox(
+            height: 400,
+            child: MainBarGraph(
+              weeklySummary: weeklySummary,
+            ),
+          ),
+        ],
+      ),
     );
     // replace by my bar graph
   }

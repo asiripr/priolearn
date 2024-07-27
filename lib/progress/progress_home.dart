@@ -46,7 +46,6 @@ class ProgressHomeState extends State<ProgressHome> {
 
       final List<QueryDocumentSnapshot> documents = snapshot.docs;
 
-      print("999999999999999999999999999999Fetched ${documents.length} documents"); // Debug statement
 
       Map<String, int> tempWeeklyData = {
         'Sunday': 0,
@@ -75,13 +74,11 @@ class ProgressHomeState extends State<ProgressHome> {
         tempWeeklyData[dayOfWeek] = (tempWeeklyData[dayOfWeek] ?? 0) + duration;
       }
 
-      print("999999999999999999999999999999Processed weekly data: $tempWeeklyData"); // Debug statement
-
       setState(() {
         _weeklyData = tempWeeklyData;
       });
     } catch (e) {
-      print("9999999999999999999999999Error fetching weekly data: $e"); // Error handling
+      print("Error fetching weekly data: $e"); // Error handling
     }
   }
 
