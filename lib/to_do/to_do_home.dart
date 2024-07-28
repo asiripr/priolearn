@@ -53,7 +53,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else {
                   var items = snapshot.data!.docs;
                   _totalMinutes = 0;
@@ -79,7 +79,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                     width: size.width,
                     child: Card(
                       margin: EdgeInsets.all(10),
-                    color: Colors.blue.shade100,
+                      color: Colors.blue.shade100,
                       child: Padding(
                         padding: EdgeInsets.all(16.0),
                         child: Column(
@@ -95,22 +95,34 @@ class _ToDoHomeState extends State<ToDoHome> {
                     ),
                   );
                 }
-              }
-            ),
+              }),
 
           // ------------------------------------------
           Expanded(
-              child: StreamBuilder<QuerySnapshot>(
+            child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return const CircularProgressIndicator();
               } else {
                 var items = snapshot.data!.docs;
+                var filteredItems = items.where((item){
+                  dynamic dateData = item['date'];
+                  DateTime date = DateTime.now();
+
+                  if (dateData is Timestamp) {
+                    date = dateData.toDate();                    
+                  } else if(dateData is String){
+                    date = DateTime.parse(dateData);                    
+                  }
+
+                  return isSameDay(date, _selectedDate);
+                }).toList();
+
                 return ListView.builder(
-                  itemCount: items.length,
+                  itemCount: filteredItems.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var item = items[index];
+                    var item = filteredItems[index];
                     dynamic dateData = item['date'];
                     DateTime date = DateTime.now();
 
@@ -119,11 +131,27 @@ class _ToDoHomeState extends State<ToDoHome> {
                     } else if (dateData is String) {
                       date = DateTime.parse(dateData);
                     }
-
+                    
                     return Card(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       child: ListTile(
-                        title: Text(item['title']),
+                        leading: Checkbox(
+                          value: item['isDone'],
+                          onChanged: (bool? value) async {
+                            await FirebaseFirestore.instance
+                                .collection('tasks')
+                                .doc(item.id)
+                                .update({'isDone': value});
+                          },
+                        ),
+                        title: Text(
+                          item['title'],
+                          style: TextStyle(
+                            decoration: item['isDone']
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
+                        ),
                         subtitle: Text(
                             '${DateFormat('yyyy-MM-dd').format(date)}\n${item['note']}'),
                         trailing: Row(
@@ -139,7 +167,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                                         ),
                                       ));
                                 },
-                                icon: Icon(Icons.edit)),
+                                icon: const Icon(Icons.edit)),
                             IconButton(
                                 onPressed: () async {
                                   await FirebaseFirestore.instance
@@ -147,7 +175,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                                       .doc(item.id)
                                       .delete();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      const SnackBar(
                                           content: Text(
                                               "Task deleted successfully.")));
                                 },

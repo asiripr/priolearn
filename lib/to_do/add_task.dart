@@ -26,7 +26,6 @@ class _AddTaskState extends State<AddTask> {
   List<String> dropDownValues = ["Academic", "Other"];
   String? dropDownValue = "Academic";
   @override
-  @override
   void initState() {
     super.initState();
     if (widget.task != null) {
@@ -179,7 +178,8 @@ class _AddTaskState extends State<AddTask> {
           'Etime': ETime,
           'duration': duration,
           'type': type,
-          'createdAt': Timestamp.now()
+          'createdAt': Timestamp.now(),
+          'isDone': false
         };
         if (widget.task != null) {
           await FirebaseFirestore.instance
@@ -203,4 +203,9 @@ class _AddTaskState extends State<AddTask> {
       );
     }
   }
+
+  Future<void> _toggleTaskCompletion(String taskId, bool isDone) async {
+  await FirebaseFirestore.instance.collection('tasks').doc(taskId).update({'isDone': isDone});
+}
+
 }
