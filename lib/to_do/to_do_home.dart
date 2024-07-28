@@ -79,7 +79,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                     width: size.width,
                     child: Card(
                       margin: EdgeInsets.all(10),
-                    color: Colors.blue.shade100,
+                      color: Colors.blue.shade100,
                       child: Padding(
                         padding: EdgeInsets.all(16.0),
                         child: Column(
@@ -95,8 +95,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                     ),
                   );
                 }
-              }
-            ),
+              }),
 
           // ------------------------------------------
           Expanded(
@@ -123,7 +122,23 @@ class _ToDoHomeState extends State<ToDoHome> {
                     return Card(
                       margin: EdgeInsets.all(10),
                       child: ListTile(
-                        title: Text(item['title']),
+                        leading: Checkbox(
+                          value: item['isDone'],
+                          onChanged: (bool? value) async {
+                            await FirebaseFirestore.instance
+                                .collection('tasks')
+                                .doc(item.id)
+                                .update({'isDone': value});
+                          },
+                        ),
+                        title: Text(
+                          item['title'],
+                          style: TextStyle(
+                            decoration: item['isDone']
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
+                        ),
                         subtitle: Text(
                             '${DateFormat('yyyy-MM-dd').format(date)}\n${item['note']}'),
                         trailing: Row(
