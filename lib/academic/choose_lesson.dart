@@ -6,7 +6,8 @@ import 'package:group_13_priolearn/utils/button_dynamic.dart';
 import 'package:group_13_priolearn/utils/button_void.dart';
 
 class ChooseLesson extends StatefulWidget {
-  const ChooseLesson({super.key});
+  final String subjectName;
+  const ChooseLesson({super.key, required this.subjectName});
 
   @override
   State<ChooseLesson> createState() => _ChooseLessonState();
@@ -25,6 +26,7 @@ class _ChooseLessonState extends State<ChooseLesson> {
         context,
         MaterialPageRoute(
           builder: (context) => Content(
+            subjectName: widget.subjectName,
             lessonId: selectedLesson!,
             competencyIndex: competencies.indexOf(selectedCompetency!),
           ),
@@ -39,6 +41,7 @@ class _ChooseLessonState extends State<ChooseLesson> {
         context,
         MaterialPageRoute(
           builder: (context) => LOs(
+            subjectName: widget.subjectName,
             lessonId: selectedLesson!,
             competencyIndex: competencies.indexOf(selectedCompetency!),
           ),
@@ -125,18 +128,18 @@ class _ChooseLessonState extends State<ChooseLesson> {
   }
 
   Future<void> fetchLessons() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('pure_maths').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(widget.subjectName).get();
     setState(() {
       lessons = querySnapshot.docs.map((doc) => doc.id).toList();
     });
   }
 
   Future<void> fetchCompetencies(String lessonId) async {
-    final lessonDoc = await FirebaseFirestore.instance.collection('pure_maths').doc(lessonId).get();
+    final lessonDoc = await FirebaseFirestore.instance.collection(widget.subjectName).doc(lessonId).get();
     List competenciesList = lessonDoc['competencies'];
     setState(() {
       competencies = List<String>.generate(competenciesList.length, (index) {
-        return "Competency - ${index + 1}";
+        return "${index + 1}";
       });
     });
   }

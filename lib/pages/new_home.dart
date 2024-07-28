@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
+import 'package:group_13_priolearn/activities/activities.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/progress/main_bar_graph.dart';
+import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/about.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
+import 'package:group_13_priolearn/settings/account.dart';
 import 'package:group_13_priolearn/to_do/to_do_home.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class NewHome extends StatefulWidget {
   const NewHome({super.key});
@@ -46,8 +52,21 @@ class _NewHomeState extends State<NewHome> {
     }
   }
 
+  // get the start of the week
+  DateTime get _startOfWeek {
+    final DateTime now = DateTime.now();
+    return now.subtract(Duration(days: now.weekday - 1));
+  }
+
+  //get the end of the week
+  DateTime get _endOfWeek {
+    final DateTime now = DateTime.now();
+    return now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
+  }
+
   @override
   Widget build(BuildContext context) {
+    int _totalMinutes;
     Size size = MediaQuery.of(context).size;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -91,7 +110,13 @@ class _NewHomeState extends State<NewHome> {
                         ));
                   }),
                   _drawyerItem("Terms and Conditions", () {}),
-                  _drawyerItem("App Settings", () {}),
+                  _drawyerItem("App Settings", () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Account(),
+                        ));
+                  }),
                 ],
               ),
             ),
@@ -121,29 +146,58 @@ class _NewHomeState extends State<NewHome> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            "In past 7 days, you have spent",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "8256 minutes",
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "on your academics",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // ------ display total learning time -------
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('tasks')
+                          .where('type', isEqualTo: 'Academic')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        } else {
+                          var items = snapshot.data!.docs;
+                          _totalMinutes = 0;
+                          for (var item in items) {
+                            dynamic dateData = item['date'];
+                            DateTime date = DateTime.now();
+
+                            if (dateData is Timestamp) {
+                              date = dateData.toDate();
+                            } else if (dateData is String) {
+                              date = DateTime.parse(dateData);
+                            }
+
+                            if (date.isAfter(_startOfWeek) &&
+                                date.isBefore(_endOfWeek)) {
+                              _totalMinutes += item['duration'] as int;
+                            }
+                          }
+                          return Container(
+                            width: size.width,
+                            child: Card(
+                              margin: EdgeInsets.all(10),
+                              color: Colors.blue.shade100,
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "In past 7 days, you have spent\n${_totalMinutes} mins\non your academics",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      }),
+
+                  // ------------------------------------------,
                   SizedBox(height: 20),
 
                   // great works card list
@@ -159,8 +213,7 @@ class _NewHomeState extends State<NewHome> {
                           Text("My Great Works",
                               style: TextStyle(fontSize: 20)),
                           TextButton(
-                            onPressed: () {
-                            },
+                            onPressed: () {},
                             child: Text("See All"),
                           ),
                         ],
@@ -189,6 +242,22 @@ class _NewHomeState extends State<NewHome> {
                   ),
                   Wrap(
                     children: [
+                      _quickActionButtonCard("To-Do", "assets/image-11.jpeg",
+                          () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ToDoHome(),
+                            ));
+                      }),
+                      _quickActionButtonCard("Academic", "assets/image-6.jpg",
+                          () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectSubject(),
+                            ));
+                      }),
                       _quickActionButtonCard(
                           "Mindfulness", "assets/image-5.jpg", () {
                         Navigator.push(
@@ -197,18 +266,13 @@ class _NewHomeState extends State<NewHome> {
                               builder: (context) => StressQuestionsPage(),
                             ));
                       }),
-                      _quickActionButtonCard("Academic", "assets/image-6.jpg",
+                      _quickActionButtonCard("Progress", "assets/image-8.jpg",
                           () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ChooseLesson(),
-                            ));
+                                builder: (context) => ShowProgress()));
                       }),
-                      _quickActionButtonCard(
-                          "Activities", "assets/image-7.jpg", () {}),
-                      _quickActionButtonCard(
-                          "Progress", "assets/image-8.jpg", () {}),
                     ],
                   ),
                 ],

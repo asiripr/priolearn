@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class LOs extends StatefulWidget {
+  final String subjectName;
   final String lessonId;
   final int competencyIndex;
-  const LOs({super.key, required this.lessonId, required this.competencyIndex});
+  const LOs({super.key, required this.lessonId, required this.competencyIndex, required this.subjectName});
 
   @override
   State<LOs> createState() => _LOsState();
@@ -23,7 +24,7 @@ class _LOsState extends State<LOs> {
   Future<void> fetchLearningOutcomes() async {
     try {
       final lessonDoc = await FirebaseFirestore.instance
-          .collection('pure_maths')
+          .collection(widget.subjectName)
           .doc(widget.lessonId)
           .get();
       List learningOutcomesList = lessonDoc['competencies'];
@@ -84,7 +85,7 @@ class LearningOutcomeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Outcome ${index + 1}",
+              "${index + 1}",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
