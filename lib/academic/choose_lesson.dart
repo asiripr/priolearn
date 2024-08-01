@@ -50,6 +50,20 @@ class _ChooseLessonState extends State<ChooseLesson> {
     }
   }
 
+  Future<void> _saveToDoneList() async{
+    if (selectedLesson!=null && selectedCompetency != null) {
+      await FirebaseFirestore.instance.collection('done-list').add({
+        'subjectName':widget.subjectName,
+        'lesson':selectedLesson,
+        'competency':selectedCompetency
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Saved to done list'))
+      );
+    }
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -121,6 +135,21 @@ class _ChooseLessonState extends State<ChooseLesson> {
             myButtonVoid(context, "Content", _navigateToContent),
             const SizedBox(height: 20),
             myButtonVoid(context, "Learning Outcomes", _navigateToLOs),
+            // ---------- done button ----------
+            const Spacer(),
+            ElevatedButton.icon(
+              onPressed: _saveToDoneList, 
+              label: const Text("Done"),
+              icon: const Icon(Icons.check, color: Colors.white,),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)
+                )
+              ),
+            )
+            // ---------------------------------
           ],
         ),
       ),
