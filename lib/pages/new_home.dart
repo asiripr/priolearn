@@ -4,6 +4,7 @@ import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/activities/activities.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/pages/great_works.dart';
 import 'package:group_13_priolearn/progress/main_bar_graph.dart';
 import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/about.dart';
@@ -214,7 +215,11 @@ class _NewHomeState extends State<NewHome> {
                           Text("My Great Works",
                               style: TextStyle(fontSize: 20)),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(builder: (context) => GreatWorks(),));
+                            },
                             child: Text("See All"),
                           ),
                         ],
