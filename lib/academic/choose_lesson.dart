@@ -52,10 +52,12 @@ class _ChooseLessonState extends State<ChooseLesson> {
 
   Future<void> _saveToDoneList() async{
     if (selectedLesson!=null && selectedCompetency != null) {
-      await FirebaseFirestore.instance.collection('done-list').add({
+      await FirebaseFirestore.instance.collection('done_list').add({
         'subjectName':widget.subjectName,
+        'taskType':'lesson',
         'lesson':selectedLesson,
-        'competency':selectedCompetency
+        'competency':selectedCompetency,
+        'createdAt': Timestamp.now(),
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Saved to done list'))
