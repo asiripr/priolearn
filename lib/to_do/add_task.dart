@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
+import 'package:group_13_priolearn/to_do/to_do.dart';
 import 'package:group_13_priolearn/to_do/to_do_calendar.dart';
 import 'package:group_13_priolearn/utils/button_dynamic.dart';
 import 'package:group_13_priolearn/utils/button_void.dart';
@@ -194,8 +195,8 @@ class _AddTaskState extends State<AddTask> {
             const SnackBar(content: Text('Task created successfully')),
           );
         }
-        Navigator.pop(
-            context, MaterialPageRoute(builder: (context) => ToDoHome()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ToDo()));
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

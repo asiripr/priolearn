@@ -11,6 +11,7 @@ import 'package:group_13_priolearn/authentication/login.dart';
 import 'package:group_13_priolearn/authentication/welcome.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/mindfulness/stress_relief_page.dart';
+import 'package:group_13_priolearn/pages/great_works.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
 import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/account.dart';
@@ -18,6 +19,7 @@ import 'package:group_13_priolearn/settings/help.dart';
 import 'package:group_13_priolearn/settings/profile.dart';
 import 'package:group_13_priolearn/splash.dart';
 import 'package:group_13_priolearn/to_do/add_task.dart';
+import 'package:group_13_priolearn/to_do/to_do.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
