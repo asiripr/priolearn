@@ -9,6 +9,7 @@ import 'package:group_13_priolearn/progress/show_progress.dart';
 import 'package:group_13_priolearn/settings/about.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
 import 'package:group_13_priolearn/settings/account.dart';
+import 'package:group_13_priolearn/to_do/to_do.dart';
 import 'package:group_13_priolearn/to_do/to_do_calendar.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
@@ -247,7 +248,7 @@ class _NewHomeState extends State<NewHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ToDoHome(),
+                              builder: (context) => ToDo(),
                             ));
                       }),
                       _quickActionButtonCard("Academic", "assets/image-6.jpg",
