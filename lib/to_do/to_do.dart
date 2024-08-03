@@ -108,6 +108,8 @@ class _ToDoState extends State<ToDo> {
                   return SizedBox(
                     height: 200, // Set the height as needed
                     child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: filteredItems.length,
                       itemBuilder: (BuildContext context, int index) {
                         var item = filteredItems[index];
@@ -173,6 +175,8 @@ class _ToDoState extends State<ToDo> {
                   return SizedBox(
                     height: 200, // Set the height as needed
                     child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: filteredItems.length,
                       itemBuilder: (BuildContext context, int index) {
                         var item = filteredItems[index];
@@ -240,6 +244,8 @@ class _ToDoState extends State<ToDo> {
                   return SizedBox(
                     height: 200, // Set the height as needed
                     child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: filteredItems.length,
                       itemBuilder: (BuildContext context, int index) {
                         var item = filteredItems[index];

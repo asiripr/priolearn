@@ -17,6 +17,21 @@ class _ToDoHomeState extends State<ToDoHome> {
 
   int _totalMinutes = 0;
 
+  // Future<void> _saveToDoneList() async{
+  //   if (selectedLesson!=null && selectedCompetency != null) {
+  //     await FirebaseFirestore.instance.collection('done_list').add({
+  //       'subjectName':widget.subjectName,
+  //       'taskType':'lesson',
+  //       'lesson':selectedLesson,
+  //       'competency':selectedCompetency,
+  //       'createdAt': Timestamp.now(),
+  //     });
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Saved to done list'))
+  //     );
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
