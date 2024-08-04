@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/to_do/add_task.dart';
+import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -12,6 +13,16 @@ class ToDoHome extends StatefulWidget {
 }
 
 class _ToDoHomeState extends State<ToDoHome> {
+int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
   DateTime _selectedDate = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.week;
 
@@ -215,27 +226,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                 ));
           },
           child: const Icon(Icons.add)),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Courses',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
-        onTap: (index) {
-          // Handle navigation to different screens
-        },
-      ),
+      bottomNavigationBar: MyBottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/progress/main_bar_graph.dart';
+import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 import 'package:intl/intl.dart';
 
 class ShowProgress extends StatefulWidget {
@@ -11,6 +12,15 @@ class ShowProgress extends StatefulWidget {
 }
 
 class _ShowProgressState extends State<ShowProgress> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
   List<double> weeklySummary = [
     0,
     0,
@@ -108,6 +118,9 @@ class _ShowProgressState extends State<ShowProgress> {
           ),
         ],
       ),
+    bottomNavigationBar: MyBottomNavBar(
+      currentIndex: _selectedIndex, 
+      onTap: _onItemTapped),
     );
     // replace by my bar graph
   }

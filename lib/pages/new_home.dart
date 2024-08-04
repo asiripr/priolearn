@@ -13,6 +13,7 @@ import 'package:group_13_priolearn/pages/contact.dart';
 import 'package:group_13_priolearn/settings/account.dart';
 import 'package:group_13_priolearn/to_do/to_do.dart';
 import 'package:group_13_priolearn/to_do/to_do_calendar.dart';
+import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
@@ -29,26 +30,16 @@ class NewHome extends StatefulWidget {
 // create valribles for save up to now days and achievements
 
 class _NewHomeState extends State<NewHome> {
-  // declare a variable for bottom app bar selected item
-  int _selectedItem = 0;
-  // declare a function for bottom app bar item selection
+  int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedItem = index;
-    });
-    switch (index) {
-      case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => NewHome()));
-        break;
-      case 1:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => StressQuestionsPage()));
-        break;
-      default:
-        index = 1;
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
     }
   }
+  
 
   // get the start of the week
   DateTime get _startOfWeek {
@@ -90,9 +81,13 @@ class _NewHomeState extends State<NewHome> {
                           builder: (context) => const ToDoHome(),
                         ));
                   }),
-                  _drawyerItem("Reduce Stress", () {}),
-                  _drawyerItem("Make a Plan", () {}),
-                  _drawyerItem("Invite Friends", () {}),
+                  _drawyerItem("Reduce Stress", () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MindfulnessScreen(),
+                        ));
+                  }),
                   _drawyerItem("About App", () {
                     Navigator.push(
                         context,
@@ -109,7 +104,7 @@ class _NewHomeState extends State<NewHome> {
                   }),
                   _drawyerItem("Terms and Conditions", () {}),
                   _drawyerItem("App Settings", () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Account(),
@@ -119,25 +114,7 @@ class _NewHomeState extends State<NewHome> {
               ),
             ),
           ),
-          bottomNavigationBar: MoltenBottomNavigationBar(
-            selectedIndex: _selectedItem,
-            onTabChange: (clickedIndex) {
-              setState(() {
-                _selectedItem = clickedIndex;
-              });
-            },
-            tabs: [
-              MoltenTab(
-                icon: Icon(Icons.home),
-              ),
-              MoltenTab(
-                icon: Icon(Icons.menu_book_sharp),
-              ),
-              MoltenTab(
-                icon: Icon(Icons.self_improvement),
-              ),
-            ],
-          ),
+          
           // Adding 2 images into the screen
           body: SingleChildScrollView(
             child: Padding(
@@ -296,6 +273,8 @@ class _NewHomeState extends State<NewHome> {
                     style: TextStyle(fontSize: 20),
                   ),
                   Wrap(
+                    spacing: 35,
+                    runSpacing: 35,
                     children: [
                       _quickActionButtonCard("To-Do", "assets/image-11.jpeg",
                           () {
@@ -333,8 +312,10 @@ class _NewHomeState extends State<NewHome> {
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        bottomNavigationBar:MyBottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped,),
+
+    ));
   }
 }
 

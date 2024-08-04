@@ -1,55 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
+import 'package:group_13_priolearn/mindfulness/mindfulness_screen.dart';
+import 'package:group_13_priolearn/pages/new_home.dart';
+import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 import 'package:group_13_priolearn/utils/button_white.dart';
 
-class SelectSubject extends StatelessWidget {
+class SelectSubject extends StatefulWidget {
+  const SelectSubject({super.key});
+
+  @override
+  State<SelectSubject> createState() => _SelectSubjectState();
+}
+
+class _SelectSubjectState extends State<SelectSubject> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        title: const Text(
-          'My Academics',
-          style: TextStyle(
-            color: Color.fromARGB(255, 7, 4, 227),
-            fontSize: 32,
-          ),
-        ),
-      ),
+      appBar: AppBar(title: Text("My Academics"),),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Card(
-                elevation: 10,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'You have completed 38% from whole journey...',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 7, 4, 227),
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      LinearProgressIndicator(
-                        value: 0.38,
-                        backgroundColor:
-                            const Color.fromARGB(255, 238, 238, 238),
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Color.fromARGB(255, 7, 4, 227)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
               const Text(
                 'Select a subject for save details...',
                 style: TextStyle(
@@ -69,30 +51,12 @@ class SelectSubject extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 7, 4, 227),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book, color: Colors.white),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.white),
-            label: '',
-          ),
-        ],
-        currentIndex: 0, // set the initial selected index
-        onTap: (int index) {
-          // handle navigation logic here
-        },
+      bottomNavigationBar: MyBottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
-
   _navigateToChooseLesson(BuildContext context, String subjectName) {
     Navigator.push(
       context,
