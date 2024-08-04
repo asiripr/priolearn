@@ -1,4 +1,9 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
+import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 
 class MindfulnessScreen extends StatefulWidget {
   @override
@@ -9,9 +14,40 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+  String _quote = "";
+  String _author = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchRandomQuote();
+  }
+
+  Future<void> _fetchRandomQuote() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('quotes').get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var randomIndex = Random().nextInt(querySnapshot.docs.length);
+        var randomDoc = querySnapshot.docs[randomIndex];
+        setState(() {
+          _quote = randomDoc['quote'];
+          _author = randomDoc['author'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _quote =
+            "Keep your face always toward the sunshine, and shadows will fall behind you.";
+        _author = "Walt Whitma";
+      });
+    }
   }
 
   @override
@@ -31,69 +67,70 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Today's Quote",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                "Keep your face always toward the sunshine, and shadows will fall behind you.\n\n-Walt Whitman",
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 20),
-            OptionButton(
-              icon: Icons.sentiment_very_satisfied,
-              text: 'Make me happy',
-              onPressed: () {
-                // Add your onPressed functionality here
-              },
-            ),
-            OptionButton(
-              icon: Icons.star,
-              text: 'Make me proud',
-              onPressed: () {
-                // Add your onPressed functionality here
-              },
-            ),
-            OptionButton(
-              icon: Icons.emoji_emotions,
-              text: 'Check my mood',
-              onPressed: () {
-                // Add your onPressed functionality here
-              },
+            Column(
+              children: [
+                Text(
+                  "Today's Quote",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        _quote,
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 10,),
+                      Text(
+                        _author,
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 25,),
+                OptionButton(
+                  icon: Icons.sentiment_very_satisfied,
+                  text: 'Make me happy',
+                  onPressed: () {
+                    // Add your onPressed functionality here
+                  },
+                ),
+                OptionButton(
+                  icon: Icons.star,
+                  text: 'Make me proud',
+                  onPressed: () {
+                    // Add your onPressed functionality here
+                  },
+                ),
+                OptionButton(
+                  icon: Icons.emoji_emotions,
+                  text: 'Check my mood',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StressQuestionsPage()));
+                  },
+                ),
+              ],
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
-          ),
-        ],
+      bottomNavigationBar: MyBottomNavBar(
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xFF4169E1),
-        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
     );
