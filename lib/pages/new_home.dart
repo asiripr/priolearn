@@ -13,8 +13,10 @@ import 'package:group_13_priolearn/settings/account.dart';
 import 'package:group_13_priolearn/to_do/to_do.dart';
 import 'package:group_13_priolearn/to_do/to_do_calendar.dart';
 import 'package:group_13_priolearn/utils/colors.dart';
+import 'package:intl/intl.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 class NewHome extends StatefulWidget {
   const NewHome({super.key});
@@ -24,13 +26,6 @@ class NewHome extends StatefulWidget {
 }
 
 // create valribles for save up to now days and achievements
-double myProgress = 0.3;
-List<String> achievements = [
-  "I've completed Physics 2013 3rd",
-  "I've completed Physics 2013 3rd essay question",
-  "I've completed Physics 2013 3rd essay question",
-  "I've completed Physics 2013 3rd essay question"
-]; // in here I've assigned some dummy data
 
 class _NewHomeState extends State<NewHome> {
   // declare a variable for bottom app bar selected item
@@ -45,12 +40,12 @@ class _NewHomeState extends State<NewHome> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => NewHome()));
         break;
-      case 2:
+      case 1:
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => StressQuestionsPage()));
         break;
       default:
-        index = 0;
+        index = 1;
     }
   }
 
@@ -217,26 +212,79 @@ class _NewHomeState extends State<NewHome> {
                           TextButton(
                             onPressed: () {
                               Navigator.push(
-                                context, 
-                                MaterialPageRoute(builder: (context) => GreatWorks(),));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => GreatWorks(),
+                                  ));
                             },
                             child: Text("See All"),
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount:
-                            achievements.length > 3 ? 3 : achievements.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: _greatWorkCard(achievements[index]),
+                      // -------------------------------
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('done_list')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          if (snapshot.hasError) {
+                            return const Center(
+                                child: Text('Error loading data'));
+                          }
+                          if (!snapshot.hasData ||
+                              snapshot.data!.docs.isEmpty) {
+                            return const Center(
+                                child: Text('No data available'));
+                          }
+
+                          final List<DocumentSnapshot> documents =
+                              snapshot.data!.docs;
+
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                                documents.length > 3 ? 3 : documents.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final data = documents[index].data()
+                                  as Map<String, dynamic>;
+                              final String competency =
+                                  data['competency'] ?? '';
+                              final Timestamp createdAt =
+                                  data['createdAt'] ?? Timestamp.now();
+                              final String lesson = data['lesson'] ?? '';
+                              final String subjectName =
+                                  data['subjectName'] ?? '';
+                              final String taskType = data['taskType'] ?? '';
+
+                              final formattedDate = DateFormat('MMMM d, y')
+                                  .format(createdAt.toDate());
+                              final String sentence =
+                                  'I completed a $taskType on "$lesson" in $subjectName, marked with competency level $competency, on $formattedDate.';
+
+                              return Card(
+                                color: Colors.lightBlue.shade100,
+                                margin: const EdgeInsets.all(8),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Text(
+                                    sentence,
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Colors.black),
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       ),
+
+                      // -------------------------------
                     ],
                   ),
                   SizedBox(
