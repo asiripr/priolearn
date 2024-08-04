@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
 
 class MindfulnessScreen extends StatefulWidget {
   @override
@@ -7,6 +11,35 @@ class MindfulnessScreen extends StatefulWidget {
 
 class _MindfulnessScreenState extends State<MindfulnessScreen> {
   int _selectedIndex = 0;
+  String _quote = "";
+  String _author = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchRandomQuote();
+  }
+
+  Future<void> _fetchRandomQuote() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('quotes').get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var randomIndex = Random().nextInt(querySnapshot.docs.length);
+        var randomDoc = querySnapshot.docs[randomIndex];
+        setState(() {
+          _quote = randomDoc['quote'];
+          _author = randomDoc['author'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _quote =
+            "Keep your face always toward the sunshine, and shadows will fall behind you.";
+        _author = "Walt Whitma";
+      });
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -45,13 +78,22 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Text(
-                "Keep your face always toward the sunshine, and shadows will fall behind you.\n\n-Walt Whitman",
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    _quote,
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    _author,
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 20),
             OptionButton(
               icon: Icons.sentiment_very_satisfied,
               text: 'Make me happy',
@@ -70,7 +112,10 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
               icon: Icons.emoji_emotions,
               text: 'Check my mood',
               onPressed: () {
-                // Add your onPressed functionality here
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StressQuestionsPage()));
               },
             ),
           ],

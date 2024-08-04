@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/choose_lesson.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/activities/activities.dart';
+import 'package:group_13_priolearn/mindfulness/mindfulness_screen.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/pages/great_works.dart';
 import 'package:group_13_priolearn/progress/main_bar_graph.dart';
@@ -317,7 +318,7 @@ class _NewHomeState extends State<NewHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StressQuestionsPage(),
+                              builder: (context) => MindfulnessScreen(),
                             ));
                       }),
                       _quickActionButtonCard("Progress", "assets/image-8.jpg",
