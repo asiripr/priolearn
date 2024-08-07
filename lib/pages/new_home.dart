@@ -276,7 +276,7 @@ class _NewHomeState extends State<NewHome> {
                     spacing: 35,
                     runSpacing: 35,
                     children: [
-                      _quickActionButtonCard("To-Do", "assets/image-11.jpeg",
+                      _quickActionButtonCard("To-Do", "assets/image-50.png",
                           () {
                         Navigator.push(
                             context,
@@ -284,7 +284,7 @@ class _NewHomeState extends State<NewHome> {
                               builder: (context) => ToDo(),
                             ));
                       }),
-                      _quickActionButtonCard("Academic", "assets/image-6.jpg",
+                      _quickActionButtonCard("Academic", "assets/image-51.png",
                           () {
                         Navigator.push(
                             context,
@@ -293,14 +293,14 @@ class _NewHomeState extends State<NewHome> {
                             ));
                       }),
                       _quickActionButtonCard(
-                          "Mindfulness", "assets/image-5.jpg", () {
+                          "Mindfulness", "assets/image-52.png", () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => MindfulnessScreen(),
                             ));
                       }),
-                      _quickActionButtonCard("Progress", "assets/image-8.jpg",
+                      _quickActionButtonCard("Progress", "assets/image-53.png",
                           () {
                         Navigator.push(
                             context,
