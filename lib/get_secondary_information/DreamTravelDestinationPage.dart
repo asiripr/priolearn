@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/get_secondary_information/FavoriteMovieTVShowPage.dart';
+import 'package:group_13_priolearn/get_secondary_information/user_data.dart';
+import 'package:provider/provider.dart';
 
 class DreamTravelDestinationPage extends StatefulWidget {
   @override
@@ -33,9 +36,11 @@ class _DreamTravelDestinationPageState
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle button press
+                Provider.of<UserData>(context, listen: false).updateTvshow(_controller.text);
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context)=>FavoriteMovieTVShowPage()));                
               },
-              child: Text('Next'),
+              child: const Text('Next'),
             ),
             Spacer(),
             Row(
