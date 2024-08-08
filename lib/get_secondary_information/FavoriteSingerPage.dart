@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/get_secondary_information/DreamTravelDestinationPage.dart';
+import 'package:group_13_priolearn/get_secondary_information/user_data.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteSingerPage extends StatefulWidget {
   @override
@@ -7,6 +10,7 @@ class FavoriteSingerPage extends StatefulWidget {
 
 class _FavoriteSingerPageState extends State<FavoriteSingerPage> {
   final TextEditingController _controller = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class _FavoriteSingerPageState extends State<FavoriteSingerPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Do you have a favorite singer?\nIf so, who?',
+              'Who is your\n favorite singer?',
               style: TextStyle(fontSize: 24),
               textAlign: TextAlign.center,
             ),
@@ -29,36 +33,18 @@ class _FavoriteSingerPageState extends State<FavoriteSingerPage> {
               ),
             ),
             SizedBox(height: 20),
+            LinearProgressIndicator(value: 0.33),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle button press
+                Provider.of<UserData>(context, listen: false).updateSinger(_controller.text);
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context)=>DreamTravelDestinationPage()));                
               },
-              child: Text('Next'),
+              child: const Text('Next'),
             ),
             Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.home),
-                  onPressed: () {
-                    // Handle home button press
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.book),
-                  onPressed: () {
-                    // Handle book button press
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.person),
-                  onPressed: () {
-                    // Handle person button press
-                  },
-                ),
-              ],
-            ),
+            // bottom app bar
             SizedBox(height: 16),
           ],
         ),
