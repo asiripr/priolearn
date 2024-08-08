@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/get_secondary_information/FoodPage.dart';
+import 'package:group_13_priolearn/get_secondary_information/user_data.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteMovieTVShowPage extends StatefulWidget {
   @override
@@ -32,9 +35,11 @@ class _FavoriteMovieTVShowPageState extends State<FavoriteMovieTVShowPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle button press
+                Provider.of<UserData>(context, listen: false).updateSinger(_controller.text);
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context)=>Foodpage()));                
               },
-              child: Text('Next'),
+              child: const Text('Next'),
             ),
             Spacer(),
             Row(
