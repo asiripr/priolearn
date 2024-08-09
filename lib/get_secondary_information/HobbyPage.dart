@@ -23,7 +23,7 @@ class _HobbyState extends State<Hobby> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Who is your\n favorite singer?',
+              'What is your\n favorite hobby?',
               style: TextStyle(fontSize: 24),
               textAlign: TextAlign.center,
             ),
@@ -35,7 +35,7 @@ class _HobbyState extends State<Hobby> {
               ),
             ),
             SizedBox(height: 20),
-            LinearProgressIndicator(value: 0.33),
+            LinearProgressIndicator(value: 0.1428),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/ComMathsContentPage.dart';
 import 'package:group_13_priolearn/academic/ComMathsPage.dart';
+import 'package:group_13_priolearn/get_secondary_information/HobbyPage.dart';
 import 'package:group_13_priolearn/pages/contact.dart';
 import 'package:group_13_priolearn/academic/select_subject.dart';
 import 'package:group_13_priolearn/extra_pages/Streams.dart';
@@ -37,6 +38,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: ((Splash())));
+    return MaterialApp(debugShowCheckedModeBanner: false, home: ((Hobby())));
   }
 }

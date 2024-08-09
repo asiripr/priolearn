@@ -34,6 +34,8 @@ class _DreamTravelDestinationPageState
               ),
             ),
             SizedBox(height: 20),
+            LinearProgressIndicator(value: 0.5714),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Provider.of<UserData>(context, listen: false).updateTvshow(_controller.text);

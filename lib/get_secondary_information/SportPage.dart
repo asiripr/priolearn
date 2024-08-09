@@ -21,7 +21,7 @@ class _SportpageState extends State<Sportpage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Who is your\n favorite sport?',
+              'What is your\n favorite sport?',
               style: TextStyle(fontSize: 24),
               textAlign: TextAlign.center,
             ),
@@ -33,7 +33,7 @@ class _SportpageState extends State<Sportpage> {
               ),
             ),
             SizedBox(height: 20),
-            LinearProgressIndicator(value: 0.33),
+            LinearProgressIndicator(value: 0.2857),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

@@ -33,7 +33,7 @@ class _FavoriteSingerPageState extends State<FavoriteSingerPage> {
               ),
             ),
             SizedBox(height: 20),
-            LinearProgressIndicator(value: 0.33),
+            LinearProgressIndicator(value: 0.4285),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

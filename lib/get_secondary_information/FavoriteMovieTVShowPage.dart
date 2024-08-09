@@ -33,6 +33,8 @@ class _FavoriteMovieTVShowPageState extends State<FavoriteMovieTVShowPage> {
               ),
             ),
             SizedBox(height: 20),
+            LinearProgressIndicator(value: 0.7142),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Provider.of<UserData>(context, listen: false).updateSinger(_controller.text);
