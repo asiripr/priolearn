@@ -31,16 +31,19 @@ class _QuestionPageState extends State<QuestionPage> {
       body: Column(
         children: [
           Text(question.question),
-          SizedBox(height: 30,),
+          const SizedBox(height: 30,),
           TextField(
             controller: textController,
             onChanged: (value){
               questionModel.updateAnswer(questionModel.currentPage, value);
             },
           ),
+          const SizedBox(height: 60,),
           LinearProgressIndicator(
+            color: Colors.blue,
             value: (questionModel.currentPage+1/questionModel.questions.length),
           ),
+          const SizedBox(height: 30,),
           ElevatedButton(
             onPressed:(){
               if (questionModel.currentPage < questionModel.questions.length) {
