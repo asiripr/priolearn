@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/get_secondary_information/summary_page.dart';
+import 'package:group_13_priolearn/get_favourations/summary_page.dart';
 import 'package:group_13_priolearn/models/question_model.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class _QuestionPageState extends State<QuestionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Question ${questionModel.currentPage+1}'),
+        title: Text('Question ${questionModel.currentPage + 1}'),
       ),
       body: Column(
         children: [
@@ -34,24 +34,28 @@ class _QuestionPageState extends State<QuestionPage> {
           const SizedBox(height: 30,),
           TextField(
             controller: textController,
-            onChanged: (value){
+            onChanged: (value) {
               questionModel.updateAnswer(questionModel.currentPage, value);
             },
           ),
           const SizedBox(height: 60,),
           LinearProgressIndicator(
             color: Colors.blue,
-            value: (questionModel.currentPage+1/questionModel.questions.length),
+            value: (questionModel.currentPage + 1) / questionModel.questions.length,
           ),
           const SizedBox(height: 30,),
           ElevatedButton(
-            onPressed:(){
-              if (questionModel.currentPage < questionModel.questions.length) {
+            onPressed: () {
+              if (questionModel.currentPage < questionModel.questions.length - 1) {
                 questionModel.nextPage();
                 textController.clear();
               } else {
-                Navigator.push(context, 
-                MaterialPageRoute(builder: (context)=>SummaryPage()));
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => SummaryPage(questionModel: questionModel)
+                  )
+                );
               }
             }, 
             child: Text("Next")
