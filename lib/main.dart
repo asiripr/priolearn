@@ -20,6 +20,7 @@ import 'package:group_13_priolearn/settings/profile.dart';
 import 'package:group_13_priolearn/splash.dart';
 import 'package:group_13_priolearn/to_do/add_task.dart';
 import 'package:group_13_priolearn/to_do/to_do.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

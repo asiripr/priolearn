@@ -2,8 +2,11 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/get_favourations/question_page.dart';
 import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
+import 'package:group_13_priolearn/models/question_model.dart';
 import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class MindfulnessScreen extends StatefulWidget {
   @override
@@ -20,6 +23,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
       });
     }
   }
+
   String _quote = "";
   String _author = "";
 
@@ -90,7 +94,9 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         _author,
                         style: TextStyle(fontSize: 16),
@@ -99,12 +105,22 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 25,),
+                const SizedBox(
+                  height: 25,
+                ),
                 OptionButton(
                   icon: Icons.sentiment_very_satisfied,
                   text: 'Make me happy',
                   onPressed: () {
-                    // Add your onPressed functionality here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => QuestionModel(),
+                          child: QuestionPage(),
+                        ),
+                      ),
+                    );
                   },
                 ),
                 OptionButton(
