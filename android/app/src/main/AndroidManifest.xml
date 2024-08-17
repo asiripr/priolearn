@@ -2,7 +2,7 @@
     <application
         android:label="group_13_priolearn"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_priolearn">
         <activity
             android:name=".MainActivity"
             android:exported="true"
