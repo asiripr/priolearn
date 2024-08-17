@@ -15,6 +15,7 @@ dependencies:
   fl_chart: ^0.68.0
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   image_picker: ^1.1.2
   intl: ^0.19.0
   io: ^1.0.4
@@ -32,3 +33,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/appstore.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/ic_playstorenew.png"
+  min_sdk_android: 21
