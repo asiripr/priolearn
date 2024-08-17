@@ -21,6 +21,7 @@ class _ShowProgressState extends State<ShowProgress> {
       });
     }
   }
+
   List<double> weeklySummary = [
     0,
     0,
@@ -37,13 +38,11 @@ class _ShowProgressState extends State<ShowProgress> {
     _fetchWeeklyData();
   }
 
-  //create a method for fetch weekly data--------
   Future<void> _fetchWeeklyData() async {
     final DateTime now = DateTime.now();
     DateTime startOfWeek;
     DateTime endOfWeek;
 
-    // If today is Sunday (start of a new week), get the previous week's data
     if (now.weekday == DateTime.sunday) {
       endOfWeek = now.subtract(Duration(days: 1));
       startOfWeek = endOfWeek.subtract(Duration(days: 6));
@@ -52,7 +51,6 @@ class _ShowProgressState extends State<ShowProgress> {
       startOfWeek = endOfWeek.subtract(Duration(days: 6));
     }
 
-    // get the relevant dataset
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('tasks')
         .where('type', isEqualTo: 'Academic')
@@ -102,26 +100,44 @@ class _ShowProgressState extends State<ShowProgress> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Progress"),
+        title: const Text(
+          "Progress",
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+        backgroundColor: Color(0xFF4169E1),
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 40,),
-          SizedBox(
-            height: 400,
-            child: MainBarGraph(
-              weeklySummary: weeklySummary,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 40),
+            Text(
+              'Your Weekly Progress',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Expanded(
+              child: MainBarGraph(
+                weeklySummary: weeklySummary,
+              ),
+            ),
+          ],
+        ),
       ),
-    bottomNavigationBar: MyBottomNavBar(
-      currentIndex: _selectedIndex, 
-      onTap: _onItemTapped),
+      bottomNavigationBar: MyBottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
-    // replace by my bar graph
   }
 }

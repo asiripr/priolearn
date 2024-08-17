@@ -27,8 +27,6 @@ class NewHome extends StatefulWidget {
   State<NewHome> createState() => _NewHomeState();
 }
 
-// create valribles for save up to now days and achievements
-
 class _NewHomeState extends State<NewHome> {
   int _selectedIndex = 0;
 
@@ -39,7 +37,6 @@ class _NewHomeState extends State<NewHome> {
       });
     }
   }
-  
 
   // get the start of the week
   DateTime get _startOfWeek {
@@ -60,174 +57,173 @@ class _NewHomeState extends State<NewHome> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          appBar: AppBar(
-            title: const Center(
-                child: Text(
+        appBar: AppBar(
+          title: const Center(
+            child: Text(
               "PrioLearn",
               style: TextStyle(
-                color: Colors.blue,
-              ),
-            )),
-          ),
-          endDrawer: Drawer(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView(
-                children: [
-                  _drawyerItem("To Do List", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ToDoHome(),
-                        ));
-                  }),
-                  _drawyerItem("Reduce Stress", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MindfulnessScreen(),
-                        ));
-                  }),
-                  _drawyerItem("About App", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const About(),
-                        ));
-                  }),
-                  _drawyerItem("Contact Us", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Contact(),
-                        ));
-                  }),
-                  _drawyerItem("Terms and Conditions", () {}),
-                  _drawyerItem("App Settings", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Account(),
-                        ));
-                  }),
-                ],
+                color: Colors.white,
               ),
             ),
           ),
-          
-          // Adding 2 images into the screen
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  // ------ display total learning time -------
-                  StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('tasks')
-                          .where('type', isEqualTo: 'Academic')
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return CircularProgressIndicator();
-                        } else {
-                          var items = snapshot.data!.docs;
-                          _totalMinutes = 0;
-                          for (var item in items) {
-                            dynamic dateData = item['date'];
-                            DateTime date = DateTime.now();
+          backgroundColor: Colors.blueAccent,
+        ),
+        endDrawer: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: [
+                _drawerItem("To Do List", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ToDoHome(),
+                      ));
+                }),
+                _drawerItem("Reduce Stress", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MindfulnessScreen(),
+                      ));
+                }),
+                _drawerItem("About App", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const About(),
+                      ));
+                }),
+                _drawerItem("Contact Us", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Contact(),
+                      ));
+                }),
+                _drawerItem("Terms and Conditions", () {}),
+                _drawerItem("App Settings", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Account(),
+                      ));
+                }),
+              ],
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                // Display total learning time
+                StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('tasks')
+                        .where('type', isEqualTo: 'Academic')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator();
+                      } else {
+                        var items = snapshot.data!.docs;
+                        _totalMinutes = 0;
+                        for (var item in items) {
+                          dynamic dateData = item['date'];
+                          DateTime date = DateTime.now();
 
-                            if (dateData is Timestamp) {
-                              date = dateData.toDate();
-                            } else if (dateData is String) {
-                              date = DateTime.parse(dateData);
-                            }
-
-                            if (date.isAfter(_startOfWeek) &&
-                                date.isBefore(_endOfWeek)) {
-                              _totalMinutes += item['duration'] as int;
-                            }
+                          if (dateData is Timestamp) {
+                            date = dateData.toDate();
+                          } else if (dateData is String) {
+                            date = DateTime.parse(dateData);
                           }
-                          return Container(
-                            width: size.width,
-                            child: Card(
-                              margin: EdgeInsets.all(10),
-                              color: Colors.blue.shade100,
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "In past 7 days, you have spent\n${_totalMinutes} mins\non your academics",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
+
+                          if (date.isAfter(_startOfWeek) &&
+                              date.isBefore(_endOfWeek)) {
+                            _totalMinutes += item['duration'] as int;
+                          }
+                        }
+                        return Container(
+                          width: size.width,
+                          child: Card(
+                            margin: EdgeInsets.all(10),
+                            color: Colors.lightBlue.shade100,
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "In past 7 days, you have spent\n${_totalMinutes} mins\non your academics",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        }
-                      }),
-
-                  // ------------------------------------------,
-                  SizedBox(height: 20),
-
-                  // great works card list
-                  SizedBox(
-                    height: 35,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("My Great Works",
-                              style: TextStyle(fontSize: 20)),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => GreatWorks(),
-                                  ));
-                            },
-                            child: Text("See All"),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      // -------------------------------
-                      StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('done_list')
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          if (snapshot.hasError) {
-                            return const Center(
-                                child: Text('Error loading data'));
-                          }
-                          if (!snapshot.hasData ||
-                              snapshot.data!.docs.isEmpty) {
-                            return const Center(
-                                child: Text('No data available'));
-                          }
+                        );
+                      }
+                    }),
 
-                          final List<DocumentSnapshot> documents =
-                              snapshot.data!.docs;
+                // Great works card list
+                SizedBox(height: 20),
+                SizedBox(
+                  height: 35,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("My Great Works", style: TextStyle(fontSize: 20)),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => GreatWorks(),
+                                ));
+                          },
+                          child: Text("See All"),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    // StreamBuilder for Great Works
+                    StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('done_list')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasError) {
+                          return const Center(
+                              child: Text('Error loading data'));
+                        }
+                        if (!snapshot.hasData ||
+                            snapshot.data!.docs.isEmpty) {
+                          return const Center(
+                              child: Text('No data available'));
+                        }
 
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount:
-                                documents.length > 3 ? 3 : documents.length,
+                        final List<DocumentSnapshot> documents =
+                            snapshot.data!.docs;
+
+                        return SizedBox(
+                          height: 250, // Adjust height as needed
+                          child: ListView.builder(
+                            itemCount: documents.length > 3
+                                ? 3
+                                : documents.length,
                             itemBuilder: (BuildContext context, int index) {
                               final data = documents[index].data()
                                   as Map<String, dynamic>;
@@ -258,69 +254,68 @@ class _NewHomeState extends State<NewHome> {
                                 ),
                               );
                             },
-                          );
-                        },
-                      ),
-
-                      // -------------------------------
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    "Quick Actions",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Wrap(
-                    spacing: 35,
-                    runSpacing: 35,
-                    children: [
-                      _quickActionButtonCard("To-Do", "assets/image-50.png",
-                          () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ToDo(),
-                            ));
-                      }),
-                      _quickActionButtonCard("Academic", "assets/image-51.png",
-                          () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SelectSubject(),
-                            ));
-                      }),
-                      _quickActionButtonCard(
-                          "Mindfulness", "assets/image-52.png", () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MindfulnessScreen(),
-                            ));
-                      }),
-                      _quickActionButtonCard("Progress", "assets/image-53.png",
-                          () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ShowProgress()));
-                      }),
-                    ],
-                  ),
-                ],
-              ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Text(
+                  "Quick Actions",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Wrap(
+                  spacing: 35,
+                  runSpacing: 35,
+                  children: [
+                    _quickActionButtonCard("To-Do", "assets/image-50.png", () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ToDo(),
+                          ));
+                    }),
+                    _quickActionButtonCard("Academic", "assets/image-51.png",
+                        () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SelectSubject(),
+                          ));
+                    }),
+                    _quickActionButtonCard(
+                        "Mindfulness", "assets/image-52.png", () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MindfulnessScreen(),
+                          ));
+                    }),
+                    _quickActionButtonCard("Progress", "assets/image-53.png",
+                        () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowProgress()));
+                    }),
+                  ],
+                ),
+              ],
             ),
           ),
-        bottomNavigationBar:MyBottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped,),
-
-    ));
+        ),
+        bottomNavigationBar: MyBottomNavBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+      ),
+    );
   }
 }
 
-// create a common widget for drawyer items
-Widget _drawyerItem(String title, Function myFunction) {
+// create a common widget for drawer items
+Widget _drawerItem(String title, Function myFunction) {
   return ListTile(
     title: Text(title),
     onTap: () {
@@ -330,13 +325,12 @@ Widget _drawyerItem(String title, Function myFunction) {
 }
 
 // create a common widget for quick action menu button
-
 Widget _quickActionButtonCard(
-    String menuName, String imagePath, Function myFuction) {
+    String menuName, String imagePath, Function myFunction) {
   return Card(
     child: InkWell(
       onTap: () {
-        myFuction();
+        myFunction();
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -350,21 +344,6 @@ Widget _quickActionButtonCard(
           ),
           Text(menuName)
         ],
-      ),
-    ),
-  );
-}
-
-// create a common widget for greate works cards
-
-Widget _greatWorkCard(String text) {
-  return Card(
-    color: Colors.blue.shade200,
-    child: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 16),
       ),
     ),
   );
