@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/models/question_model.dart';
 
@@ -52,8 +54,8 @@ class SummaryPage extends StatelessWidget {
             const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  //_saveFavourations();
+                onPressed: () async {
+                  await _saveFavourations(context);
                 },
                 child: Text(
                   "Submit",
@@ -65,5 +67,32 @@ class SummaryPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _saveFavourations(BuildContext context) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final CollectionReference favorationsRef =
+          FirebaseFirestore.instance.collection('favorations');
+
+      List<Map<String, String>> answers =
+          questionModel.questions.map((question) {
+        return {'question': question.question, 'answer': question.answer};
+      }).toList();
+
+      await favorationsRef.add({
+        'userId': user.uid,
+        'answers': answers,
+        'timestamp': FieldValue.serverTimestamp()
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Answers submitted successsfully")));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User not authenticated')),
+      );
+    }
   }
 }
