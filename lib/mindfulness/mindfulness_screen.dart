@@ -15,6 +15,7 @@ class MindfulnessScreen extends StatefulWidget {
 class _MindfulnessScreenState extends State<MindfulnessScreen> {
   int _selectedIndex = 0;
 
+
   void _onItemTapped(int index) {
     if (_selectedIndex != index) {
       setState(() {
@@ -57,16 +58,18 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
           'Mindfulness',
+
           style: TextStyle(color: Color(0xFF4169E1), fontSize: 24),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -167,15 +170,17 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton.icon(
         onPressed: onPressed,
+
         icon: Icon(icon, size: 40, color: Color(0xFF4169E1)),
         label: Text(
           text,
           style: TextStyle(fontSize: 18),
         ),
         style: ElevatedButton.styleFrom(
+
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(

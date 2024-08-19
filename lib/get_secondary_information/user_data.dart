@@ -6,7 +6,11 @@ class UserData with ChangeNotifier {
   String sport = '';  
   String travel= '';  
   String tvshow= '';  
-  String food= '';  
+  String food= '';
+
+  get favoriteSport => null;
+
+  get favoriteSinger => null;  
 
   void updateHobby(String newHobby){
     hobby = newHobby;

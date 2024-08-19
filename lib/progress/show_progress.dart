@@ -104,6 +104,7 @@ class _ShowProgressState extends State<ShowProgress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: const Text(
           "Progress",
           style: TextStyle(color: Colors.white, fontSize: 24),
@@ -138,6 +139,7 @@ class _ShowProgressState extends State<ShowProgress> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
+
     );
   }
 }

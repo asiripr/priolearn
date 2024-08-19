@@ -1,115 +1,187 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class MyAcademicsPage extends StatelessWidget {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
+import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
+
+class MindfulnessScreen extends StatefulWidget {
+  @override
+  _MindfulnessScreenState createState() => _MindfulnessScreenState();
+}
+
+class _MindfulnessScreenState extends State<MindfulnessScreen> {
+  int _selectedIndex = 0;
+  String _quote = "";
+  String _author = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchRandomQuote();
+  }
+
+  Future<void> _fetchRandomQuote() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('quotes').get();
+      if (querySnapshot.docs.isNotEmpty) {
+        var randomIndex = Random().nextInt(querySnapshot.docs.length);
+        var randomDoc = querySnapshot.docs[randomIndex];
+        setState(() {
+          _quote = randomDoc['quote'];
+          _author = randomDoc['author'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _quote =
+            "Keep your face always toward the sunshine, and shadows will fall behind you.";
+        _author = "Walt Whitman";
+      });
+    }
+  }
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF4169E1),
         elevation: 0,
         title: Text(
-          'My Academics',
-          style: TextStyle(
-              color: Color.fromARGB(255, 7, 4, 227),
-              fontSize: 33,
-              fontWeight: FontWeight.bold),
+          'Mindfulness',
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 40),
-            Card(
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Today's Quote",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF4169E1),
+                ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
                 child: Column(
                   children: [
                     Text(
-                      'You have completed 38% from whole journey...',
+                      _quote,
                       style: TextStyle(
-                          color: Color.fromARGB(255, 7, 4, 227),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black87,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 20),
-                    LinearProgressIndicator(
-                      value: 0.38,
-                      backgroundColor: const Color.fromARGB(255, 238, 238, 238),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          Color.fromARGB(255, 7, 4, 227)),
+                    SizedBox(height: 10),
+                    Text(
+                      "- $_author",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4169E1),
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            Text(
-              'Select a subject for save details...',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 40),
-            SubjectButton(subjectName: 'Com Maths'),
-            SubjectButton(subjectName: 'Physics'),
-            SubjectButton(subjectName: 'Chemistry'),
-          ],
+              const SizedBox(height: 30),
+              OptionButton(
+                icon: Icons.sentiment_very_satisfied,
+                text: 'Make me happy',
+                onPressed: () {
+                  // Add your onPressed functionality here
+                },
+              ),
+              OptionButton(
+                icon: Icons.star,
+                text: 'Make me proud',
+                onPressed: () {
+                  // Add your onPressed functionality here
+                },
+              ),
+              OptionButton(
+                icon: Icons.emoji_emotions,
+                text: 'Check my mood',
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StressQuestionsPage()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 7, 4, 227),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book, color: Colors.white),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.white),
-            label: '',
-          ),
-        ],
-        currentIndex: 0, // set the initial selected index
-        onTap: (int index) {
-          // handle navigation logic here
-        },
+      bottomNavigationBar: MyBottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
 }
 
-class SubjectButton extends StatelessWidget {
-  final String subjectName;
+class OptionButton extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final VoidCallback onPressed;
 
-  const SubjectButton({required this.subjectName});
+  const OptionButton({
+    required this.icon,
+    required this.text,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 224, 197, 197),
-          side: BorderSide(color: Color.fromARGB(255, 7, 4, 227)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, size: 40, color: Colors.white),
+        label: Text(
+          text,
+          style: TextStyle(fontSize: 18),
         ),
-        onPressed: () {
-          // handle button press
-        },
-        child: Text(
-          subjectName,
-          style: TextStyle(color: Color.fromARGB(255, 7, 4, 227)),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: Color(0xFF4169E1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          shadowColor: Colors.grey.withOpacity(0.3),
+          elevation: 5,
         ),
       ),
     );

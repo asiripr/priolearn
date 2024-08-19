@@ -26,6 +26,7 @@ class _SelectSubjectState extends State<SelectSubject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: const Text(
           "My Academics",
           style: TextStyle(color: Colors.white, fontSize: 24),
@@ -48,6 +49,7 @@ class _SelectSubjectState extends State<SelectSubject> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
+
               subjectButton(context, "Physics", () => _navigateToChooseLesson(context, 'physics')),
               const SizedBox(height: 30),
               subjectButton(context, "Chemistry", () => _navigateToChooseLesson(context, 'chemistry')),
@@ -66,6 +68,7 @@ class _SelectSubjectState extends State<SelectSubject> {
     );
   }
 
+
   _navigateToChooseLesson(BuildContext context, String subjectName) {
     Navigator.push(
       context,
@@ -76,6 +79,7 @@ class _SelectSubjectState extends State<SelectSubject> {
       ),
     );
   }
+
 
   Widget subjectButton(BuildContext context, String subject, VoidCallback onPressed) {
     return ElevatedButton(

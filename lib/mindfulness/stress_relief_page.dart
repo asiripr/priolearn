@@ -10,7 +10,9 @@ class StressReliefPage extends StatelessWidget {
         title: Text(
           'Stress Relief',
           style: TextStyle(
-            color: Color(0xFF4169E1), // Royal Blue
+            color: Color(0xFF4169E1),
+            fontSize: 24,
+            fontWeight: FontWeight.bold, // Royal Blue
           ),
         ),
       ),

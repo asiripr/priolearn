@@ -15,15 +15,14 @@ class ToDo extends StatefulWidget {
 
 class _ToDoState extends State<ToDo> {
   int _selectedIndex = 0;
+
   int _totalMinutes = 0;
   DateTime _selectedDate = DateTime.now();
 
   void _onItemTapped(int index) {
-    if (_selectedIndex != index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -34,6 +33,7 @@ class _ToDoState extends State<ToDo> {
       appBar: AppBar(
         title: const Text(
           "To Do",
+
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
         backgroundColor: Color(0xFF4169E1),
@@ -44,6 +44,7 @@ class _ToDoState extends State<ToDo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             // ------ Display total learning time -------
             StreamBuilder(
               stream: FirebaseFirestore.instance
@@ -60,11 +61,8 @@ class _ToDoState extends State<ToDo> {
                     dynamic dateData = item['date'];
                     DateTime date = DateTime.now();
 
-                    if (dateData is Timestamp) {
-                      date = dateData.toDate();
-                    } else if (dateData is String) {
-                      date = DateTime.parse(dateData);
-                    }
+            const SizedBox(height: 20),
+
 
                     if (isSameDay(date, _selectedDate)) {
                       _totalMinutes += item['duration'] as int;
@@ -213,5 +211,76 @@ class _ToDoState extends State<ToDo> {
         }
       },
     );
+  }
+
+  // Task List Builder
+  Widget _buildTaskListSection({required bool Function(DateTime) filter}) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        var items = snapshot.data!.docs;
+        var filteredItems = items.where((item) {
+          DateTime date = _extractDate(item['date']);
+          return filter(date);
+        }).toList();
+
+        if (filteredItems.isEmpty) {
+          return const Center(child: Text("No tasks available"));
+        }
+
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: filteredItems.length,
+          itemBuilder: (BuildContext context, int index) {
+            var item = filteredItems[index];
+
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              elevation: 2,
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: Checkbox(
+                  value: item['isDone'],
+                  onChanged: (bool? value) async {
+                    await FirebaseFirestore.instance
+                        .collection('tasks')
+                        .doc(item.id)
+                        .update({'isDone': value});
+                  },
+                ),
+                title: Text(
+                  item['title'],
+                  style: TextStyle(
+                    decoration: item['isDone']
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                    fontSize: 18,
+                  ),
+                ),
+                subtitle:
+                    Text(DateFormat.yMMMd().format(_extractDate(item['date']))),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  // Extract Date from Firebase Firestore Data
+  DateTime _extractDate(dynamic dateData) {
+    if (dateData is Timestamp) {
+      return dateData.toDate();
+    } else if (dateData is String) {
+      return DateTime.parse(dateData);
+    }
+    return DateTime.now();
   }
 }
