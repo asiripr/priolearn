@@ -61,7 +61,7 @@ class _ToDoState extends State<ToDo> {
                     dynamic dateData = item['date'];
                     DateTime date = DateTime.now();
 
-            const SizedBox(height: 20),
+            //const SizedBox(height: 20),
 
 
                     if (isSameDay(date, _selectedDate)) {
