@@ -1,5 +1,6 @@
 class Question{
   final String question;
   String answer;
-  Question(this.question, {this.answer=''});
+  String suggestion;
+  Question(this.question, {this.answer='', this.suggestion=''});
 }

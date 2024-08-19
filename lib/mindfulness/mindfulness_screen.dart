@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/get_favourations/question_page.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/models/question_model.dart';
+import 'package:group_13_priolearn/pages/new_home.dart';
 import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +16,6 @@ class MindfulnessScreen extends StatefulWidget {
 
 class _MindfulnessScreenState extends State<MindfulnessScreen> {
   int _selectedIndex = 0;
-
 
   void _onItemTapped(int index) {
     if (_selectedIndex != index) {
@@ -62,14 +63,12 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
         elevation: 0,
         title: Text(
           'Mindfulness',
-
           style: TextStyle(color: Color(0xFF4169E1), fontSize: 24),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -111,16 +110,32 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                   OptionButton(
                     icon: Icons.sentiment_very_satisfied,
                     text: 'Make me happy',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                            create: (context) => QuestionModel(),
-                            child: QuestionPage(),
+                    onPressed: () async {
+                      final user = FirebaseAuth.instance.currentUser;
+                      final currrentUserId = user!.uid;
+                      final favorationsCollection =
+                          FirebaseFirestore.instance.collection('favorations');
+                      final userDoc =
+                          await favorationsCollection.doc(currrentUserId).get();
+
+                      if (userDoc.exists) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NewHome()) // should be changed
+                            );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangeNotifierProvider(
+                              create: (context) => QuestionModel(),
+                              child: QuestionPage(),
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
                   ),
                   OptionButton(
@@ -173,14 +188,12 @@ class OptionButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton.icon(
         onPressed: onPressed,
-
         icon: Icon(icon, size: 40, color: Color(0xFF4169E1)),
         label: Text(
           text,
           style: TextStyle(fontSize: 18),
         ),
         style: ElevatedButton.styleFrom(
-
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
