@@ -1,9 +1,11 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/mindfulness/Mood_check.dart';
+import 'package:group_13_priolearn/get_favourations/question_page.dart';
+import 'package:group_13_priolearn/mindfulness/mood_check.dart';
+import 'package:group_13_priolearn/models/question_model.dart';
 import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class MindfulnessScreen extends StatefulWidget {
   @override
@@ -12,6 +14,16 @@ class MindfulnessScreen extends StatefulWidget {
 
 class _MindfulnessScreenState extends State<MindfulnessScreen> {
   int _selectedIndex = 0;
+
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
   String _quote = "";
   String _author = "";
 
@@ -42,14 +54,6 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
     }
   }
 
-  void _onItemTapped(int index) {
-    if (_selectedIndex != index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,93 +62,90 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
         elevation: 0,
         title: Text(
           'Mindfulness',
-          style: TextStyle(
-            color: Color(0xFF4169E1), // Royal blue color for the title
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+
+          style: TextStyle(color: Color(0xFF4169E1), fontSize: 24),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Today's Quote",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Today's Quote",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF4169E1),
               ),
-              SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      _quote,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black87,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "- $_author",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF4169E1),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade100,
+                borderRadius: BorderRadius.circular(10),
               ),
-              const SizedBox(height: 30),
-              OptionButton(
-                icon: Icons.sentiment_very_satisfied,
-                text: 'Make me happy',
-                onPressed: () {
-                  // Add your onPressed functionality here
-                },
+              child: Column(
+                children: [
+                  Text(
+                    _quote,
+                    style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    _author,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              OptionButton(
-                icon: Icons.star,
-                text: 'Make me proud',
-                onPressed: () {
-                  // Add your onPressed functionality here
-                },
+            ),
+            const SizedBox(height: 25),
+            Expanded(
+              child: ListView(
+                children: [
+                  OptionButton(
+                    icon: Icons.sentiment_very_satisfied,
+                    text: 'Make me happy',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                            create: (context) => QuestionModel(),
+                            child: QuestionPage(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  OptionButton(
+                    icon: Icons.star,
+                    text: 'Make me proud',
+                    onPressed: () {
+                      // Add your onPressed functionality here
+                    },
+                  ),
+                  OptionButton(
+                    icon: Icons.emoji_emotions,
+                    text: 'Check my mood',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StressQuestionsPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-              OptionButton(
-                icon: Icons.emoji_emotions,
-                text: 'Check my mood',
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StressQuestionsPage()));
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: MyBottomNavBar(
@@ -172,20 +173,21 @@ class OptionButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, size: 40, color: Colors.white),
+
+        icon: Icon(icon, size: 40, color: Color(0xFF4169E1)),
         label: Text(
           text,
           style: TextStyle(fontSize: 18),
         ),
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: Color(0xFF4169E1),
+
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Color(0xFF4169E1)),
           ),
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-          shadowColor: Colors.grey.withOpacity(0.3),
-          elevation: 5,
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
       ),
     );

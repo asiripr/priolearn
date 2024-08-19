@@ -112,6 +112,7 @@ class _NewHomeState extends State<NewHome> {
                     MaterialPageRoute(builder: (context) => Account()));
               }),
             ],
+
           ),
         ),
         body: SingleChildScrollView(
@@ -263,6 +264,7 @@ class _NewHomeState extends State<NewHome> {
                       },
                     );
                   },
+
                 ),
               ],
             ),
@@ -279,6 +281,7 @@ class _NewHomeState extends State<NewHome> {
 
 // Drawer item widget
 Widget _drawerItem(IconData icon, String title, Function onTap) {
+
   return ListTile(
     leading: Icon(icon, color: Color(0xFF4169E1)),
     title: Text(title),
@@ -307,13 +310,13 @@ Widget _sectionTitle(String title, [Function? action]) {
             child: const Text(
               "See All",
               style: TextStyle(color: Color(0xFF4169E1)),
+
             ),
           ),
       ],
     ),
   );
 }
-
 // Quick Action Button Card widget
 Widget _quickActionButtonCard(String title, String imagePath, Function onTap) {
   return GestureDetector(
@@ -350,3 +353,4 @@ Widget _quickActionButtonCard(String title, String imagePath, Function onTap) {
     ),
   );
 }
+
