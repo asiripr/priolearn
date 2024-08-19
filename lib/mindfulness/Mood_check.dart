@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'stress_relief_page.dart'; // Import your existing StressReliefPage
 
 void main() {
   runApp(MyApp());
@@ -32,7 +33,10 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
         title: Text(
           'DAAS-21 Stress Calculator',
           style: TextStyle(
-              color: Color(0xFF4169E1)), // Set text color to royal blue
+            color: Color(0xFF4169E1),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ), // Set text color to royal blue
         ),
       ),
       body: Padding(
@@ -88,27 +92,44 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
                 onPressed: () {
                   int stressScore = calculateTotalScore(responses);
                   String stressSeverity = determineSeverity(stressScore);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Stress Result'),
-                        content: Text(
-                            'Stress Score: $stressScore\nSeverity: $stressSeverity'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                responses = [];
-                              });
-                              Navigator.pop(context);
-                            },
-                            child: Text('OK'),
+
+                  if (stressScore > 14) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StressReliefPage()),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Stress Result'),
+                          content: Text(
+                            'Stress Score: $stressScore\nSeverity: $stressSeverity\n\nYou are good to go with academics!',
+                            style: TextStyle(
+                              fontSize:
+                                  18, // Slightly larger font size for content
+                              color: Color(0xFF4169E1),
+
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ],
-                      );
-                    },
-                  );
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  responses = [];
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(

@@ -50,21 +50,19 @@ class _ChooseLessonState extends State<ChooseLesson> {
     }
   }
 
-  Future<void> _saveToDoneList() async{
-    if (selectedLesson!=null && selectedCompetency != null) {
+  Future<void> _saveToDoneList() async {
+    if (selectedLesson != null && selectedCompetency != null) {
       await FirebaseFirestore.instance.collection('done_list').add({
-        'subjectName':widget.subjectName,
-        'taskType':'lesson',
-        'lesson':selectedLesson,
-        'competency':selectedCompetency,
+        'subjectName': widget.subjectName,
+        'taskType': 'lesson',
+        'lesson': selectedLesson,
+        'competency': selectedCompetency,
         'createdAt': Timestamp.now(),
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Saved to done list'))
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Saved to done list')));
     }
   }
-
 
   @override
   void initState() {
@@ -76,7 +74,14 @@ class _ChooseLessonState extends State<ChooseLesson> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Subject Name"),
+        title: const Text(
+          "Subject Name",
+          style: TextStyle(
+            color: Color(0xFF4169E1), // Royal blue color for the title
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -134,22 +139,25 @@ class _ChooseLessonState extends State<ChooseLesson> {
               ),
             ),
             const SizedBox(height: 30),
-            myButtonVoid(context, "Content", _navigateToContent),
+            myButtonVoid(context, "Content", _navigateToContent,
+                color: Color(0xFF4169E1)),
             const SizedBox(height: 20),
-            myButtonVoid(context, "Learning Outcomes", _navigateToLOs),
+            myButtonVoid(context, "Learning Outcomes", _navigateToLOs,
+                color: Color(0xFF4169E1)),
             // ---------- done button ----------
             const Spacer(),
             ElevatedButton.icon(
-              onPressed: _saveToDoneList, 
+              onPressed: _saveToDoneList,
               label: const Text("Done"),
-              icon: const Icon(Icons.check, color: Colors.white,),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)
-                )
+              icon: const Icon(
+                Icons.check,
+                color: Colors.white,
               ),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15))),
             )
             // ---------------------------------
           ],
@@ -159,14 +167,18 @@ class _ChooseLessonState extends State<ChooseLesson> {
   }
 
   Future<void> fetchLessons() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection(widget.subjectName).get();
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection(widget.subjectName).get();
     setState(() {
       lessons = querySnapshot.docs.map((doc) => doc.id).toList();
     });
   }
 
   Future<void> fetchCompetencies(String lessonId) async {
-    final lessonDoc = await FirebaseFirestore.instance.collection(widget.subjectName).doc(lessonId).get();
+    final lessonDoc = await FirebaseFirestore.instance
+        .collection(widget.subjectName)
+        .doc(lessonId)
+        .get();
     List competenciesList = lessonDoc['competencies'];
     setState(() {
       competencies = List<String>.generate(competenciesList.length, (index) {

@@ -12,14 +12,6 @@ class MindfulnessScreen extends StatefulWidget {
 
 class _MindfulnessScreenState extends State<MindfulnessScreen> {
   int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    if (_selectedIndex != index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-  }
   String _quote = "";
   String _author = "";
 
@@ -45,7 +37,15 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
       setState(() {
         _quote =
             "Keep your face always toward the sunshine, and shadows will fall behind you.";
-        _author = "Walt Whitma";
+        _author = "Walt Whitman";
+      });
+    }
+  }
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
       });
     }
   }
@@ -54,79 +54,97 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
           'Mindfulness',
-          style: TextStyle(color: Color(0xFF4169E1)),
+          style: TextStyle(
+            color: Color(0xFF4169E1), // Royal blue color for the title
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                Text(
-                  "Today's Quote",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Today's Quote",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        _quote,
-                        style: TextStyle(fontSize: 16),
-                        textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      _quote,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black87,
                       ),
-                      SizedBox(height: 10,),
-                      Text(
-                        _author,
-                        style: TextStyle(fontSize: 16),
-                        textAlign: TextAlign.center,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "- $_author",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4169E1),
                       ),
-                    ],
-                  ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 25,),
-                OptionButton(
-                  icon: Icons.sentiment_very_satisfied,
-                  text: 'Make me happy',
-                  onPressed: () {
-                    // Add your onPressed functionality here
-                  },
-                ),
-                OptionButton(
-                  icon: Icons.star,
-                  text: 'Make me proud',
-                  onPressed: () {
-                    // Add your onPressed functionality here
-                  },
-                ),
-                OptionButton(
-                  icon: Icons.emoji_emotions,
-                  text: 'Check my mood',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StressQuestionsPage()));
-                  },
-                ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 30),
+              OptionButton(
+                icon: Icons.sentiment_very_satisfied,
+                text: 'Make me happy',
+                onPressed: () {
+                  // Add your onPressed functionality here
+                },
+              ),
+              OptionButton(
+                icon: Icons.star,
+                text: 'Make me proud',
+                onPressed: () {
+                  // Add your onPressed functionality here
+                },
+              ),
+              OptionButton(
+                icon: Icons.emoji_emotions,
+                text: 'Check my mood',
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StressQuestionsPage()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: MyBottomNavBar(
@@ -151,18 +169,23 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, size: 40, color: Color(0xFF4169E1)),
-        label: Text(text),
+        icon: Icon(icon, size: 40, color: Colors.white),
+        label: Text(
+          text,
+          style: TextStyle(fontSize: 18),
+        ),
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.blue.shade100,
+          foregroundColor: Colors.white,
+          backgroundColor: Color(0xFF4169E1),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
           ),
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          shadowColor: Colors.grey.withOpacity(0.3),
+          elevation: 5,
         ),
       ),
     );

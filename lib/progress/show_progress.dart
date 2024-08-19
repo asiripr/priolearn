@@ -21,6 +21,7 @@ class _ShowProgressState extends State<ShowProgress> {
       });
     }
   }
+
   List<double> weeklySummary = [
     0,
     0,
@@ -105,11 +106,20 @@ class _ShowProgressState extends State<ShowProgress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Progress"),
+        title: Text(
+          "Progress",
+          style: TextStyle(
+            color: Color(0xFF4169E1),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Column(
         children: [
-          SizedBox(height: 40,),
+          SizedBox(
+            height: 40,
+          ),
           SizedBox(
             height: 400,
             child: MainBarGraph(
@@ -118,9 +128,8 @@ class _ShowProgressState extends State<ShowProgress> {
           ),
         ],
       ),
-    bottomNavigationBar: MyBottomNavBar(
-      currentIndex: _selectedIndex, 
-      onTap: _onItemTapped),
+      bottomNavigationBar:
+          MyBottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped),
     );
     // replace by my bar graph
   }

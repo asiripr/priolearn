@@ -12,25 +12,35 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void _logout() async{
+  void _logout() async {
     await _auth.signOut();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Welcome(),
-      )
-    );
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => Welcome(),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Account Settings"),),
+      appBar: AppBar(
+        title: const Text(
+          "Account Settings",
+          style: TextStyle(
+            color: Color(0xFF4169E1), // Royal blue color for the title
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Column(
         children: [
           ListTile(
             title: const Row(
               children: [
                 Icon(Icons.logout),
-                SizedBox(width: 15,),
+                SizedBox(
+                  width: 15,
+                ),
                 Text('Log Out'),
               ],
             ),
@@ -38,18 +48,23 @@ class _AccountState extends State<Account> {
               _logout();
             },
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           ListTile(
             title: const Row(
               children: [
                 Icon(Icons.delete),
-                SizedBox(width: 15,),
-                Text('Delete Account', style: TextStyle(color: Colors.red),),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  'Delete Account',
+                  style: TextStyle(color: Colors.red),
+                ),
               ],
             ),
-            onTap: () {
-              
-            },
+            onTap: () {},
           ),
         ],
       ),

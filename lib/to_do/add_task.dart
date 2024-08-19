@@ -26,6 +26,7 @@ class _AddTaskState extends State<AddTask> {
 
   List<String> dropDownValues = ["Academic", "Other"];
   String? dropDownValue = "Academic";
+
   @override
   void initState() {
     super.initState();
@@ -47,22 +48,29 @@ class _AddTaskState extends State<AddTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Task"),
+        title: const Text(
+          "Add Task",
+          style: TextStyle(
+            color: Color(0xFF4169E1), // Royal blue color for the title
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             myTextField("Title", _titleController, false),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             TextField(
               controller: _dateController,
               decoration: const InputDecoration(
-                  labelText: "Date",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)))),
+                labelText: "Date",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+              ),
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
                   context: context,
@@ -85,13 +93,16 @@ class _AddTaskState extends State<AddTask> {
             TextField(
               controller: _STimeController,
               decoration: const InputDecoration(
-                  labelText: "Start Time",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  )),
+                labelText: "Start Time",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+              ),
               onTap: () async {
                 TimeOfDay? pickedTime = await showTimePicker(
-                    context: context, initialTime: TimeOfDay.now());
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
                 if (pickedTime != null) {
                   final now = DateTime.now();
                   final dt = DateTime(now.year, now.month, now.day,
@@ -103,19 +114,20 @@ class _AddTaskState extends State<AddTask> {
                 }
               },
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             TextField(
               controller: _ETimeController,
               decoration: const InputDecoration(
-                  labelText: "End Time",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  )),
+                labelText: "End Time",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+              ),
               onTap: () async {
                 TimeOfDay? pickedTime = await showTimePicker(
-                    context: context, initialTime: TimeOfDay.now());
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
                 if (pickedTime != null) {
                   final now = DateTime.now();
                   final dt = DateTime(now.year, now.month, now.day,
@@ -127,14 +139,14 @@ class _AddTaskState extends State<AddTask> {
                 }
               },
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             DropdownButtonFormField(
               decoration: const InputDecoration(
-                  labelText: "Task Type",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)))),
+                labelText: "Task Type",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+              ),
               value: dropDownValue,
               onChanged: (String? value) {
                 setState(() {
@@ -147,7 +159,28 @@ class _AddTaskState extends State<AddTask> {
               }).toList(),
             ),
             const SizedBox(height: 20),
-            myButtonVoid(context, "Save Task", saveTask)
+            ElevatedButton(
+              onPressed: saveTask,
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    Color(0xFF4169E1), // Royal blue color for the button
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 30,
+                ),
+              ),
+              child: const Text(
+                "Save Task",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -176,7 +209,7 @@ class _AddTaskState extends State<AddTask> {
           'date': Timestamp.fromDate(DateFormat('yyyy-MM-dd').parse(date)),
           'note': note,
           'STime': STime,
-          'Etime': ETime,
+          'ETime': ETime,
           'duration': duration,
           'type': type,
           'createdAt': Timestamp.now(),
@@ -188,7 +221,8 @@ class _AddTaskState extends State<AddTask> {
               .doc(widget.task!.id)
               .update(taskData);
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Task updated successfully")));
+            const SnackBar(content: Text("Task updated successfully")),
+          );
         } else {
           await FirebaseFirestore.instance.collection('tasks').add(taskData);
           ScaffoldMessenger.of(context).showSnackBar(
@@ -206,7 +240,33 @@ class _AddTaskState extends State<AddTask> {
   }
 
   Future<void> _toggleTaskCompletion(String taskId, bool isDone) async {
-  await FirebaseFirestore.instance.collection('tasks').doc(taskId).update({'isDone': isDone});
-}
+    await FirebaseFirestore.instance
+        .collection('tasks')
+        .doc(taskId)
+        .update({'isDone': isDone});
+  }
 
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _dateController.dispose();
+    _noteController.dispose();
+    _STimeController.dispose();
+    _ETimeController.dispose();
+    super.dispose();
+  }
+
+  Widget myTextField(
+      String label, TextEditingController controller, bool obscureText) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
+      ),
+    );
+  }
 }
