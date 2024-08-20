@@ -1,55 +1,55 @@
 import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 
 class MakeHappy extends StatefulWidget {
-  final List<String> suggestions;
-  const MakeHappy({super.key, required this.suggestions});
+  const MakeHappy({super.key});
 
   @override
-  _MakeHappyState createState() => _MakeHappyState();
+  State<MakeHappy> createState() => _MakeHappyState();
 }
 
 class _MakeHappyState extends State<MakeHappy> {
-  int _selectedIndex = 0;
+  Map<String, dynamic>? randomAnswer;
 
-  void _onItemTapped(int index) {
-    if (_selectedIndex != index) {
-      setState(() {
-        _selectedIndex = index;
-      });
+  @override
+  void initState() {
+    super.initState();
+    fetchRandomAnswer();
+  }
+
+  Future<void> fetchRandomAnswer() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final currentUserId = user!.uid;
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('favorations')
+          .where('userId', isEqualTo: currentUserId)
+          .limit(1)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        final document = querySnapshot.docs.first;
+        List<dynamic> answers = document['answers'];
+        if (answers.isNotEmpty) {
+          final randomIndex = Random().nextInt(answers.length);
+          setState(() {
+            randomAnswer = answers[randomIndex];
+          });
+        } else {
+          print('no answers found in the document');
+        }
+      } else {
+        print('no matching document found');
+      }
+    } catch (e) {
+      print('error occured');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final random = Random();
-    final randomSuggestion = widget.suggestions[random.nextInt(widget.suggestions.length)];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Be Happy', style: TextStyle(color: Colors.blue)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.symmetric(horizontal: 30),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            randomSuggestion,
-            style: TextStyle(fontSize: 16, color: Colors.black),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-      bottomNavigationBar: MyBottomNavBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+    return const Placeholder();
   }
 }
