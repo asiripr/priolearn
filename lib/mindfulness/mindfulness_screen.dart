@@ -120,7 +120,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NewHome())
+                                builder: (context) => MakeHappy())
                                     //MakeHappy(suggestions: suggestions)) // should be changed
                             );
                       } else {
