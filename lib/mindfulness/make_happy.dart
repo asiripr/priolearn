@@ -2,15 +2,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 
-class MakeHappyStateful extends StatefulWidget {
+class MakeHappy extends StatefulWidget {
   final List<String> suggestions;
-  const MakeHappyStateful({super.key, required this.suggestions});
+  const MakeHappy({super.key, required this.suggestions});
 
   @override
   _MakeHappyState createState() => _MakeHappyState();
 }
 
-class _MakeHappyState extends State<MakeHappyStateful> {
+class _MakeHappyState extends State<MakeHappy> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {

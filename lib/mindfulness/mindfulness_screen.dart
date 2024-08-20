@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/get_favourations/question_page.dart';
+import 'package:group_13_priolearn/mindfulness/make_happy.dart';
 import 'package:group_13_priolearn/mindfulness/mood_check.dart';
 import 'package:group_13_priolearn/models/question_model.dart';
+import 'package:group_13_priolearn/pages/About.dart';
 import 'package:group_13_priolearn/pages/new_home.dart';
 import 'package:group_13_priolearn/utils/bottom_app_bar.dart';
 import 'package:provider/provider.dart';
@@ -48,8 +50,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
       }
     } catch (e) {
       setState(() {
-        _quote =
-            "Keep your face always toward the sunshine, and shadows will fall behind you.";
+        _quote = "Keep your face always toward the sunshine, and shadows will fall behind you.";
         _author = "Walt Whitman";
       });
     }
@@ -113,17 +114,14 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                     onPressed: () async {
                       final user = FirebaseAuth.instance.currentUser;
                       final currrentUserId = user!.uid;
-                      final favorationsCollection =
-                          FirebaseFirestore.instance.collection('favorations');
-                      final userDoc =
-                          await favorationsCollection.doc(currrentUserId).get();
+                      final querySnapshot = await FirebaseFirestore.instance.collection('favorations').where('userId', isEqualTo: currrentUserId).get();
 
-                      if (userDoc.exists) {
+                      if (querySnapshot.docs.isNotEmpty) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    NewHome()) // should be changed
+                                builder: (context) => NewHome())
+                                    //MakeHappy(suggestions: suggestions)) // should be changed
                             );
                       } else {
                         Navigator.push(
