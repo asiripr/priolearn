@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_13_priolearn/academic/content.dart';
 import 'package:group_13_priolearn/academic/learning_outcome.dart';
+import 'package:group_13_priolearn/academic/suggestions.dart';
 import 'package:group_13_priolearn/utils/button_dynamic.dart';
 import 'package:group_13_priolearn/utils/button_void.dart';
 
@@ -26,6 +27,21 @@ class _ChooseLessonState extends State<ChooseLesson> {
         context,
         MaterialPageRoute(
           builder: (context) => Content(
+            subjectName: widget.subjectName,
+            lessonId: selectedLesson!,
+            competencyIndex: competencies.indexOf(selectedCompetency!),
+          ),
+        ),
+      );
+    }
+  }
+
+  void _navigateToSuggestions() {
+    if (selectedLesson != null && selectedCompetency != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Suggestions(
             subjectName: widget.subjectName,
             lessonId: selectedLesson!,
             competencyIndex: competencies.indexOf(selectedCompetency!),
@@ -144,20 +160,43 @@ class _ChooseLessonState extends State<ChooseLesson> {
             const SizedBox(height: 20),
             myButtonVoid(context, "Learning Outcomes", _navigateToLOs,
                 color: Color(0xFF4169E1)),
+            // ---------- seggestions ----------
+
+
+
+            // ---------------------------------
             // ---------- done button ----------
-            const Spacer(),
-            ElevatedButton.icon(
-              onPressed: _saveToDoneList,
-              label: const Text("Done"),
-              icon: const Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15))),
+            const SizedBox(height: 25),
+            Row(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: _navigateToSuggestions,
+                  label: const Text("Suggestions"),
+                  icon: const Icon(
+                    Icons.book,
+                    color: Colors.white,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.yellow,
+                      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                ),
+                const Spacer(),
+                ElevatedButton.icon(
+                  onPressed: _saveToDoneList,
+                  label: const Text("Done"),
+                  icon: const Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                ),
+              ],
             )
             // ---------------------------------
           ],

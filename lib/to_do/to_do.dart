@@ -103,20 +103,20 @@ class _ToDoState extends State<ToDo> {
 
             const SizedBox(height: 20),
             Text(
-              "Previous Tasks",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            // List of previous tasks
-            _buildTaskList(context, 'Previous',
-                (DateTime date) => date.isBefore(DateTime.now())),
-            const SizedBox(height: 20),
-            Text(
               "Today's Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             // List of today's tasks
             _buildTaskList(context, 'Today',
                 (DateTime date) => isSameDay(date, _selectedDate)),
+            const SizedBox(height: 20),
+            Text(
+              "Previous Tasks",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            // List of previous tasks
+            _buildTaskList(context, 'Previous',
+                (DateTime date) => date.isBefore(DateTime.now())),
             const SizedBox(height: 20),
             Text(
               "Future Tasks",
