@@ -33,7 +33,6 @@ class _ToDoState extends State<ToDo> {
       appBar: AppBar(
         title: const Text(
           "To Do",
-
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
         backgroundColor: Color(0xFF4169E1),
