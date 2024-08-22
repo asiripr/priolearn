@@ -43,7 +43,6 @@ class _ToDoState extends State<ToDo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // ------ Display total learning time -------
             StreamBuilder(
               stream: FirebaseFirestore.instance
@@ -56,13 +55,21 @@ class _ToDoState extends State<ToDo> {
                 } else {
                   var items = snapshot.data!.docs;
                   _totalMinutes = 0;
+
                   for (var item in items) {
                     dynamic dateData = item['date'];
-                    DateTime date = DateTime.now();
+                    DateTime date;
 
-            //const SizedBox(height: 20),
+                    // Properly convert the dateData to DateTime
+                    if (dateData is Timestamp) {
+                      date = dateData.toDate();
+                    } else if (dateData is String) {
+                      date = DateTime.parse(dateData);
+                    } else {
+                      continue; // Skip if dateData is invalid or cannot be parsed
+                    }
 
-
+                    // Ensure that the correct date comparison is being made
                     if (isSameDay(date, _selectedDate)) {
                       _totalMinutes += item['duration'] as int;
                     }
@@ -93,27 +100,31 @@ class _ToDoState extends State<ToDo> {
                 }
               },
             ),
+
             const SizedBox(height: 20),
             Text(
               "Previous Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             // List of previous tasks
-            _buildTaskList(context, 'Previous', (DateTime date) => date.isBefore(DateTime.now())),
+            _buildTaskList(context, 'Previous',
+                (DateTime date) => date.isBefore(DateTime.now())),
             const SizedBox(height: 20),
             Text(
               "Today's Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             // List of today's tasks
-            _buildTaskList(context, 'Today', (DateTime date) => isSameDay(date, _selectedDate)),
+            _buildTaskList(context, 'Today',
+                (DateTime date) => isSameDay(date, _selectedDate)),
             const SizedBox(height: 20),
             Text(
               "Future Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             // List of future tasks
-            _buildTaskList(context, 'Future', (DateTime date) => date.isAfter(DateTime.now())),
+            _buildTaskList(context, 'Future',
+                (DateTime date) => date.isAfter(DateTime.now())),
           ],
         ),
       ),
@@ -150,7 +161,8 @@ class _ToDoState extends State<ToDo> {
     );
   }
 
-  Widget _buildTaskList(BuildContext context, String label, bool Function(DateTime) dateCondition) {
+  Widget _buildTaskList(BuildContext context, String label,
+      bool Function(DateTime) dateCondition) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
       builder: (context, snapshot) {
@@ -159,6 +171,11 @@ class _ToDoState extends State<ToDo> {
         } else {
           var items = snapshot.data!.docs;
           var filteredItems = items.where((item) {
+            // Check if the task is not done
+            if (item['isDone'] == true) {
+              return false;
+            }
+
             dynamic dateData = item['date'];
             DateTime date = DateTime.now();
 
@@ -185,6 +202,7 @@ class _ToDoState extends State<ToDo> {
               } else if (dateData is String) {
                 date = DateTime.parse(dateData);
               }
+
               return Card(
                 margin: const EdgeInsets.all(10),
                 child: ListTile(
@@ -200,7 +218,9 @@ class _ToDoState extends State<ToDo> {
                   title: Text(
                     item['title'],
                     style: TextStyle(
-                      decoration: item['isDone'] ? TextDecoration.lineThrough : TextDecoration.none,
+                      decoration: item['isDone']
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
                     ),
                   ),
                 ),
