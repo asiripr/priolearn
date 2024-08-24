@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:group_13_priolearn/mindfulness/make_happy.dart';
 import 'package:group_13_priolearn/models/question_model.dart';
 
 class SummaryPage extends StatelessWidget {
@@ -56,6 +57,7 @@ class SummaryPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   await _saveFavourations(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MakeHappy()));
                 },
                 child: Text(
                   "Submit",

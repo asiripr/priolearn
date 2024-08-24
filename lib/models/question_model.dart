@@ -24,23 +24,4 @@ class QuestionModel with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  String _generateSuggestion(String question, String answer){
-    switch (question) {
-      case "Which hobby do you enjoy most?":
-        return "How about dedicating some time to $answer this weekend?";
-      case "What is your favorite sport?":
-        return "Why not catch a game of $answer soon?";
-      case "Who is your favorite singer?":
-        return "How about putting on some music by $answer? It might help you relax.";
-      case "What is your dream travel destination?":
-        return "Start planning your trip to $answer. It's always good to have something to look forward to!";
-      case "Which movie do you enjoy the most?":
-        return "Rewatch $answer, it's always a good time!";
-      case "What is your favorite dish?":
-        return "Maybe you can treat yourself to $answer sometime soon!";
-      default:
-        return " ";
-    }
-  }
 }
