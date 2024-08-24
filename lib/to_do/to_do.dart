@@ -132,23 +132,27 @@ class _ToDoState extends State<ToDo> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'calendarButton', // Unique heroTag for this button
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ToDoHome(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ToDoHome(),
+                ),
+              );
             },
             child: Icon(Icons.calendar_month),
           ),
           const SizedBox(height: 16),
           FloatingActionButton(
+            heroTag: 'addButton', // Unique heroTag for this button
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddTask(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddTask(),
+                ),
+              );
             },
             child: Icon(Icons.add),
           ),
@@ -209,10 +213,22 @@ class _ToDoState extends State<ToDo> {
                   leading: Checkbox(
                     value: item['isDone'],
                     onChanged: (bool? value) async {
-                      await FirebaseFirestore.instance
-                          .collection('tasks')
-                          .doc(item.id)
-                          .update({'isDone': value});
+                      if (value == true) {
+                        // Show confirmation dialog
+                        bool isConfirmed =
+                            await _showConfirmationDialog(context);
+
+                        if (isConfirmed) {
+                          // Mark the task as done if the user confirms
+                          await FirebaseFirestore.instance
+                              .collection('tasks')
+                              .doc(item.id)
+                              .update({'isDone': true});
+                        } else {
+                          // If the user cancels, do not check the checkbox
+                          setState(() {});
+                        }
+                      }
                     },
                   ),
                   title: Text(
@@ -303,3 +319,30 @@ class _ToDoState extends State<ToDo> {
     return DateTime.now();
   }
 }
+
+Future<bool> _showConfirmationDialog(BuildContext context) async {
+  return await showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Task Completion'),
+        content: Text('Is this task successfully finished?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false); // No option
+            },
+            child: Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true); // Yes option
+            },
+            child: Text('Yes'),
+          ),
+        ],
+      );
+    },
+  ) ?? false;
+}
+

@@ -14,6 +14,7 @@ class MakeHappy extends StatefulWidget {
 
 class _MakeHappyState extends State<MakeHappy> {
   String? personalizedMessage;
+  bool isLoading = true;
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     if (_selectedIndex != index) {
@@ -47,19 +48,29 @@ class _MakeHappyState extends State<MakeHappy> {
 
           setState(() {
             personalizedMessage = _getPersonalizedMessage(randomAnswer);
+            isLoading = false;
           });
         } else {
           print('no answers found in the document');
+          setState(() {
+            isLoading = false;
+          });
         }
       } else {
         print('no matching document found');
+        setState(() {
+          isLoading = false;
+        });
       }
     } catch (e) {
       print('error occured');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  String _getPersonalizedMessage(Map<String, dynamic> randomAnswer){
+  String _getPersonalizedMessage(Map<String, dynamic> randomAnswer) {
     String answer = randomAnswer['answer'];
     String question = randomAnswer['question'];
 
@@ -85,24 +96,27 @@ class _MakeHappyState extends State<MakeHappy> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Be Happy', style: TextStyle(color: Colors.blue)),
+        title: const Text('Be Happy', style: TextStyle(color: Colors.blue)),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.symmetric(horizontal: 30),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            personalizedMessage!,
-            style: TextStyle(fontSize: 16, color: Colors.black),
-            textAlign: TextAlign.center,
-          ),
-        ),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Container(
+                padding: const EdgeInsets.all(20),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  personalizedMessage!,
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+        // child:
       ),
       bottomNavigationBar: MyBottomNavBar(
         currentIndex: _selectedIndex,

@@ -23,85 +23,45 @@ class _SuggestionsState extends State<Suggestions> {
     super.initState();
     _suggestionsFuture = _fetchSuggestions();
   }
+
   Future<List<Map<String, dynamic>>> _fetchSuggestions() async {
-  // Fetch the document for the selected lesson from Firestore
-  DocumentSnapshot lessonSnapshot = await FirebaseFirestore.instance
-      .collection('physics_past_papers')
-      .doc(widget.lessonId)
-      .get();
+    // Fetch the document for the selected lesson from Firestore
+    DocumentSnapshot lessonSnapshot = await FirebaseFirestore.instance
+        .collection('physics_past_papers')
+        .doc(widget.lessonId)
+        .get();
 
-  // Initialize an empty list to store the suggestions
-  List<Map<String, dynamic>> suggestions = [];
+    // Initialize an empty list to store the suggestions
+    List<Map<String, dynamic>> suggestions = [];
 
-  if (lessonSnapshot.exists) {
-    // Retrieve the competencies array from the document
-    List<dynamic> competencies = lessonSnapshot['competencies'];
+    if (lessonSnapshot.exists) {
+      // Retrieve the competencies array from the document
+      List<dynamic> competencies = lessonSnapshot['competencies'];
 
-    // Find the specific competency based on the competencyIndex
-    if (widget.competencyIndex < competencies.length) {
-      var selectedCompetency = competencies[widget.competencyIndex];
+      // Find the specific competency based on the competencyIndex
+      if (widget.competencyIndex < competencies.length) {
+        var selectedCompetency = competencies[widget.competencyIndex];
 
-      // Extract the questions from the selected competency
-      List<String> questions = List<String>.from(selectedCompetency['questions']);
+        // Extract the questions from the selected competency
+        List<String> questions =
+            List<String>.from(selectedCompetency['questions']);
 
-      // Populate the suggestions list with question and year
-      suggestions = questions.map((q) {
-        // Extract year and question parts from the string
-        List<String> parts = q.split(' ');
-        return {
-          'question': parts.sublist(1).join(' '),  // Join the rest of the parts as the question
-          'year': parts[0],  // The first part is the year
-        };
-      }).toList();
+        // Populate the suggestions list with question and year
+        suggestions = questions.map((q) {
+          // Extract year and question parts from the string
+          List<String> parts = q.split(' ');
+          return {
+            'question': parts
+                .sublist(1)
+                .join(' '), // Join the rest of the parts as the question
+            'year': parts[0], // The first part is the year
+          };
+        }).toList();
+      }
     }
+
+    return suggestions;
   }
-
-  return suggestions;
-}
-
-  // Future<List<Map<String, dynamic>>> _fetchSuggestions() async {
-  //   // Fetch the document for the selected lesson from Firestore
-  //   DocumentSnapshot lessonSnapshot = await FirebaseFirestore.instance
-  //       .collection('physics_past_papers')
-  //       .doc(widget.lessonId)
-  //       .get();
-
-  //   // Initialize an empty list to store the suggestions
-  //   List<Map<String, dynamic>> suggestions = [];
-
-  //   if (lessonSnapshot.exists) {
-  //     // Retrieve the lessons array from the document
-  //     List<dynamic> lessons = lessonSnapshot['competencies'];
-
-  //     // Find the specific lesson matching the lessonId
-  //     var selectedLesson = lessons.firstWhere(
-  //       (lesson) => lesson['name'] == widget.lessonId,
-  //       orElse: () => null,
-  //     );
-
-  //     if (selectedLesson != null) {
-  //       // Find the specific competency based on the competencyIndex
-  //       List<dynamic> competencies = selectedLesson['questoins'];
-  //       if (widget.competencyIndex < competencies.length) {
-  //         var selectedCompetency = competencies[widget.competencyIndex];
-  //         List<String> questions =
-  //             List<String>.from(selectedCompetency['questions']);
-
-  //         // Populate the suggestions list with question and year
-  //         suggestions = questions.map((q) {
-  //           // Extract year and question parts from the string
-  //           List<String> parts = q.split(' ');
-  //           return {
-  //             'question': '${parts[1]} ${parts[2]}',
-  //             'year': parts[0],
-  //           };
-  //         }).toList();
-  //       }
-  //     }
-  //   }
-
-  //   return suggestions;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -134,8 +94,8 @@ class _SuggestionsState extends State<Suggestions> {
                 return Card(
                   margin: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    title: Text(suggestion['question']),
-                    subtitle: Text('Year: ${suggestion['year']}'),
+                    title: Text('Year: ${suggestion['year']}'),
+                    subtitle: Text(suggestion['question']),
                   ),
                 );
               },

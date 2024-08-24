@@ -73,7 +73,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Today's Quote",
               style: TextStyle(
                 fontSize: 22,
@@ -81,12 +81,20 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                 color: Color(0xFF4169E1),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.blue.shade100,
                 borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    spreadRadius: 2,
+                    blurRadius: 2,
+                    color: Colors.black54.withOpacity(0.5),
+                    offset: const Offset(1, 3)
+                  )
+                ]
               ),
               child: Column(
                 children: [
@@ -109,7 +117,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
               child: ListView(
                 children: [
                   OptionButton(
-                    icon: Icons.sentiment_very_satisfied,
+                    icon: Icons.sentiment_satisfied_alt_sharp,
                     text: 'Make me happy',
                     onPressed: () async {
                       final user = FirebaseAuth.instance.currentUser;
@@ -129,7 +137,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                           MaterialPageRoute(
                             builder: (context) => ChangeNotifierProvider(
                               create: (context) => QuestionModel(),
-                              child: QuestionPage(),
+                              child: const QuestionPage(),
                             ),
                           ),
                         );
@@ -144,7 +152,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                     },
                   ),
                   OptionButton(
-                    icon: Icons.emoji_emotions,
+                    icon: Icons.gas_meter,
                     text: 'Check my mood',
                     onPressed: () {
                       Navigator.push(
