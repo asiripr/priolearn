@@ -322,27 +322,27 @@ class _ToDoState extends State<ToDo> {
 
 Future<bool> _showConfirmationDialog(BuildContext context) async {
   return await showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('Task Completion'),
-        content: Text('Is this task successfully finished?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false); // No option
-            },
-            child: Text('No'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true); // Yes option
-            },
-            child: Text('Yes'),
-          ),
-        ],
-      );
-    },
-  ) ?? false;
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Task Completion'),
+            content: Text('Is this task successfully finished?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false); // No option
+                },
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true); // Yes option
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          );
+        },
+      ) ??
+      false;
 }
-

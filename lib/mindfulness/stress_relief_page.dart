@@ -7,7 +7,7 @@ class StressReliefPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Stress Relief',
           style: TextStyle(
             color: Color(0xFF4169E1),
@@ -20,8 +20,8 @@ class StressReliefPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 20),
-            Padding(
+            const SizedBox(height: 20),
+            const Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Take a deep breath and relax.',
@@ -32,8 +32,8 @@ class StressReliefPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Padding(
+            const SizedBox(height: 20),
+            const Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Here are a few activities you can try:',
@@ -44,7 +44,7 @@ class StressReliefPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             activityTile(context, Icons.spa, 'Meditation'),
             activityTile(context, Icons.directions_run, 'Exercise'),
             activityTile(context, Icons.music_note, 'Listen to soothing music'),
@@ -60,10 +60,10 @@ class StressReliefPage extends StatelessWidget {
 
   Widget activityTile(BuildContext context, IconData icon, String title) {
     return ListTile(
-      leading: Icon(icon, color: Color(0xFF4169E1)),
-      title: Text(title, style: TextStyle(color: Colors.black)),
+      leading: Icon(icon, color: const Color(0xFF4169E1)),
+      title: Text(title, style: const TextStyle(color: Colors.black)),
       trailing: IconButton(
-        icon: Icon(Icons.play_arrow, color: Color(0xFF4169E1)),
+        icon: const Icon(Icons.play_arrow, color: Color(0xFF4169E1)),
         onPressed: () {
           Navigator.push(
             context,
@@ -146,17 +146,17 @@ class _ActivityPageState extends State<ActivityPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Enjoy your activity!',
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF4169E1)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (widget.title == 'Meditation')
               Image.asset('assets/med.jpg', width: 300, height: 300),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               '$minutes:${seconds.toString().padLeft(2, '0')}',
               style: TextStyle(fontSize: 48, color: Color(0xFF4169E1)),

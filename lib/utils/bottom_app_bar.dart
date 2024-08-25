@@ -23,15 +23,15 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: '',
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.menu_book),
-          label: '',
+          label: 'Academic',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: '',
+          icon: Icon(Icons.self_improvement),
+          label: 'Mindfulness',
         ),
       ],
       currentIndex: widget.currentIndex, // set the initial selected index
