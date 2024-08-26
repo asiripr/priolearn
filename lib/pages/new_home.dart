@@ -70,7 +70,7 @@ class _NewHomeState extends State<NewHome> {
           iconTheme: IconThemeData(color: Colors.black),
           centerTitle: true,
         ),
-        endDrawer: Drawer(
+        drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: [

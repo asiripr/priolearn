@@ -30,7 +30,7 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'DAAS-21 Stress Calculator',
           style: TextStyle(
             color: Color(0xFF4169E1),
@@ -45,11 +45,11 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
+              const Text(
                 'Please answer the following questions based on your stress levels over the past week:',
                 style: TextStyle(fontSize: 16.0),
               ),
-              SizedBox(height: 8.0), // Reduced spacing
+              const SizedBox(height: 8.0), // Reduced spacing
               StressQuestion(
                 question: 'I found it hard to wind down',
                 onChanged: (int value) {
@@ -87,7 +87,7 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
                   responses.add(value);
                 },
               ),
-              SizedBox(height: 8.0), // Reduced spacing
+              const SizedBox(height: 8.0), // Reduced spacing
               ElevatedButton(
                 onPressed: () {
                   int stressScore = calculateTotalScore(responses);
@@ -104,10 +104,10 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Stress Result'),
+                          title: const Text('Stress Result'),
                           content: Text(
                             'Stress Score: $stressScore\nSeverity: $stressSeverity\n\nYou are good to go with academics!',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize:
                                   18, // Slightly larger font size for content
                               color: Color(0xFF4169E1),
@@ -123,7 +123,7 @@ class _StressQuestionsPageState extends State<StressQuestionsPage> {
                                 });
                                 Navigator.pop(context);
                               },
-                              child: Text('OK'),
+                              child: const Text('OK'),
                             ),
                           ],
                         );
