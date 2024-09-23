@@ -1,7 +1,7 @@
 # PrioLearn 
 
 PrioLearn - A Transformative Student Monitoring Platform
-<img alt="Logo" align="left" src="https://github.com/asiripr/priolearn/assets/appstore.png" width="20%" />
+<img alt="Logo" align="left" src="https://github.com/asiripr/priolearn/tree/main/assets/appstore.png" width="20%" />
 
 # PrioLearn Mobile App
 
