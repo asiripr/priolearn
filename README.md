@@ -43,6 +43,6 @@ Once installed, users can sign up or log in to access their personalized dashboa
 Contributions are welcome! If you would like to contribute to the PrioLearn app, please fork the repository and submit a pull request. Make sure to follow the project's coding standards and guidelines.
 
 ## Contact
-For any inquiries or support, please reach out via the GitHub issues page or contact the project maintainer directly.
+For any inquiries or support, please reach us out via the GitHub issues page.
 
 
