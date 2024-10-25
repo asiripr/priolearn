@@ -12,7 +12,7 @@ PrioLearn - A Transformative Student Monitoring Platform
 PrioLearn is a platform designed to help Sri Lankan Advanced Level students manage their academic tasks and maintain a positive mindset. It offers personalized learning solutions, stress assessment using DASS-21, and tailored recommendations for stress management. The app monitors student progress, provides real-time feedback, and aims to enhance overall academic performance while promoting personal well-being.
 
 ## Features
-- **Accessible Learning**: PrioLearn offers innovative and flexible learning experiences that adapt to your schedule and style.
+- **Accessible Learning**: PrioLearn offers innovative and flexible learning experiences for Sri Lankan AL students.
 - **Resource Library**: Gain access to an extensive library featuring advanced-level syllabus content, detailed learning outcomes, and past exam papers. This curated collection is designed to support your academic success.
 - **Progress Tracking**: Monitor your learning progress with built-in mechanisms.
 - **Mental Wellbeing Support**: Prioritize your mental health with integrated mental status check methods, such as the DASS-21. Based on your responses, the app offers tailored relaxation techniques and strategies to help you maintain a balanced mindset while studying.
