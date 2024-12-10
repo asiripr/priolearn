@@ -64,7 +64,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                 _selectedDate = selectedDay;
               });
             },
-            calendarStyle: CalendarStyle(
+            calendarStyle: const CalendarStyle(
               todayDecoration: BoxDecoration(
                 color: Color(0xFF4169E1),
                 shape: BoxShape.circle,
@@ -75,7 +75,7 @@ class _ToDoHomeState extends State<ToDoHome> {
               ),
               outsideDaysVisible: false,
             ),
-            headerStyle: HeaderStyle(
+            headerStyle: const HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
               titleTextStyle: TextStyle(
@@ -128,7 +128,7 @@ class _ToDoHomeState extends State<ToDoHome> {
                         children: [
                           Text(
                             "You have\n${hours} hrs and ${minutes} mins\nto learn",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                               color: Color(0xFF4169E1),

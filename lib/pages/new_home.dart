@@ -160,7 +160,7 @@ class _NewHomeState extends State<NewHome> {
                             children: [
                               Text(
                                 "In the past 7 days, you have spent\n${_totalMinutes} mins\non your academics",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,

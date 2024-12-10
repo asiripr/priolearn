@@ -62,7 +62,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Mindfulness',
           style: TextStyle(color: Color(0xFF4169E1), fontSize: 24),
         ),

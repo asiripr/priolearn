@@ -47,13 +47,13 @@ class _PersonalInformationState extends State<PersonalInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Personal Information',
           style: TextStyle(color: Color(0xFF4169E1)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: Color(0xFF4169E1)),
+        iconTheme: const IconThemeData(color: Color(0xFF4169E1)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -85,7 +85,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
               InkWell(
                 onTap: () => _pickDate(context),
                 child: InputDecorator(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Date of birth',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -104,7 +104,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 ),
               ),
               DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: 'Gender'),
+                decoration: const InputDecoration(labelText: 'Gender'),
                 value: _selectedGender,
                 items: ['Male', 'Female', 'Other']
                     .map((label) => DropdownMenuItem(

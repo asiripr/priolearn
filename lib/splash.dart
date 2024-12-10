@@ -84,7 +84,7 @@ class _SplashState extends State<Splash> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    const Text(
                       "PrioLearn",
                       style: TextStyle(
                         fontSize: 24,

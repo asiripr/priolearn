@@ -83,7 +83,7 @@ class _YearSelectorState extends State<YearSelector> {
               ),
 
               //---------
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){_saveYearDB();},
                 child: Container(

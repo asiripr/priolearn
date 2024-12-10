@@ -25,7 +25,7 @@ class SummaryPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Your Answers:',
               style: TextStyle(
                 fontSize: 20,
@@ -59,7 +59,7 @@ class SummaryPage extends StatelessWidget {
                   await _saveFavourations(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>MakeHappy()));
                 },
-                child: Text(
+                child: const Text(
                   "Submit",
                   style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
