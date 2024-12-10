@@ -81,15 +81,15 @@ class _ToDoState extends State<ToDo> {
                   return Container(
                     width: size.width,
                     child: Card(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       color: Colors.blue.shade100,
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
                             Text(
                               "You have\n${hours} hrs and ${minutes} mins\nof learning today",
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -102,7 +102,7 @@ class _ToDoState extends State<ToDo> {
             ),
 
             const SizedBox(height: 20),
-            Text(
+            const Text(
               "Today's Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -110,7 +110,7 @@ class _ToDoState extends State<ToDo> {
             _buildTaskList(context, 'Today',
                 (DateTime date) => isSameDay(date, _selectedDate)),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               "Previous Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -118,7 +118,7 @@ class _ToDoState extends State<ToDo> {
             _buildTaskList(context, 'Previous',
                 (DateTime date) => date.isBefore(DateTime.now())),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               "Future Tasks",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -141,7 +141,7 @@ class _ToDoState extends State<ToDo> {
                 ),
               );
             },
-            child: Icon(Icons.calendar_month),
+            child: const Icon(Icons.calendar_month),
           ),
           const SizedBox(height: 16),
           FloatingActionButton(

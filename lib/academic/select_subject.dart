@@ -99,7 +99,7 @@ class _SelectSubjectState extends State<SelectSubject> {
             subject,
             style: TextStyle(fontSize: 18),
           ),
-          Icon(Icons.arrow_forward, color: Colors.white),
+          const Icon(Icons.arrow_forward, color: Colors.white),
         ],
       ),
     );

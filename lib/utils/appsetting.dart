@@ -5,9 +5,9 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
+        title: const Padding(
           padding:
-              const EdgeInsets.only(left: 80.0), // Add left padding of 80.0
+              EdgeInsets.only(left: 80.0), // Add left padding of 80.0
           child: Text(
             'App Settings',
             style: TextStyle(
@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
         child: ListView(
           children: [
             ListTile(
-              title: Text(
+              title: const Text(
                 'Profile Settings',
                 style: TextStyle(fontSize: 25), // Adjust the fontSize as needed
               ),
@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Privacy & Security',
                 style: TextStyle(fontSize: 25), // Adjust the fontSize as needed
               ),

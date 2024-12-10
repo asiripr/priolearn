@@ -56,7 +56,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xFF4169E1),
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Mindfulness',
           style: TextStyle(color: Colors.white),
         ),
@@ -68,7 +68,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Today's Quote",
                 style: TextStyle(
                   fontSize: 20,
@@ -76,7 +76,7 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                   color: Color(0xFF4169E1),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -94,17 +94,17 @@ class _MindfulnessScreenState extends State<MindfulnessScreen> {
                   children: [
                     Text(
                       _quote,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontStyle: FontStyle.italic,
                         color: Colors.black87,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "- $_author",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF4169E1),
@@ -171,7 +171,7 @@ class OptionButton extends StatelessWidget {
         icon: Icon(icon, size: 40, color: Colors.white),
         label: Text(
           text,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
@@ -179,7 +179,7 @@ class OptionButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
           shadowColor: Colors.grey.withOpacity(0.3),
           elevation: 5,
         ),

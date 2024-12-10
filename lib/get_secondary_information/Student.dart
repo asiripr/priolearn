@@ -11,30 +11,30 @@ class Student extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hi Student!",
               style: TextStyle(
                   fontSize: 50, color: Color.fromARGB(255, 31, 9, 228)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               "Let's make your academic path on track!",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 30, color: Color.fromARGB(255, 4, 29, 130)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               "There are few steps to start...!",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 20, color: Color.fromARGB(255, 3, 31, 63)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 250,
             ),
             ElevatedButton(
