@@ -14,7 +14,7 @@ class ComMathsContentPage extends StatelessWidget {
             // handle back button press
           },
         ),
-        title: Text(
+        title: const Text(
           'Combined Maths',
           style: TextStyle(
               color: Color.fromARGB(255, 7, 4, 227),

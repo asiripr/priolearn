@@ -75,8 +75,8 @@ class _ChooseLessonState extends State<ChooseLesson> {
         'competency': selectedCompetency,
         'createdAt': Timestamp.now(),
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Saved to done list')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Saved to done list')));
     }
   }
 
@@ -115,7 +115,15 @@ class _ChooseLessonState extends State<ChooseLesson> {
               items: lessons.map((String value) {
                 return DropdownMenuItem(
                   value: value,
-                  child: Text(value),
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 250),
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -144,7 +152,11 @@ class _ChooseLessonState extends State<ChooseLesson> {
                 items: competencies.map((String value) {
                   return DropdownMenuItem(
                     value: value,
-                    child: Text(value),
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
@@ -156,16 +168,10 @@ class _ChooseLessonState extends State<ChooseLesson> {
             ),
             const SizedBox(height: 30),
             myButtonVoid(context, "Content", _navigateToContent,
-                color: Color(0xFF4169E1)),
+                color: const Color(0xFF4169E1)),
             const SizedBox(height: 20),
             myButtonVoid(context, "Learning Outcomes", _navigateToLOs,
-                color: Color(0xFF4169E1)),
-            // ---------- seggestions ----------
-
-
-
-            // ---------------------------------
-            // ---------- done button ----------
+                color: const Color(0xFF4169E1)),
             const SizedBox(height: 25),
             Row(
               children: [
@@ -178,7 +184,8 @@ class _ChooseLessonState extends State<ChooseLesson> {
                   ),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.yellow,
-                      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
                 ),
@@ -192,13 +199,13 @@ class _ChooseLessonState extends State<ChooseLesson> {
                   ),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
-                      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
                 ),
               ],
             )
-            // ---------------------------------
           ],
         ),
       ),
