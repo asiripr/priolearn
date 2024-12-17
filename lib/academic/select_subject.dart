@@ -54,7 +54,7 @@ class _SelectSubjectState extends State<SelectSubject> {
               const SizedBox(height: 30),
               subjectButton(context, "Chemistry", () => _navigateToChooseLesson(context, 'chemistry')),
               const SizedBox(height: 30),
-              subjectButton(context, "Applied Mathematics", () => _navigateToChooseLesson(context, 'applied_maths')),
+              subjectButton(context, "Applied Mathematics", () => _navigateToChooseLesson(context, 'applied')),
               const SizedBox(height: 30),
               subjectButton(context, "Pure Mathematics", () => _navigateToChooseLesson(context, 'pure_maths')),
             ],

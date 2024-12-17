@@ -30,7 +30,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile Settings"),
+        title: const Text("Profile Settings"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
